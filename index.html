@@ -1,57 +1,217 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8">
   <title>Iz Tecúm</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- ROOT PAGE CSS (THIS IS THE RULE) -->
-  <link rel="stylesheet" href="./assets/styles.css">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #111;
+      background: #fff;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* HERO IMAGE STRIP */
+    .hero-strip {
+      width: 100%;
+      height: 280px;
+      background: #ddd;
+      margin-bottom: 60px;
+    }
+
+    /* GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: 280px 1fr 1fr;
+      gap: 60px;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* LEFT COLUMN */
+    .portrait {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      background: #e5e5e5;
+      margin-bottom: 20px;
+    }
+
+    .bio {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .email {
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .links h4 {
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .links a {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    /* COLUMN SECTIONS */
+    .col h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      text-transform: lowercase;
+    }
+
+    .item {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 18px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    .num {
+      width: 24px;
+      color: #aaa;
+      font-weight: 500;
+    }
+
+    footer {
+      margin-top: 100px;
+      font-size: 13px;
+      color: #aaa;
+      text-align: center;
+    }
+  </style>
 </head>
 
 <body>
-  <div class="wrap">
 
-    <header class="nav">
-      <div class="brand">
-        <span class="dot"></span>
-        <a href="./">Iz Tecúm</a>
+  <!-- HERO IMAGE STRIP -->
+  <div class="hero-strip">
+    <!-- replace with full-width image later -->
+  </div>
+
+  <div class="container">
+    <div class="grid">
+
+      <!-- LEFT COLUMN -->
+      <div>
+        <div class="portrait"></div>
+
+        <div class="bio">
+          nineteen. building communities while exploring the intersection of
+          mathematics, research, and systems.
+          currently studying at columbia.
+        </div>
+
+        <div class="email">
+          iz.tecum@columbia.edu
+        </div>
+
+        <div class="links">
+          <h4>find me elsewhere</h4>
+          <a href="#">github ↗</a>
+          <a href="#">linkedin ↗</a>
+          <a href="#">twitter ↗</a>
+        </div>
       </div>
-      <nav class="navlinks">
-        <a href="./projects/">Projects</a>
-        <a href="./research/">Research</a>
-        <a href="./writing/">Writing</a>
-        <a href="./experience/">Experience</a>
-        <a href="./awards/">Awards</a>
-        <a href="./contact/">Contact</a>
-      </nav>
-    </header>
 
-    <section class="section">
-      <div class="sectionHead">
-        <p class="title">Home</p>
-        <p class="note">This is the main landing page.</p>
+      <!-- MIDDLE COLUMN -->
+      <div class="col">
+        <h3>what i'm up to</h3>
+
+        <div class="item">
+          <div class="num">01</div>
+          studying pure math and quantitative research at columbia
+        </div>
+
+        <div class="item">
+          <div class="num">02</div>
+          building tools and simulations for research problems
+        </div>
+
+        <div class="item">
+          <div class="num">03</div>
+          writing technical and reflective pieces on systems and math
+        </div>
+
+        <div class="item">
+          <div class="num">04</div>
+          collaborating on projects spanning theory and implementation
+        </div>
+
+        <div class="item">
+          <div class="num">05</div>
+          exploring how rigor and taste coexist
+        </div>
       </div>
 
-      <p style="color:var(--muted); max-width:70ch; line-height:1.6;">
-        I’m Iz Tecúm. This site is a hub for my projects, research, writing,
-        and experience. Use the navigation above to explore.
-      </p>
+      <!-- RIGHT COLUMN -->
+      <div class="col">
+        <h3>what i think about</h3>
 
-      <p style="margin-top:16px;">
-        👉 <a href="./projects/">Go to Projects</a>
-      </p>
-    </section>
+        <div class="item">
+          <div class="num">01</div>
+          how difficult ideas can be made simple without being diluted
+        </div>
 
-    <footer style="margin-top:32px;">
+        <div class="item">
+          <div class="num">02</div>
+          rigor, honesty, and reproducibility in research
+        </div>
+
+        <div class="item">
+          <div class="num">03</div>
+          design that feels inevitable rather than decorative
+        </div>
+
+        <div class="item">
+          <div class="num">04</div>
+          systems that scale without losing clarity
+        </div>
+
+        <div class="item">
+          <div class="num">05</div>
+          the aesthetics of precision
+        </div>
+      </div>
+
+    </div>
+
+    <footer>
       © 2025 Iz Tecúm
     </footer>
-
   </div>
+
 </body>
 </html>
