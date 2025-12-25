@@ -1,1 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Projects — Iz Tecúm</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#111;background:#fff}
+    a{color:inherit;text-decoration:none}
+    a:hover{text-decoration:underline}
 
+    .page{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+    @media (max-width:980px){.page{grid-template-columns:1fr}}
+
+    .sidebar{padding:28px 18px;border-right:1px solid #eee;position:sticky;top:0;height:100vh;background:#fff}
+    @media (max-width:980px){
+      .sidebar{position:static;height:auto;border-right:none;border-bottom:1px solid #eee;display:flex;gap:10px;overflow-x:auto;padding:14px}
+      .sb-brand,.sb-sub,.sb-foot{display:none}
+      .sb-nav{display:flex}
+    }
+
+    .sb-brand{font-weight:800;letter-spacing:-0.02em;margin-bottom:18px}
+    .sb-sub{font-size:12px;color:#777;line-height:1.5;margin-bottom:16px}
+    .sb-nav{display:grid;gap:10px}
+    .sb-btn{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #e9e9e9;border-radius:14px;background:#fafafa;font-size:14px;color:#222;white-space:nowrap;transition:transform .12s ease,background .12s ease,border-color .12s ease}
+    .sb-btn:hover{transform:translateY(-1px);background:#f3f3f3;border-color:#ddd;text-decoration:none}
+    .sb-btn.active{background:#111;color:#fff;border-color:#111}
+    .sb-dot{width:10px;height:10px;border-radius:999px;background:currentColor;opacity:.25}
+    .sb-foot{margin-top:18px;font-size:12px;color:#777;line-height:1.5}
+
+    .main{padding:0}
+    .container{max-width:1100px;margin:0 auto;padding:40px 24px 80px}
+
+    h1{margin:0 0 10px;font-size:34px;letter-spacing:-.02em}
+    .lede{margin:0 0 28px;color:#555;line-height:1.7;max-width:75ch}
+
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+
+    .card{
+      border:1px solid #eee;border-radius:16px;background:#fafafa;
+      padding:16px;transition:transform .12s ease,background .12s ease,border-color .12s ease
+    }
+    .card:hover{transform:translateY(-2px);background:#f3f3f3;border-color:#ddd}
+    .meta{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:10px}
+    .badge{font-size:12px;color:#666;background:#fff;border:1px solid #eee;border-radius:999px;padding:6px 10px;white-space:nowrap}
+    .title{margin:0;font-size:16px;font-weight:700}
+    .desc{margin:8px 0 12px;color:#555;line-height:1.6;font-size:14px}
+    .tags{display:flex;flex-wrap:wrap;gap:8px}
+    .tag{font-size:12px;color:#666;background:#fff;border:1px solid #eee;border-radius:999px;padding:6px 10px}
+
+    footer{margin-top:60px;color:#aaa;font-size:13px;text-align:center}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <aside class="sidebar">
+      <div class="sb-brand">Iz Tecúm</div>
+      <div class="sb-sub">quick navigation</div>
+      <nav class="sb-nav">
+        <a class="sb-btn" href="../">Home</a>
+        <a class="sb-btn active" href="./"><span class="sb-dot"></span>Projects</a>
+        <a class="sb-btn" href="../research/"><span class="sb-dot"></span>Research</a>
+        <a class="sb-btn" href="../experience/"><span class="sb-dot"></span>Experience</a>
+        <a class="sb-btn" href="../organizations/"><span class="sb-dot"></span>Organizations</a>
+        <a class="sb-btn" href="../awards/"><span class="sb-dot"></span>Awards</a>
+        <a class="sb-btn" href="../writing/"><span class="sb-dot"></span>Writing</a>
+        <a class="sb-btn" href="../contact/"><span class="sb-dot"></span>Contact</a>
+      </nav>
+      <div class="sb-foot">Replace placeholders with real projects + links.</div>
+    </aside>
+
+    <main class="main">
+      <div class="container">
+        <h1>Projects</h1>
+        <p class="lede">
+          A curated list of technical builds, research tooling, and write-ups.
+          Each card can link to a repo, a demo, or a deeper page later.
+        </p>
+
+        <div class="grid">
+          <a class="card" href="#">
+            <div class="meta">
+              <h2 class="title">Project One</h2>
+              <span class="badge">Repo</span>
+            </div>
+            <p class="desc">One-line: what it does, why it matters, and the result.</p>
+            <div class="tags">
+              <span class="tag">Python</span><span class="tag">Math</span><span class="tag">Simulation</span>
+            </div>
+          </a>
+
+          <a class="card" href="#">
+            <div class="meta">
+              <h2 class="title">Project Two</h2>
+              <span class="badge">Live</span>
+            </div>
+            <p class="desc">One-line: what you built, the key idea, and any numbers.</p>
+            <div class="tags">
+              <span class="tag">JS</span><span class="tag">Systems</span><span class="tag">Visualization</span>
+            </div>
+          </a>
+
+          <a class="card" href="#">
+            <div class="meta">
+              <h2 class="title">Project Three</h2>
+              <span class="badge">Write-up</span>
+            </div>
+            <p class="desc">One-line: paper / note / blog post with link to PDF later.</p>
+            <div class="tags">
+              <span class="tag">Writing</span><span class="tag">Proofs</span><span class="tag">Notes</span>
+            </div>
+          </a>
+
+          <a class="card" href="#">
+            <div class="meta">
+              <h2 class="title">Project Four</h2>
+              <span class="badge">WIP</span>
+            </div>
+            <p class="desc">One-line: ongoing build. What you’re aiming to ship.</p>
+            <div class="tags">
+              <span class="tag">C++</span><span class="tag">Algorithms</span><span class="tag">Perf</span>
+            </div>
+          </a>
+        </div>
+
+        <footer>© 2025 Iz Tecúm</footer>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
