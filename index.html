@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Personal site: projects, experience, orgs, awards, contact." />
+  <meta name="description" content="Iz Tecúm — projects, experience, organizations, awards." />
   <title>Iz Tecúm</title>
 
   <!-- Font -->
@@ -13,77 +13,86 @@
 
   <style>
     :root{
-      --bg0:#070A12;
-      --bg1:#0B1022;
-      --card: rgba(255,255,255,.06);
-      --card2: rgba(255,255,255,.08);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.68);
-      --muted2: rgba(255,255,255,.55);
-      --stroke: rgba(255,255,255,.14);
-      --shadow: 0 20px 60px rgba(0,0,0,.35);
-      --accent:#7C3AED;
-      --accent2:#06B6D4;
+      --bg: #fbfbfd;
+      --ink: #0b0d12;
+      --muted: rgba(11,13,18,.62);
+      --muted2: rgba(11,13,18,.46);
+      --line: rgba(11,13,18,.10);
+      --card: rgba(11,13,18,.03);
+      --card2: rgba(11,13,18,.05);
+      --shadow: 0 18px 45px rgba(11,13,18,.08);
+
+      --accent: #2b6bff;
+      --accent2: #07b5d4;
+
       --radius: 18px;
-      --max: 1060px;
+      --max: 1100px;
     }
 
-    @media (prefers-color-scheme: light) {
+    @media (prefers-color-scheme: dark){
       :root{
-        --bg0:#f7f7fb;
-        --bg1:#ffffff;
-        --card: rgba(0,0,0,.04);
-        --card2: rgba(0,0,0,.06);
-        --text: rgba(0,0,0,.88);
-        --muted: rgba(0,0,0,.62);
-        --muted2: rgba(0,0,0,.52);
-        --stroke: rgba(0,0,0,.10);
-        --shadow: 0 20px 60px rgba(0,0,0,.12);
+        --bg: #070A12;
+        --ink: rgba(255,255,255,.92);
+        --muted: rgba(255,255,255,.66);
+        --muted2: rgba(255,255,255,.50);
+        --line: rgba(255,255,255,.14);
+        --card: rgba(255,255,255,.06);
+        --card2: rgba(255,255,255,.08);
+        --shadow: 0 20px 60px rgba(0,0,0,.35);
       }
     }
 
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    html { scroll-behavior: smooth; }
+    *{ box-sizing: border-box; }
+    html{ scroll-behavior: smooth; }
     body{
       margin:0;
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color: var(--text);
+      color: var(--ink);
       background:
-        radial-gradient(1000px 600px at 12% -10%, rgba(124,58,237,.35), transparent 55%),
-        radial-gradient(900px 600px at 88% 10%, rgba(6,182,212,.28), transparent 60%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
+        radial-gradient(900px 500px at 12% -10%, color-mix(in srgb, var(--accent) 26%, transparent), transparent 60%),
+        radial-gradient(900px 500px at 88% 6%, color-mix(in srgb, var(--accent2) 20%, transparent), transparent 62%),
+        var(--bg);
     }
 
     a{ color: inherit; text-decoration: none; }
-    .wrap{ max-width: var(--max); margin: 0 auto; padding: 28px 18px 70px; }
+    a:hover{ text-decoration: none; }
+
+    .wrap{ max-width: var(--max); margin: 0 auto; padding: 26px 18px 80px; }
 
     /* NAV */
     .nav{
-      display:flex; align-items:center; justify-content:space-between;
-      gap: 14px;
-      padding: 12px 14px;
-      border: 1px solid var(--stroke);
-      border-radius: 999px;
-      background: linear-gradient(180deg, var(--card2), var(--card));
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(12px);
       position: sticky;
       top: 14px;
-      z-index: 10;
+      z-index: 20;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 16px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--bg) 76%, transparent);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
     }
-    .brand{ display:flex; align-items:center; gap: 10px; font-weight: 800; letter-spacing: -0.02em; }
+    .brand{
+      display:flex; align-items:center; gap: 10px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
     .dot{
       width: 10px; height: 10px; border-radius: 999px;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: 0 0 0 4px rgba(124,58,237,.15);
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 20%, transparent);
     }
     .navlinks{
-      display:flex; align-items:center; gap: 10px;
-      color: var(--muted);
-      font-weight: 700;
+      display:flex; align-items:center; gap: 8px;
       flex-wrap: wrap;
       justify-content: flex-end;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 13px;
     }
     .navlinks a{
       padding: 8px 10px;
@@ -91,254 +100,389 @@
       border: 1px solid transparent;
     }
     .navlinks a:hover{
-      color: var(--text);
-      border-color: var(--stroke);
-      background: rgba(255,255,255,.04);
+      color: var(--ink);
+      border-color: var(--line);
+      background: var(--card);
     }
 
     /* HERO */
     .hero{
-      margin-top: 20px;
-      padding: 34px 22px;
+      margin-top: 18px;
+      border: 1px solid var(--line);
       border-radius: calc(var(--radius) + 8px);
-      border: 1px solid var(--stroke);
       background: linear-gradient(180deg, var(--card2), var(--card));
       box-shadow: var(--shadow);
-      backdrop-filter: blur(12px);
-      position: relative;
-      overflow:hidden;
+      overflow: hidden;
     }
-    .hero:before{
-      content:"";
-      position:absolute; inset:-2px;
+
+    /* “Justine-style” wide banner strip */
+    .banner{
+      height: 220px;
+      border-bottom: 1px solid var(--line);
       background:
-        radial-gradient(650px 220px at 30% 0%, rgba(124,58,237,.20), transparent 65%),
-        radial-gradient(560px 240px at 80% 25%, rgba(6,182,212,.18), transparent 65%);
-      pointer-events:none;
+        linear-gradient(90deg,
+          color-mix(in srgb, var(--accent) 14%, transparent),
+          color-mix(in srgb, var(--accent2) 12%, transparent)
+        ),
+        repeating-linear-gradient(
+          90deg,
+          color-mix(in srgb, var(--ink) 6%, transparent) 0px,
+          color-mix(in srgb, var(--ink) 6%, transparent) 1px,
+          transparent 1px,
+          transparent 120px
+        );
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      padding: 16px 18px;
     }
-    .hero > *{ position: relative; }
+    .banner small{
+      color: var(--muted);
+      font-weight: 700;
+    }
+    .banner .right{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+    }
+    .pill{
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: 999px;
+      padding: 8px 10px;
+      white-space: nowrap;
+    }
+
+    .heroInner{
+      display:grid;
+      grid-template-columns: 1.4fr .8fr;
+      gap: 18px;
+      padding: 20px 18px 18px;
+    }
+    @media (max-width: 920px){
+      .heroInner{ grid-template-columns: 1fr; }
+      .banner{ height: 190px; }
+    }
 
     .kicker{
       display:inline-flex;
       align-items:center;
       gap: 8px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.04);
       color: var(--muted);
-      font-weight: 700;
+      font-weight: 800;
       font-size: 13px;
+      margin-bottom: 10px;
     }
     h1{
-      margin: 14px 0 10px;
-      font-size: clamp(34px, 5vw, 58px);
+      margin: 0 0 10px;
+      font-size: clamp(34px, 5vw, 60px);
+      letter-spacing: -0.045em;
       line-height: 1.02;
-      letter-spacing: -0.04em;
     }
     .sub{
-      margin: 0 0 18px;
+      margin: 0 0 16px;
+      color: var(--muted);
       font-size: 16.5px;
       line-height: 1.65;
-      color: var(--muted);
-      max-width: 78ch;
+      max-width: 80ch;
     }
 
-    .cta{ display:flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+    .cta{ display:flex; gap: 10px; flex-wrap: wrap; }
     .btn{
       display:inline-flex; align-items:center; gap: 10px;
       padding: 12px 14px;
       border-radius: 999px;
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.04);
-      color: var(--text);
-      font-weight: 800;
+      border: 1px solid var(--line);
+      background: var(--card);
+      font-weight: 900;
+      color: var(--ink);
       transition: transform .15s ease, background .15s ease, border-color .15s ease, filter .15s ease;
       white-space: nowrap;
     }
     .btn:hover{
       transform: translateY(-1px);
-      background: rgba(255,255,255,.07);
-      border-color: rgba(255,255,255,.22);
+      background: var(--card2);
+      border-color: color-mix(in srgb, var(--ink) 18%, var(--line));
     }
     .btn.primary{
       border-color: transparent;
+      color: white;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
-      color:#fff;
     }
     .btn.primary:hover{ filter: brightness(1.06); }
 
-    .icon{ width: 18px; height: 18px; display:inline-block; }
-
-    /* SECTION LAYOUT */
-    .section{ margin-top: 14px; }
-    .card{
-      padding: 18px;
+    .portrait{
+      border: 1px solid var(--line);
       border-radius: var(--radius);
-      border: 1px solid var(--stroke);
+      background:
+        radial-gradient(600px 260px at 20% 20%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%),
+        radial-gradient(500px 240px at 90% 30%, color-mix(in srgb, var(--accent2) 16%, transparent), transparent 62%),
+        var(--card);
+      min-height: 260px;
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      padding: 14px;
+    }
+    .portrait .ph{
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+    .portrait .meta{
+      text-align:right;
+      color: var(--muted);
+      font-weight: 800;
+      font-size: 12.5px;
+    }
+
+    /* SECTION BASE */
+    .section{
+      margin-top: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
       background: linear-gradient(180deg, var(--card2), var(--card));
       box-shadow: var(--shadow);
-      backdrop-filter: blur(12px);
+      padding: 18px;
     }
     .sectionHead{
       display:flex;
       align-items:baseline;
       justify-content:space-between;
       gap: 12px;
-      margin: 0 0 12px;
+      margin-bottom: 12px;
     }
-    .sectionTitle{
+    .title{
       margin:0;
-      font-size: 14px;
-      letter-spacing: .10em;
+      font-size: 13.5px;
+      letter-spacing: .12em;
       text-transform: uppercase;
       color: var(--muted2);
       font-weight: 900;
     }
-    .sectionNote{
+    .note{
       margin:0;
       color: var(--muted);
       font-size: 13.5px;
-      font-weight: 600;
+      font-weight: 650;
     }
 
-    /* DIRECTORY TILES (your “app-like” sections without copying the phone look) */
-    .dir{
+    /* EDITORIAL 3-COLUMN LISTS (Justine-inspired) */
+    .editorial{
       display:grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 10px;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
     }
-    @media (max-width: 980px){ .dir{ grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 520px){ .dir{ grid-template-columns: repeat(2, 1fr); } }
-
-    .tile{
-      padding: 14px 14px 12px;
+    @media (max-width: 980px){
+      .editorial{ grid-template-columns: 1fr; }
+    }
+    .col{
+      border: 1px solid var(--line);
       border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.03);
-      transition: transform .15s ease, border-color .15s ease, background .15s ease;
-      min-height: 86px;
+      background: var(--card);
+      padding: 14px;
+    }
+    .col h3{
+      margin: 0 0 10px;
+      font-size: 14px;
+      letter-spacing: .02em;
+    }
+    ol.clean{
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+    ol.clean li{ margin-bottom: 10px; }
+    ol.clean a{
+      text-decoration: underline;
+      text-decoration-color: color-mix(in srgb, var(--muted) 40%, transparent);
+    }
+    ol.clean a:hover{ text-decoration-color: var(--ink); }
+
+    /* PROJECTS (LionStack-inspired: cards + tags + metrics + filters) */
+    .filters{
+      display:flex; gap: 8px; flex-wrap: wrap;
+      align-items:center;
+      justify-content:flex-end;
+    }
+    .fbtn{
+      border: 1px solid var(--line);
+      background: var(--card);
+      color: var(--muted);
+      font-weight: 900;
+      font-size: 12.5px;
+      padding: 9px 10px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .fbtn:hover{ transform: translateY(-1px); background: var(--card2); }
+    .fbtn.active{
+      color: white;
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 12px;
+    }
+    @media (max-width: 980px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--card);
+      padding: 14px;
       display:flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 12px;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      min-height: 180px;
     }
-    @media (prefers-color-scheme: light){
-      .tile{ border-color: rgba(0,0,0,.10); background: rgba(0,0,0,.02); }
+    .card:hover{
+      transform: translateY(-2px);
+      background: var(--card2);
+      border-color: color-mix(in srgb, var(--ink) 18%, var(--line));
     }
-    .tile:hover{
-      transform: translateY(-1px);
-      border-color: rgba(255,255,255,.22);
-      background: rgba(255,255,255,.05);
-    }
-    .tileTop{ display:flex; align-items:center; justify-content:space-between; gap: 10px; }
-    .pill{
-      width: 36px; height: 36px;
-      border-radius: 14px;
-      display:grid; place-items:center;
-      background: linear-gradient(135deg, rgba(124,58,237,.35), rgba(6,182,212,.25));
-      border: 1px solid rgba(255,255,255,.16);
-      font-weight: 900;
-    }
-    .tileLabel{ font-weight: 900; letter-spacing: -0.02em; }
-    .tileSub{ color: var(--muted); font-size: 12.5px; line-height: 1.3; }
-
-    /* PROJECT CARDS */
-    .grid2{ display:grid; grid-template-columns: 1.4fr 1fr; gap: 14px; }
-    @media (max-width: 900px){ .grid2{ grid-template-columns: 1fr; } }
-
-    .list{ display:grid; gap: 10px; }
-    .item{
-      display:flex; gap: 12px;
-      padding: 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.03);
-      transition: transform .15s ease, border-color .15s ease, background .15s ease;
-    }
-    @media (prefers-color-scheme: light){
-      .item{ border-color: rgba(0,0,0,.10); background: rgba(0,0,0,.02); }
-    }
-    .item:hover{
-      transform: translateY(-1px);
-      border-color: rgba(255,255,255,.22);
-      background: rgba(255,255,255,.05);
+    .topline{
+      display:flex; align-items:flex-start; justify-content:space-between; gap: 10px;
     }
     .badge{
-      flex: 0 0 auto;
-      width: 40px; height: 40px;
-      border-radius: 14px;
-      display:grid; place-items:center;
-      background: linear-gradient(135deg, rgba(124,58,237,.35), rgba(6,182,212,.25));
-      border: 1px solid rgba(255,255,255,.16);
+      font-size: 12px;
       font-weight: 900;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      background: color-mix(in srgb, var(--bg) 70%, transparent);
+      border-radius: 999px;
+      padding: 7px 9px;
+      white-space: nowrap;
     }
-    .meta{ min-width: 0; }
-    .title{ font-weight: 900; letter-spacing: -0.02em; margin: 0 0 4px; }
-    .desc{ margin:0; color: var(--muted); font-size: 14px; line-height: 1.55; }
-    .tags{ margin-top: 10px; display:flex; flex-wrap:wrap; gap: 6px; }
+    .card h4{
+      margin: 0 0 6px;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+    }
+    .desc{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 14px;
+    }
+    .tags{ display:flex; flex-wrap:wrap; gap: 6px; }
     .tag{
       padding: 6px 9px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.14);
+      border: 1px solid var(--line);
+      background: color-mix(in srgb, var(--bg) 65%, transparent);
       color: var(--muted);
       font-size: 12px;
-      font-weight: 700;
-      background: rgba(255,255,255,.03);
+      font-weight: 800;
     }
-    @media (prefers-color-scheme: light){
-      .tag{ border-color: rgba(0,0,0,.10); background: rgba(0,0,0,.02); }
+    .metrics{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: auto;
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+      color: var(--muted2);
+      font-weight: 900;
+      font-size: 12px;
     }
 
-    .rightCol p{ margin: 0 0 12px; color: var(--muted); line-height: 1.65; }
-    .mini{ padding: 14px; border-radius: 16px; border: 1px solid var(--stroke); background: rgba(255,255,255,.03); }
-
-    /* TIMELINE */
-    .timeline{ display:grid; gap: 10px; }
+    /* EXPERIENCE / ORGS / AWARDS */
+    .timeline{ display:grid; gap: 10px; margin-top: 12px; }
     .row{
-      display:flex; gap: 12px;
-      padding: 12px;
+      border: 1px solid var(--line);
       border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.03);
-    }
-    @media (prefers-color-scheme: light){
-      .row{ border-color: rgba(0,0,0,.10); background: rgba(0,0,0,.02); }
+      background: var(--card);
+      padding: 12px 12px;
+      display:flex;
+      gap: 12px;
+      align-items:flex-start;
     }
     .when{
       flex: 0 0 140px;
-      color: var(--muted);
-      font-weight: 800;
-      font-size: 13px;
+      color: var(--muted2);
+      font-weight: 900;
+      font-size: 12.5px;
     }
-    @media (max-width: 700px){
+    @media (max-width: 720px){
       .row{ flex-direction: column; }
       .when{ flex: auto; }
     }
     .role{ font-weight: 900; }
-    .place{ color: var(--muted); font-weight: 700; margin-top: 2px; }
-    .bullets{ margin: 8px 0 0; color: var(--muted); font-size: 14px; line-height: 1.55; padding-left: 18px; }
+    .place{ color: var(--muted); font-weight: 800; margin-top: 3px; }
+    .bullets{
+      margin: 8px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 14px;
+    }
 
-    /* AWARDS */
-    .awards{ display:grid; gap: 10px; }
-    .award{
-      display:flex; justify-content:space-between; gap: 12px;
-      padding: 12px;
+    .twoCol{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 12px;
+    }
+    @media (max-width: 980px){
+      .twoCol{ grid-template-columns: 1fr; }
+    }
+
+    .list{ display:grid; gap: 10px; }
+    .miniCard{
+      border: 1px solid var(--line);
       border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.03);
+      background: var(--card);
+      padding: 12px;
     }
-    @media (prefers-color-scheme: light){
-      .award{ border-color: rgba(0,0,0,.10); background: rgba(0,0,0,.02); }
+    .miniCard strong{ font-weight: 900; }
+    .miniCard p{ margin: 6px 0 0; color: var(--muted); line-height: 1.65; }
+
+    /* GALLERY PLACEHOLDERS */
+    .gallery{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 12px;
     }
-    .award strong{ font-weight: 900; }
-    .award span{ color: var(--muted); font-weight: 800; }
+    @media (max-width: 980px){
+      .gallery{ grid-template-columns: 1fr; }
+    }
+    .shot{
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background:
+        linear-gradient(135deg,
+          color-mix(in srgb, var(--accent) 16%, transparent),
+          color-mix(in srgb, var(--accent2) 10%, transparent)
+        ),
+        var(--card);
+      height: 180px;
+      display:flex;
+      align-items:flex-end;
+      padding: 12px;
+      color: var(--muted);
+      font-weight: 900;
+    }
 
     footer{
-      margin-top: 18px;
+      text-align:center;
       color: var(--muted2);
+      margin-top: 16px;
       font-size: 13px;
-      text-align: center;
-      padding: 10px 0 0;
+      font-weight: 700;
     }
   </style>
 </head>
@@ -346,174 +490,189 @@
 <body>
   <div class="wrap">
 
-    <!-- NAV -->
-    <div class="nav">
-      <div class="brand">
-        <span class="dot"></span>
-        <span>Iz Tecúm</span>
-      </div>
-      <div class="navlinks">
+    <header class="nav">
+      <div class="brand"><span class="dot"></span><span>Iz Tecúm</span></div>
+      <nav class="navlinks">
         <a href="#projects">Projects</a>
         <a href="#experience">Experience</a>
         <a href="#orgs">Organizations</a>
         <a href="#awards">Awards</a>
+        <a href="#writing">Writing</a>
         <a href="#contact">Contact</a>
-      </div>
-    </div>
+      </nav>
+    </header>
 
     <!-- HERO -->
-    <section class="hero">
-      <span class="kicker">
-        <span class="dot" style="width:8px;height:8px;box-shadow:none;"></span>
-        Columbia • Math / Quant / Research
-      </span>
-
-      <h1>Building sharp things with math, code, and taste.</h1>
-      <p class="sub">
-        Replace this with a high-signal 1–2 sentence bio. Example: Columbia student focused on pure math and quantitative research,
-        building tools and writing that make complex ideas usable. Interested in quant internships + research collaborations.
-      </p>
-
-      <div class="cta">
-        <a class="btn primary" href="#projects">
-          <svg class="icon" viewBox="0 0 24 24" fill="none">
-            <path d="M12 5v14m0 0l6-6m-6 6l-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          View highlights
-        </a>
-
-        <a class="btn" href="https://github.com/YOURUSERNAME" target="_blank" rel="noreferrer">
-          <svg class="icon" viewBox="0 0 24 24" fill="none">
-            <path d="M9 19c-4 1.5-4-2.5-5-3m10 6v-3.87c0-1.1.1-1.4-.52-2.13 2.34-.26 4.8-1.15 4.8-5.22 0-1.16-.41-2.11-1.08-2.86.11-.27.47-1.36-.1-2.83 0 0-.88-.28-2.9 1.09-.84-.23-1.74-.35-2.63-.35-.89 0-1.79.12-2.63.35C6.22 3.1 5.34 3.38 5.34 3.38c-.57 1.47-.21 2.56-.1 2.83A4.12 4.12 0 0 0 4.16 9c0 4.06 2.44 4.97 4.76 5.23-.49.42-.6 1.03-.57 1.6V22"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          GitHub
-        </a>
-
-        <a class="btn" href="mailto:you@example.com">
-          <svg class="icon" viewBox="0 0 24 24" fill="none">
-            <path d="M4 7.5l8 6 8-6M5.5 19h13A1.5 1.5 0 0 0 20 17.5v-10A1.5 1.5 0 0 0 18.5 6h-13A1.5 1.5 0 0 0 4 7.5v10A1.5 1.5 0 0 0 5.5 19Z"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Email
-        </a>
-
-        <a class="btn" href="resume.pdf" target="_blank" rel="noreferrer">Resume</a>
-      </div>
-    </section>
-
-    <!-- DIRECTORY (quick “sections” overview) -->
-    <section class="section card">
-      <div class="sectionHead">
-        <p class="sectionTitle">Directory</p>
-        <p class="sectionNote">This is the “home screen” for your site. Everything lives in clean sections below.</p>
-      </div>
-
-      <div class="dir">
-        <a class="tile" href="#projects">
-          <div class="tileTop"><div class="pill">∑</div><div style="color:var(--muted);font-weight:900;">→</div></div>
-          <div class="tileLabel">Projects</div>
-          <div class="tileSub">Best work, demos, repos, papers.</div>
-        </a>
-        <a class="tile" href="#experience">
-          <div class="tileTop"><div class="pill">⌁</div><div style="color:var(--muted);font-weight:900;">→</div></div>
-          <div class="tileLabel">Experience</div>
-          <div class="tileSub">Roles, internships, research.</div>
-        </a>
-        <a class="tile" href="#orgs">
-          <div class="tileTop"><div class="pill">◈</div><div style="color:var(--muted);font-weight:900;">→</div></div>
-          <div class="tileLabel">Organizations</div>
-          <div class="tileSub">Leadership, clubs, nonprofits.</div>
-        </a>
-        <a class="tile" href="#awards">
-          <div class="tileTop"><div class="pill">✶</div><div style="color:var(--muted);font-weight:900;">→</div></div>
-          <div class="tileLabel">Awards</div>
-          <div class="tileSub">Select honors + recognition.</div>
-        </a>
-        <a class="tile" href="#writing">
-          <div class="tileTop"><div class="pill">✎</div><div style="color:var(--muted);font-weight:900;">→</div></div>
-          <div class="tileLabel">Writing</div>
-          <div class="tileSub">Essays, notes, publications.</div>
-        </a>
-        <a class="tile" href="#contact">
-          <div class="tileTop"><div class="pill">@</div><div style="color:var(--muted);font-weight:900;">→</div></div>
-          <div class="tileLabel">Contact</div>
-          <div class="tileSub">Email + socials, fast.</div>
-        </a>
-      </div>
-    </section>
-
-    <!-- PROJECTS + ABOUT SIDEBAR -->
-    <section id="projects" class="section grid2">
-      <div class="card">
-        <div class="sectionHead">
-          <p class="sectionTitle">Projects</p>
-          <p class="sectionNote">Keep this section tight. 3–5 strong projects beats 12 weak ones.</p>
-        </div>
-
-        <div class="list">
-          <a class="item" href="#" target="_blank" rel="noreferrer">
-            <div class="badge">∑</div>
-            <div class="meta">
-              <div class="title">Project One</div>
-              <p class="desc">One line: what it does + outcome. Example: “Markov mixing-time simulator with reproducible plots and benchmarks.”</p>
-              <div class="tags">
-                <span class="tag">Python</span><span class="tag">Research</span><span class="tag">Visualization</span>
-              </div>
-            </div>
-          </a>
-
-          <a class="item" href="#" target="_blank" rel="noreferrer">
-            <div class="badge">λ</div>
-            <div class="meta">
-              <div class="title">Project Two</div>
-              <p class="desc">One line: what you built + why it mattered. Add a number if possible (speedup, users, accuracy, etc.).</p>
-              <div class="tags">
-                <span class="tag">C++</span><span class="tag">Algorithms</span><span class="tag">Systems</span>
-              </div>
-            </div>
-          </a>
-
-          <a class="item" href="#" target="_blank" rel="noreferrer">
-            <div class="badge">↯</div>
-            <div class="meta">
-              <div class="title">Project Three</div>
-              <p class="desc">Paper / write-up / demo. Link to repo, PDF, or live site.</p>
-              <div class="tags">
-                <span class="tag">Math</span><span class="tag">Write-up</span><span class="tag">LaTeX</span>
-              </div>
-            </div>
-          </a>
+    <section class="hero" id="top">
+      <div class="banner">
+        <small>Banner image placeholder (replace with a wide photo strip later)</small>
+        <div class="right">
+          <span class="pill">Columbia • Math / Quant / Research</span>
+          <span class="pill">NYC</span>
         </div>
       </div>
 
-      <aside class="card rightCol">
-        <div class="sectionHead">
-          <p class="sectionTitle">About</p>
-          <p class="sectionNote">Short + sharp.</p>
-        </div>
+      <div class="heroInner">
+        <div>
+          <div class="kicker"><span class="dot" style="width:8px;height:8px;box-shadow:none;"></span> minimal, sharp, and built to scale</div>
 
-        <p>
-          Replace with your “about” paragraph. Keep it readable and high-signal. Mention what you do, what you care about,
-          and what you’re actively looking for (internships, research, collaborations).
-        </p>
+          <h1>Math-driven work, presented with taste.</h1>
 
-        <div class="mini">
-          <p style="margin:0 0 10px;color:var(--muted);font-weight:800;">Quick links</p>
-          <div class="cta" style="margin-top:0;">
-            <a class="btn primary" href="#contact">Contact</a>
-            <a class="btn" href="https://www.linkedin.com/in/YOURLINK" target="_blank" rel="noreferrer">LinkedIn</a>
+          <p class="sub">
+            Replace this with a high-signal bio. Example:
+            I’m a Columbia student working at the intersection of pure math, quantitative research, and engineering.
+            I build tools and write-ups that make difficult ideas usable, reproducible, and elegant.
+          </p>
+
+          <div class="cta">
+            <a class="btn primary" href="#projects">View projects</a>
             <a class="btn" href="https://github.com/YOURUSERNAME" target="_blank" rel="noreferrer">GitHub</a>
+            <a class="btn" href="https://www.linkedin.com/in/YOURLINK" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a class="btn" href="mailto:you@example.com">Email</a>
+            <a class="btn" href="resume.pdf" target="_blank" rel="noreferrer">Resume</a>
           </div>
         </div>
-      </aside>
+
+        <div class="portrait">
+          <div class="ph">Portrait placeholder</div>
+          <div class="meta">
+            <div>Upload image later</div>
+            <div style="margin-top:4px;">Optional caption</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDITORIAL (Justine-inspired) -->
+    <section class="section">
+      <div class="sectionHead">
+        <p class="title">Now</p>
+        <p class="note">Editorial snapshot, clean and personal, but still professional.</p>
+      </div>
+
+      <div class="editorial">
+        <div class="col">
+          <h3>what I’m up to</h3>
+          <ol class="clean">
+            <li>Studying <a href="#">pure math</a> and building quantitative tooling.</li>
+            <li>Working on research and writing up results in reproducible form.</li>
+            <li>Building projects with a bias toward clarity, speed, and correctness.</li>
+          </ol>
+        </div>
+
+        <div class="col">
+          <h3>what I think about</h3>
+          <ol class="clean">
+            <li>How to make hard math and systems work feel simple.</li>
+            <li>Signal extraction, evaluation, and honest benchmarks.</li>
+            <li>Design that looks inevitable, not decorative.</li>
+          </ol>
+        </div>
+
+        <div class="col">
+          <h3>what I like to build</h3>
+          <ol class="clean">
+            <li>Research tools, simulations, and visualizations.</li>
+            <li>Fast prototypes that become real systems.</li>
+            <li>Writing, talks, and crisp documentation.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS (LionStack-inspired) -->
+    <section class="section" id="projects">
+      <div class="sectionHead">
+        <p class="title">Projects</p>
+
+        <div class="filters" aria-label="Project filters">
+          <button class="fbtn active" data-filter="all">All</button>
+          <button class="fbtn" data-filter="research">Research</button>
+          <button class="fbtn" data-filter="systems">Systems</button>
+          <button class="fbtn" data-filter="writing">Writing</button>
+        </div>
+      </div>
+
+      <div class="grid" id="projectGrid">
+        <a class="card" href="#" data-type="research">
+          <div class="topline">
+            <div>
+              <h4>Project One</h4>
+              <p class="desc">One line summary. What it does, why it matters, and the result.</p>
+            </div>
+            <span class="badge">Live / Demo</span>
+          </div>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">Probability</span><span class="tag">Plots</span>
+          </div>
+          <div class="metrics">
+            <span>Outcome: placeholder</span>
+            <span>Scope: placeholder</span>
+            <span>Status: ongoing</span>
+          </div>
+        </a>
+
+        <a class="card" href="#" data-type="systems">
+          <div class="topline">
+            <div>
+              <h4>Project Two</h4>
+              <p class="desc">One line summary. Add a number if possible later (speedup, users, accuracy).</p>
+            </div>
+            <span class="badge">Repo</span>
+          </div>
+          <div class="tags">
+            <span class="tag">C++</span><span class="tag">Algorithms</span><span class="tag">Performance</span>
+          </div>
+          <div class="metrics">
+            <span>Latency: placeholder</span>
+            <span>Scale: placeholder</span>
+            <span>Status: shipped</span>
+          </div>
+        </a>
+
+        <a class="card" href="#" data-type="writing">
+          <div class="topline">
+            <div>
+              <h4>Write-up / Paper</h4>
+              <p class="desc">A clean PDF / blog / notes page. Make your thinking legible.</p>
+            </div>
+            <span class="badge">PDF</span>
+          </div>
+          <div class="tags">
+            <span class="tag">LaTeX</span><span class="tag">Proofs</span><span class="tag">Notes</span>
+          </div>
+          <div class="metrics">
+            <span>Length: placeholder</span>
+            <span>Topic: placeholder</span>
+            <span>Status: public</span>
+          </div>
+        </a>
+
+        <a class="card" href="#" data-type="research">
+          <div class="topline">
+            <div>
+              <h4>Project Four</h4>
+              <p class="desc">Another high-signal project. Keep it crisp and specific.</p>
+            </div>
+            <span class="badge">WIP</span>
+          </div>
+          <div class="tags">
+            <span class="tag">Modeling</span><span class="tag">Evaluation</span><span class="tag">Reproducible</span>
+          </div>
+          <div class="metrics">
+            <span>Metric: placeholder</span>
+            <span>Dataset: placeholder</span>
+            <span>Status: in progress</span>
+          </div>
+        </a>
+      </div>
     </section>
 
     <!-- EXPERIENCE -->
-    <section id="experience" class="section card">
+    <section class="section" id="experience">
       <div class="sectionHead">
-        <p class="sectionTitle">Experience</p>
-        <p class="sectionNote">Chronological, impact-focused. Treat this like “resume, but readable.”</p>
+        <p class="title">Experience</p>
+        <p class="note">Resume-grade, but readable.</p>
       </div>
 
       <div class="timeline">
@@ -523,8 +682,8 @@
             <div class="role">Role Title</div>
             <div class="place">Organization • Location</div>
             <ul class="bullets">
-              <li>Bullet with impact: what you did + how you measured it.</li>
-              <li>Another bullet: tools/skills, scope, or outcome.</li>
+              <li>Impact bullet with a result. Replace later with numbers.</li>
+              <li>Second bullet about scope, tools, or output.</li>
             </ul>
           </div>
         </div>
@@ -536,110 +695,126 @@
             <div class="place">Lab / Company / Department</div>
             <ul class="bullets">
               <li>One strong line that shows competence and taste.</li>
-              <li>Optional: link to output (paper, repo, talk).</li>
+              <li>Optional: link to paper, repo, or talk.</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ORGANIZATIONS -->
-    <section id="orgs" class="section card">
+    <!-- ORGS + AWARDS -->
+    <section class="section" id="orgs">
       <div class="sectionHead">
-        <p class="sectionTitle">Organizations</p>
-        <p class="sectionNote">Leadership + membership + “what you actually did.”</p>
+        <p class="title">Organizations and Awards</p>
+        <p class="note">Dedicated sections, clean blocks.</p>
       </div>
 
-      <div class="list">
-        <div class="item">
-          <div class="badge">◈</div>
-          <div class="meta">
-            <div class="title">Organization / Club / Nonprofit</div>
-            <p class="desc">Your role + impact. Example: “Led quant research and recruitment; built portfolio tooling; organized events.”</p>
-            <div class="tags">
-              <span class="tag">Leadership</span><span class="tag">Strategy</span><span class="tag">Community</span>
+      <div class="twoCol">
+        <div>
+          <div style="color:var(--muted2); font-weight:900; letter-spacing:.10em; text-transform:uppercase; font-size:13px;">Organizations</div>
+          <div class="list" style="margin-top:10px;">
+            <div class="miniCard">
+              <strong>Organization Name</strong>
+              <p>Role + one-line impact. Example: led X, built Y, shipped Z.</p>
+            </div>
+            <div class="miniCard">
+              <strong>Second Organization</strong>
+              <p>Keep it measurable and specific when you fill it in.</p>
             </div>
           </div>
         </div>
 
-        <div class="item">
-          <div class="badge">◈</div>
-          <div class="meta">
-            <div class="title">Second Organization</div>
-            <p class="desc">Another high-signal description. Include metrics if you can (members, $ managed, programs delivered).</p>
-            <div class="tags">
-              <span class="tag">Mentorship</span><span class="tag">Operations</span>
+        <div id="awards">
+          <div style="color:var(--muted2); font-weight:900; letter-spacing:.10em; text-transform:uppercase; font-size:13px;">Awards</div>
+          <div class="list" style="margin-top:10px;">
+            <div class="miniCard">
+              <strong>Award / Scholarship</strong>
+              <p>Context + year. Example: QuestBridge Scholar (Year).</p>
+            </div>
+            <div class="miniCard">
+              <strong>Award / Recognition</strong>
+              <p>Short context. Keep only the best ones here.</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- AWARDS -->
-    <section id="awards" class="section card">
+    <!-- WRITING -->
+    <section class="section" id="writing">
       <div class="sectionHead">
-        <p class="sectionTitle">Awards</p>
-        <p class="sectionNote">Select highlights only. Quality > quantity.</p>
-      </div>
-
-      <div class="awards">
-        <div class="award">
-          <div><strong>Award / Honor Name</strong><div style="color:var(--muted);font-weight:700;margin-top:4px;">Organization / Context</div></div>
-          <span>2025</span>
-        </div>
-        <div class="award">
-          <div><strong>Award / Scholarship / Recognition</strong><div style="color:var(--muted);font-weight:700;margin-top:4px;">Context</div></div>
-          <span>2024</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- WRITING (optional but you asked “related”) -->
-    <section id="writing" class="section card">
-      <div class="sectionHead">
-        <p class="sectionTitle">Writing</p>
-        <p class="sectionNote">Essays, notes, publications, talks — anything that signals depth.</p>
+        <p class="title">Writing</p>
+        <p class="note">Essays, notes, talks, or publications.</p>
       </div>
 
       <div class="list">
-        <a class="item" href="#" target="_blank" rel="noreferrer">
-          <div class="badge">✎</div>
-          <div class="meta">
-            <div class="title">Title of essay / paper / post</div>
-            <p class="desc">1 line summary. Link to PDF / GitHub / Substack / Notion / Google Doc export.</p>
-            <div class="tags"><span class="tag">Writing</span><span class="tag">Math</span></div>
-          </div>
+        <a class="miniCard" href="#" style="display:block;">
+          <strong>Title of write-up</strong>
+          <p>One sentence on what it argues or proves. Link to PDF later.</p>
+        </a>
+        <a class="miniCard" href="#" style="display:block;">
+          <strong>Title of talk / post</strong>
+          <p>One sentence summary. Keep it high signal.</p>
         </a>
       </div>
     </section>
 
-    <!-- CONTACT -->
-    <section id="contact" class="section card">
+    <!-- GALLERY PLACEHOLDERS -->
+    <section class="section" id="gallery">
       <div class="sectionHead">
-        <p class="sectionTitle">Contact</p>
-        <p class="sectionNote">Make it easy for people to say yes.</p>
+        <p class="title">Gallery</p>
+        <p class="note">Optional. Placeholders now, real images later.</p>
       </div>
 
-      <p style="margin:0 0 12px;color:var(--muted);line-height:1.65;">
-        Email is best. If you’re reaching out about research, collabs, or internships, include context + a link to what you want me to see.
+      <div class="gallery">
+        <div class="shot">Image placeholder</div>
+        <div class="shot">Image placeholder</div>
+        <div class="shot">Image placeholder</div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+      <div class="sectionHead">
+        <p class="title">Contact</p>
+        <p class="note">Make it easy to reach you.</p>
+      </div>
+
+      <p style="margin:0 0 12px; color: var(--muted); line-height: 1.65;">
+        Email is best. If you’re reaching out about research, internships, or collaborations, include context and a link to what you want me to see.
       </p>
 
-      <div class="cta" style="margin-top:0;">
+      <div class="cta">
         <a class="btn primary" href="mailto:you@example.com">Email</a>
-        <a class="btn" href="https://www.linkedin.com/in/YOURLINK" target="_blank" rel="noreferrer">LinkedIn</a>
         <a class="btn" href="https://github.com/YOURUSERNAME" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/YOURLINK" target="_blank" rel="noreferrer">LinkedIn</a>
         <a class="btn" href="resume.pdf" target="_blank" rel="noreferrer">Resume</a>
       </div>
     </section>
 
-    <footer>
-      © <span id="y"></span> Iz Tecúm • Built with GitHub Pages
-    </footer>
-
+    <footer>© <span id="y"></span> Iz Tecúm • Built with GitHub Pages</footer>
   </div>
 
   <script>
+    // year
     document.getElementById("y").textContent = new Date().getFullYear();
+
+    // project filters
+    const buttons = document.querySelectorAll(".fbtn");
+    const cards = Array.from(document.querySelectorAll("#projectGrid .card"));
+
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        buttons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        const f = btn.dataset.filter;
+        cards.forEach(c => {
+          const t = c.dataset.type;
+          c.style.display = (f === "all" || t === f) ? "" : "none";
+        });
+      });
+    });
   </script>
 </body>
 </html>
