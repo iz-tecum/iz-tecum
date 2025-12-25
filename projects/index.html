@@ -4,130 +4,281 @@
   <meta charset="utf-8">
   <title>Projects — Iz Tecúm</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font (optional; site still works if Google Fonts fails) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
-    *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#111;background:#fff}
-    a{color:inherit;text-decoration:none}
-    a:hover{text-decoration:underline}
-
-    .page{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
-    @media (max-width:980px){.page{grid-template-columns:1fr}}
-
-    .sidebar{padding:28px 18px;border-right:1px solid #eee;position:sticky;top:0;height:100vh;background:#fff}
-    @media (max-width:980px){
-      .sidebar{position:static;height:auto;border-right:none;border-bottom:1px solid #eee;display:flex;gap:10px;overflow-x:auto;padding:14px}
-      .sb-brand,.sb-sub,.sb-foot{display:none}
-      .sb-nav{display:flex}
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #111;
+      background: #fff;
     }
 
-    .sb-brand{font-weight:800;letter-spacing:-0.02em;margin-bottom:18px}
-    .sb-sub{font-size:12px;color:#777;line-height:1.5;margin-bottom:16px}
-    .sb-nav{display:grid;gap:10px}
-    .sb-btn{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #e9e9e9;border-radius:14px;background:#fafafa;font-size:14px;color:#222;white-space:nowrap;transition:transform .12s ease,background .12s ease,border-color .12s ease}
-    .sb-btn:hover{transform:translateY(-1px);background:#f3f3f3;border-color:#ddd;text-decoration:none}
-    .sb-btn.active{background:#111;color:#fff;border-color:#111}
-    .sb-dot{width:10px;height:10px;border-radius:999px;background:currentColor;opacity:.25}
-    .sb-foot{margin-top:18px;font-size:12px;color:#777;line-height:1.5}
+    a { color: inherit; text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
-    .main{padding:0}
-    .container{max-width:1100px;margin:0 auto;padding:40px 24px 80px}
-
-    h1{margin:0 0 10px;font-size:34px;letter-spacing:-.02em}
-    .lede{margin:0 0 28px;color:#555;line-height:1.7;max-width:75ch}
-
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    @media (max-width:900px){.grid{grid-template-columns:1fr}}
-
-    .card{
-      border:1px solid #eee;border-radius:16px;background:#fafafa;
-      padding:16px;transition:transform .12s ease,background .12s ease,border-color .12s ease
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
     }
-    .card:hover{transform:translateY(-2px);background:#f3f3f3;border-color:#ddd}
-    .meta{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:10px}
-    .badge{font-size:12px;color:#666;background:#fff;border:1px solid #eee;border-radius:999px;padding:6px 10px;white-space:nowrap}
-    .title{margin:0;font-size:16px;font-weight:700}
-    .desc{margin:8px 0 12px;color:#555;line-height:1.6;font-size:14px}
-    .tags{display:flex;flex-wrap:wrap;gap:8px}
-    .tag{font-size:12px;color:#666;background:#fff;border:1px solid #eee;border-radius:999px;padding:6px 10px}
 
-    footer{margin-top:60px;color:#aaa;font-size:13px;text-align:center}
+    /* HERO IMAGE STRIP */
+    .hero-strip {
+      width: 100%;
+      height: 260px;
+      background: #ddd;
+      margin-bottom: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-strip::after{
+      content:"projects";
+      position:absolute;
+      right: 18px;
+      top: 14px;
+      font-size: 12px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,.55);
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(0,0,0,.08);
+      padding: 10px 12px;
+      border-radius: 999px;
+      backdrop-filter: blur(6px);
+    }
+
+    /* GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: 280px 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; gap: 34px; }
+    }
+
+    /* LEFT COLUMN */
+    .portrait {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      background: #e5e5e5;
+      margin-bottom: 18px;
+    }
+
+    .page-title{
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0 0 10px;
+      letter-spacing: -0.01em;
+    }
+    .page-sub{
+      font-size: 13px;
+      line-height: 1.7;
+      color: #666;
+      margin: 0 0 16px;
+    }
+
+    .bio {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #555;
+      margin-bottom: 16px;
+    }
+
+    .email {
+      font-size: 14px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .links h4 {
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin: 0 0 10px;
+      color: #111;
+    }
+
+    .links a {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: #444;
+    }
+
+    /* COLUMN SECTIONS */
+    .col h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0 0 20px;
+      text-transform: lowercase;
+      color: #111;
+    }
+
+    .item {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 16px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    .num {
+      width: 24px;
+      color: #aaa;
+      font-weight: 500;
+      flex: 0 0 auto;
+    }
+
+    /* PROJECT CARD-LINES (still “Justine-style”, but more project-ish) */
+    .pname{ font-weight: 600; color:#111; }
+    .ptags{ color:#777; }
+    .plink{ text-decoration: underline; text-underline-offset: 3px; }
+
+    footer {
+      margin-top: 90px;
+      font-size: 13px;
+      color: #aaa;
+      text-align: center;
+    }
   </style>
 </head>
-<body>
-  <div class="page">
-    <aside class="sidebar">
-      <div class="sb-brand">Iz Tecúm</div>
-      <div class="sb-sub">quick navigation</div>
-      <nav class="sb-nav">
-        <a class="sb-btn" href="../">Home</a>
-        <a class="sb-btn active" href="./"><span class="sb-dot"></span>Projects</a>
-        <a class="sb-btn" href="../research/"><span class="sb-dot"></span>Research</a>
-        <a class="sb-btn" href="../experience/"><span class="sb-dot"></span>Experience</a>
-        <a class="sb-btn" href="../organizations/"><span class="sb-dot"></span>Organizations</a>
-        <a class="sb-btn" href="../awards/"><span class="sb-dot"></span>Awards</a>
-        <a class="sb-btn" href="../writing/"><span class="sb-dot"></span>Writing</a>
-        <a class="sb-btn" href="../contact/"><span class="sb-dot"></span>Contact</a>
-      </nav>
-      <div class="sb-foot">Replace placeholders with real projects + links.</div>
-    </aside>
 
-    <main class="main">
-      <div class="container">
-        <h1>Projects</h1>
-        <p class="lede">
-          A curated list of technical builds, research tooling, and write-ups.
-          Each card can link to a repo, a demo, or a deeper page later.
+<body>
+
+  <!-- HERO IMAGE STRIP -->
+  <div class="hero-strip">
+    <!-- replace with full-width image later -->
+  </div>
+
+  <div class="container">
+    <div class="grid">
+
+      <!-- LEFT COLUMN -->
+      <div>
+        <div class="portrait"></div>
+
+        <h1 class="page-title">Projects</h1>
+        <p class="page-sub">
+          A clean index of things I’ve built. Each item can link to a repo, demo, PDF, or a longer page later.
         </p>
 
-        <div class="grid">
-          <a class="card" href="#">
-            <div class="meta">
-              <h2 class="title">Project One</h2>
-              <span class="badge">Repo</span>
-            </div>
-            <p class="desc">One-line: what it does, why it matters, and the result.</p>
-            <div class="tags">
-              <span class="tag">Python</span><span class="tag">Math</span><span class="tag">Simulation</span>
-            </div>
-          </a>
-
-          <a class="card" href="#">
-            <div class="meta">
-              <h2 class="title">Project Two</h2>
-              <span class="badge">Live</span>
-            </div>
-            <p class="desc">One-line: what you built, the key idea, and any numbers.</p>
-            <div class="tags">
-              <span class="tag">JS</span><span class="tag">Systems</span><span class="tag">Visualization</span>
-            </div>
-          </a>
-
-          <a class="card" href="#">
-            <div class="meta">
-              <h2 class="title">Project Three</h2>
-              <span class="badge">Write-up</span>
-            </div>
-            <p class="desc">One-line: paper / note / blog post with link to PDF later.</p>
-            <div class="tags">
-              <span class="tag">Writing</span><span class="tag">Proofs</span><span class="tag">Notes</span>
-            </div>
-          </a>
-
-          <a class="card" href="#">
-            <div class="meta">
-              <h2 class="title">Project Four</h2>
-              <span class="badge">WIP</span>
-            </div>
-            <p class="desc">One-line: ongoing build. What you’re aiming to ship.</p>
-            <div class="tags">
-              <span class="tag">C++</span><span class="tag">Algorithms</span><span class="tag">Perf</span>
-            </div>
-          </a>
+        <div class="links">
+          <h4>site</h4>
+          <a href="../">home ↩</a>
+          <a href="../research/">research →</a>
+          <a href="../writing/">writing →</a>
+          <a href="../experience/">experience →</a>
         </div>
 
-        <footer>© 2025 Iz Tecúm</footer>
+        <div style="height:18px"></div>
+
+        <div class="links">
+          <h4>find me elsewhere</h4>
+          <a href="#">github ↗</a>
+          <a href="#">linkedin ↗</a>
+          <a href="#">email ↗</a>
+        </div>
       </div>
-    </main>
+
+      <!-- MIDDLE COLUMN -->
+      <div class="col">
+        <h3>selected builds</h3>
+
+        <div class="item">
+          <div class="num">01</div>
+          <div>
+            <div class="pname">Project One</div>
+            <div>One-line: what it does + why it matters.</div>
+            <div class="ptags">Python · simulation · math</div>
+            <div><a class="plink" href="#">repo / demo</a></div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="num">02</div>
+          <div>
+            <div class="pname">Project Two</div>
+            <div>One-line: what you built + result (speedup/users/etc.).</div>
+            <div class="ptags">C++ · algorithms · performance</div>
+            <div><a class="plink" href="#">write-up / repo</a></div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="num">03</div>
+          <div>
+            <div class="pname">Project Three</div>
+            <div>One-line: tooling or visualization that made something clearer.</div>
+            <div class="ptags">JavaScript · viz · systems</div>
+            <div><a class="plink" href="#">demo</a></div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="num">04</div>
+          <div>
+            <div class="pname">Project Four</div>
+            <div>One-line: research-support tooling / reproducibility pipeline.</div>
+            <div class="ptags">notes · reproducibility · workflow</div>
+            <div><a class="plink" href="#">notes</a></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="col">
+        <h3>project index</h3>
+
+        <div class="item">
+          <div class="num">A</div>
+          <div>
+            <div class="pname">Research tooling</div>
+            <div>Scripts, simulations, benchmarks, and reproducible pipelines.</div>
+            <div class="ptags">Python · notebooks · CI</div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="num">B</div>
+          <div>
+            <div class="pname">Systems</div>
+            <div>Stuff that runs, scales, or handles real constraints.</div>
+            <div class="ptags">C++ · data · infra</div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="num">C</div>
+          <div>
+            <div class="pname">Writing / explainers</div>
+            <div>Notes that turn hard ideas into clean artifacts.</div>
+            <div class="ptags">PDF · blog · talks</div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="num">D</div>
+          <div>
+            <div class="pname">Experiments</div>
+            <div>Small prototypes that test a hypothesis quickly.</div>
+            <div class="ptags">JS · quick builds</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <footer>© 2025 Iz Tecúm</footer>
   </div>
+
 </body>
 </html>
