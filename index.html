@@ -1,13 +1,57 @@
 <!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Iz Tecúm — Test</title>
-  </head>
-  <body style="font-family: system-ui; padding: 40px;">
-    <h1>✅ Pages is reading my index.html</h1>
-    <p>If you can see this, the deployment source is correct.</p>
-    <p><a href="./projects/">Go to /projects/</a></p>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Iz Tecúm</title>
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- ROOT PAGE CSS (THIS IS THE RULE) -->
+  <link rel="stylesheet" href="./assets/styles.css">
+</head>
+
+<body>
+  <div class="wrap">
+
+    <header class="nav">
+      <div class="brand">
+        <span class="dot"></span>
+        <a href="./">Iz Tecúm</a>
+      </div>
+      <nav class="navlinks">
+        <a href="./projects/">Projects</a>
+        <a href="./research/">Research</a>
+        <a href="./writing/">Writing</a>
+        <a href="./experience/">Experience</a>
+        <a href="./awards/">Awards</a>
+        <a href="./contact/">Contact</a>
+      </nav>
+    </header>
+
+    <section class="section">
+      <div class="sectionHead">
+        <p class="title">Home</p>
+        <p class="note">This is the main landing page.</p>
+      </div>
+
+      <p style="color:var(--muted); max-width:70ch; line-height:1.6;">
+        I’m Iz Tecúm. This site is a hub for my projects, research, writing,
+        and experience. Use the navigation above to explore.
+      </p>
+
+      <p style="margin-top:16px;">
+        👉 <a href="./projects/">Go to Projects</a>
+      </p>
+    </section>
+
+    <footer style="margin-top:32px;">
+      © 2025 Iz Tecúm
+    </footer>
+
+  </div>
+</body>
 </html>
