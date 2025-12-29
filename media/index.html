@@ -1,0 +1,991 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+  <!-- 3D globe (no API key) -->
+<script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+<script src="https://unpkg.com/globe.gl@2.33.1/dist/globe.gl.min.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Media — Iz Tecúm</title>
+
+  <!-- Font (optional) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+
+/* ===== MINI GLOBE ===== */
+.globe-wrap{
+  width: 100%;
+  height: 420px;
+  border-radius: calc(var(--radius) - 4px);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #000;
+  position: relative;
+}
+
+@media (max-width: 980px){
+  .globe-wrap{ height: 340px; }
+}
+
+.globe-hint{
+  position: absolute;
+  left: 14px;
+  top: 12px;
+  z-index: 5;
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.14);
+  color: rgba(255,255,255,.92);
+  font-size: 12px;
+  backdrop-filter: blur(10px);
+}
+
+    *{ box-sizing:border-box; }
+    :root{
+      --navW: 1200px;         /* keep NAV consistent with other pages */
+      --w: 1280px;            /* page content width (media can be wider) */
+      --padX: 24px;
+      --padTop: 26px;
+      --padBot: 90px;
+
+      --line:#eee;
+      --muted:#666;
+      --muted2:#777;
+
+      --heroH: 320px;
+      --heroGap: 18px;
+      --topbarH: 58px;
+
+      --radius: 18px;
+    }
+
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color:#111;
+      background:#fff;
+    }
+    a{ color:inherit; text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
+    /* TOP NAV */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background:#fff;
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar-inner{
+      max-width: var(--navW); /* <- makes the nav bar match the rest of the site */
+      margin: 0 auto;
+      padding: 14px var(--padX);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 16px;
+    }
+    .brand{
+      font-weight: 700;
+      letter-spacing:-0.01em;
+      white-space: nowrap;
+    }
+    .topnav{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      justify-content:flex-end;
+    }
+    .topnav a{
+      display:inline-block;
+      padding: 10px 14px;
+      border-radius: 999px;
+      text-decoration:none;
+      transition: background-color .12s ease;
+      color:#333;
+    }
+    .topnav a:hover{ background: rgba(0,0,0,.06); text-decoration:none; }
+    .topnav a.active{ background: rgba(0,0,0,.08); }
+
+    /* HERO */
+    .hero-strip{
+      width:100%;
+      height: var(--heroH);
+      background: #dbf2ff;
+      margin: 0 0 var(--heroGap);
+    }
+
+    .container{
+      max-width: var(--w);
+      margin: 0 auto;
+      padding: var(--padTop) var(--padX) var(--padBot);
+    }
+
+    /* compact header row */
+    .page-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 18px;
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+      border-bottom: 4px solid var(--line);
+    }
+    .page-head h1{
+      margin: 0;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing:-0.02em;
+    }
+    .page-head p{
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+      max-width: 760px;
+    }
+    .head-right{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+    }
+    .pill{
+      display:inline-block;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.05);
+      color:#333;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    /* SECTION PANELS (full width) */
+    .panel{
+      border: 2px solid #dbf2ff;
+      border-radius: var(--radius);
+      background:#fff;
+      padding: 16px 16px;
+      margin: 0 0 18px;
+    }
+    .panel-top{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+    .panel h2{
+      margin:0;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing:-0.01em;
+    }
+    .panel .sub{
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .panel-actions{
+      display:flex;
+      gap: 8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .ghost{
+      display:inline-block;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background:#fff;
+      font-size: 13px;
+      color:#333;
+      cursor: default;
+      white-space: nowrap;
+    }
+    /* clickable ghost button */
+    a.ghost{
+      cursor: pointer;
+    }
+    a.ghost:hover{
+      text-decoration:none;
+      background: rgba(0,0,0,.04);
+    }
+
+    /* MEDIA WALL */
+    .wall{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .tile{
+      display:block;
+      border: 2px solid #dbf2ff;
+      border-radius: calc(var(--radius) - 4px);
+      overflow:hidden;
+      background:#fff;
+      text-decoration:none;
+      transition: transform .12s ease;
+      min-height: 260px;
+    }
+    .tile:hover{ transform: translateY(-1px); text-decoration:none; }
+
+    .thumb{
+      width:100%;
+      aspect-ratio: 16 / 10;
+      background: linear-gradient(135deg, #e9e9e9, #d9d9d9);
+      position: relative;
+    }
+  .thumb::after{
+  content:"↗";
+  position:absolute;
+  right: 12px;
+  top: 9px;
+  font-weight: 800;
+  color: rgba(0,0,0,.45);
+  background: rgba(255,255,255,.75);
+  border: 0px solid rgba(0,0,0,.08);
+  border-radius: 999px;
+  width: 30px;
+  height: 30px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  line-height: 1;
+}
+
+    .cap{
+      padding: 12px 12px 14px;
+      border-top: 2px solid #dbf2ff;
+    }
+    .cap-title{
+      margin:0;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing:-0.01em;
+    }
+    .cap-meta{
+      margin: 6px 0 0;
+      font-size: 13px;
+      color: var(--muted2);
+      line-height: 1.5;
+    }
+
+    /* REFERENCE SHELF */
+    .ref-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .ref{
+      border: 2px solid #dbf2ff;
+      border-radius: calc(var(--radius) - 4px);
+      padding: 12px 12px;
+      background:#fff;
+    }
+    .ref-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    .ref-title{
+      margin:0;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing:-0.01em;
+    }
+    .tag{
+      flex: 0 0 auto;
+      font-size: 12px;
+      color:#333;
+      background: rgba(0,0,0,.05);
+      border-radius: 999px;
+      padding: 6px 10px;
+      white-space: nowrap;
+    }
+    .ref-desc{
+      margin: 8px 0 0;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .ref a{
+      display:inline-block;
+      margin-top: 10px;
+      font-size: 13px;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      color:#333;
+    }
+
+    /* CREDENTIALS */
+    .cred{
+      display:grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 14px;
+      align-items:start;
+    }
+    .badges{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .badge{
+      display:inline-block;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.05);
+      color:#333;
+      font-size: 13px;
+    }
+    .cv{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color:#333;
+      font-size: 13px;
+      line-height: 1.75;
+    }
+    .cv li{ margin: 6px 0; }
+
+    .cred-side{
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius) - 4px);
+      padding: 12px 12px;
+      background:#fff;
+    }
+    .cred-side h3{
+      margin:0 0 8px;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color:#111;
+    }
+    .mini{
+      margin:0;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .mini b{ color:#111; }
+
+    footer{
+      margin-top: 70px;
+      font-size: 13px;
+      color:#aaa;
+      text-align:center;
+    }
+
+    @media (max-width: 980px){
+      :root{ --heroH: 220px; }
+      .page-head{ align-items:flex-start; flex-direction:column; }
+      .head-right{ justify-content:flex-start; }
+      .wall{ grid-template-columns: 1fr; }
+      .ref-grid{ grid-template-columns: 1fr; }
+      .cred{ grid-template-columns: 1fr; }
+    }
+/* ===== MEDIA LIGHTBOX (click-to-expand) ===== */
+:root{
+  --modal-bg: url("../media/cu.jpg");
+
+  /* knobs */
+  --modal-img-opacity: .89;  /* 0–1  (higher = image stronger, page less visible) */
+  --modal-blur: 6px;        /* 0px–25px (higher = blurrier overlay) */
+}
+.media-modal{
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  /* display: none;   <-- REMOVE THIS */
+  display: flex;               /* keep it renderable so it can animate */
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+
+  background: transparent;
+
+  /* NEW: transition state */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 420ms ease, visibility 0s linear 420ms;
+}
+
+.media-modal.open{
+  /* display: flex;   <-- REMOVE THIS */
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 420ms ease, visibility 0s;
+}
+
+/* Image overlay (sits above page, below modal card) */
+.media-modal::before{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background-image: var(--modal-bg);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+
+  opacity: var(--modal-img-opacity);
+
+  filter: blur(var(--modal-blur));
+  transform: scale(1.06);
+
+  /* NEW */
+  transition: opacity 420ms ease;
+}
+
+/* Keep the popup above the overlay layers */
+.media-modal-inner{
+  position: relative;
+  z-index: 2;
+
+  /* Match the tile’s image box aspect ratio */
+  width: min(1100px, 92vw, calc(78vh * 16 / 10));
+  aspect-ratio: 16 / 10;
+  height: auto;
+
+  border-radius: calc(var(--radius) - 4px);
+  overflow: hidden;
+  border: 0px solid rgba(255,255,255,.10);
+  background: rgba(255, 255, 255, 0.00);
+  opacity: 1.0;
+}
+
+.media-modal-img{
+  width: 100%;
+  height: 100%;
+  display: block;
+
+  /* match tile placeholder behavior */
+  background-size: 100% auto;      /* fit-to-width like the tile */
+  background-repeat: repeat-y;     /* repeats vertically */
+  background-position: center; /* same anchor point */
+}
+
+/* close button: match tile arrow + never get buried */
+.media-modal-close{
+  position: absolute;
+  right: 12px;
+  top: 10px;
+
+  z-index: 50;                 /* KEY: keep it above image/caption */
+  font-weight: 800;
+  color: rgba(0,0,0,.45);
+  background: rgba(255,255,255,.75);
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 999px;
+
+  width: 30px;
+  height: 30px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  line-height: 1;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+.media-modal-cap{
+  transition: background-color .15s ease;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  min-height: 25%;
+  max-height: 25%;
+  padding: 20px 22px 22px;
+
+  background: rgba(0,0,0,.55);
+  border-top: 0;
+
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,.35) transparent;
+}
+
+.media-modal-inner:hover .media-modal-cap{
+  background: rgba(0,0,0,.68);
+}
+
+.media-modal-cap h3{
+  margin: 0 0 8px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.media-modal-cap p{
+  margin: 0;
+  color: rgba(255,255,255,.90);
+  font-size: 15px;
+  line-height: 1.7;
+}
+/* ===== pattern/repeat mode: modal matches tile thumb ===== */
+.media-modal-inner.is-repeat{
+  background-color: #fff;                 /* avoids weird dark behind gaps */
+  background-repeat: repeat;
+  background-position: center;
+  background-size: var(--repeatSize, 420px) auto;  /* same as tile */
+}
+
+/* hide the <img> when we are using the tiled background */
+.media-modal-inner.is-repeat .media-modal-img{
+  display: none;
+}
+/* keep your existing hover animation exactly as-is */
+.media-modal-cap a{ text-decoration: underline; text-underline-offset: 3px; }
+
+  
+  
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand"><a href="../">Iz Tecúm</a></div>
+      <nav class="topnav">
+        <a href="../projects/">projects</a>
+        <a href="../research/">research</a>
+        <a href="../experience/">experience</a>
+        <a href="../organizations/">organizations</a>
+        <a href="../awards/">awards</a>
+        <a class="active" href="./">media</a>
+        <a href="../contact/">contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero-strip"></div>
+
+  <main class="container">
+    <div class="page-head">
+      <div>
+        <h1>Media</h1>
+        <p>
+          Here I have curated a list of fairly relevant photos, commentary, and links. If you choose to explore past the media wall, you will find an interactive globe, where one may see exactly where in Kansas I have lived, studied, and worked over the years.
+        </p>
+      </div>
+      <div class="head-right">
+        <span class="pill">interesting</span>
+      </div>
+    </div>
+
+    <!-- MEDIA WALL -->
+    <section class="panel">
+      <div class="panel-top">
+        <div>
+          <h2>Media Wall</h2>
+          <p class="sub">Feel free to click any of the following to read more.</p>
+        </div>
+      </div>
+
+      <div class="wall">
+
+  <a class="tile" href="#"
+   data-img="./im3.webp"   background: rgba(255, 255, 255, 1.00);
+   data-title="AMS Joint Mathematics Meeting"
+   data-meta="AMS has backed me way harder than I ever expected. They were my first-ever publisher, and honestly the first place that made my work feel “real” outside my own notes. Then it turned into JMM, early ICM consideration, and now I’m on the U.S. delegation for the Capitol Hill visits. I started intently pursuing math ~2 years ago, so this is still kind of insane to process, but of course I am enjoying the ride in higher mathematics."
+   data-modal-zoom="1.00">
+<div class="thumb" style="
+  background-image:url('./im3.webp');
+  background-size: 100% auto;   /* zoom in */
+  background-repeat: no-repeat;
+  background-position: center;
+"></div>
+  <div class="cap">
+    <p class="cap-title">AMS Joint Mathematics Meeting</p>
+    <p class="cap-meta">January 2026</p>
+  </div>
+</a>    
+
+<a class="tile" href="#"
+   data-img="./im5.jpeg"
+   data-title="Knot Theory Lecture"
+   data-meta="This one’s out of the established norm, but honestly: out of all the courses I’ve taken, nothing felt like Introduction to Knot Theory (GU4052) at Columbia. It was taught by Professor Rostislav Akhmechet, and it was my first real geometrically-inclined class. It opened a whole new lane of math for me — including first-time exposure to higher-level homotopy theory, and it's suitable applications in other fields such as Riemannian geometry. Professor Rostislav was an incredible professor, and the course wrapped with a brief introduction to Khovanov homology."
+   data-modal-zoom="1.05">
+<div class="thumb" style="
+  background-image:url('./im5.jpeg');
+  background-size: 105% auto;   /* zoom in */
+  background-repeat: repeat-y;
+  background-position: center;
+"></div>
+  <div class="cap">
+    <p class="cap-title">Knot Theory Lecture</p>
+    <p class="cap-meta">December 2025</p>
+  </div>
+</a> 
+
+<a class="tile" href="#"
+   data-img="./im1.png"
+   data-title="DE Shaw CONNECT"
+   data-meta="A four-hour gathering at the Whitney Museum of American Art with an unusually strong cohort of mainly sophomores from across the country, spanning math-heavy tracks, CS, and the social sciences/humanities. Great conversations, a well-run program, and genuinely good catering. It felt like a rare cross-discipline room where everyone was sharp and curious.">
+<div class="thumb"
+  aria-label="Media tile 1"
+  style="
+    background-image: url('./im1.png');
+    background-size: 100% auto;
+    background-repeat: repeat-y;
+    background-position: center;
+  ">
+</div>
+  <div class="cap">
+    <p class="cap-title">DE Shaw CONNECT</p>
+    <p class="cap-meta">October 2025</p>
+  </div>
+</a>      
+      
+<a class="tile" href="#"
+   data-img="./im4.jpeg"
+   data-title="Columbia Economics Society Orientation"
+   data-meta="This one feels quite special. This was our first CES meeting, right after we took the group photo and then split into four divisions: business, consulting, banking, and economics. I got placed into the business division as a Business Representative under our director Arthur Campos (Brazilian, unreal energy, super attentive to his reps). CES is run by genuinely socially active presidents James & Joshua Park, though it’s not just vibes — it’s a real concentration of talent across both Columbia College and SEAS, and it’s given me a ton of opportunity already."
+   data-modal-zoom="1.05">
+<div class="thumb" style="
+  background-image:url('./im4.jpeg');
+  background-size: 105% auto; /* zoom in */
+  background-repeat: repeat-y;
+  background-position: center;
+"></div>
+  <div class="cap">
+    <p class="cap-title">Columbia Economics Society Orientation</p>
+    <p class="cap-meta">September 2025</p>
+  </div>
+</a>   
+ 
+<a class="tile" href="#"
+   data-img="./im6.webp"
+   data-title="OSSM Convocation Address"
+   data-meta='Going into senior year, it honestly felt like the world had already decided my ceiling. I was coming from Guymon High School, which (at the time) was listed at #17,655 / 17,656 on U.S. News for the 2023–2024 academic year — basically the edge of the map. But a newly built virtual pathway at the Oklahoma School of Science and Mathematics cracked the whole trajectory open.
+
+And even before OSSM fully “started,” there’s one moment that still feels unreal to me. I had only taken the ACT one time before — and I genuinely took it as a joke. The second time around, now at OSSM, Dr. Frank Wang personally sponsored me (on behalf of OSSM) to take the exam, including covering gas money, even though it meant doing something absurd: the only testing site I could get was in Des Moines, Iowa. From Optima, that turned into roughly 1,400 miles of total driving. I left in the middle of the night, tested on a Sunday, and then drove back the following night so I could still make it to work/school. That kind of “we’re going to make this happen anyway” support wasn’t what I expected from anyone — and it set the tone for what OSSM ended up meaning in my life. That door existed because of Dr. Frank Wang — his leadership and sheer insistence on what Oklahoma education could be changed what was possible for students like me.
+
+OSSM was a completely different universe. It wasn’t just “a better school,” it was a different standard of seriousness, talent, and expectation — a place that (for 2023–2024) was ranked #5 / 20,733 schools on <a href="https://www.niche.com/about/niche-releases-its-10th-annual-best-schools-and-districts-rankings-for-2024/" target="_blank" rel="noopener">Niche</a>. And I stood out in a weird way: I was the only kid taking exams on campus, but also the only one not living there (it’s a boarding school) — while trying to compress a two-year residential high school into one year, juggling bureaucratic friction and real-life obligations. It was one of the hardest years I’ve ever had to navigate, but it also introduced me to the American Mathematics Competitions (AMCs) scene and put me around students who would go on to represent the United States at the Chemistry, Biology, and Physics Olympiads. Being in that orbit changed how I thought about what “normal” effort and “normal” excellence even mean.
+
+Coming back in August to give a convocation address — nominated by a majority of the faculty (mostly professors) — felt surreal. OSSM earned its reputation, and with Dr. Wang (a now-retired MIT professor) leading in recent years, his influence is a huge part of why I was able to claim an OSSM education at all, even from nearly five hours away. It wasn’t just a speech — it felt as though I were in the shoes of a priest, and I was delivering a sermon on what everybody in that room was needing to hear about the potential of an OSSM education. It works if you let it.'
+   data-modal-zoom="1.00">
+  <div class="thumb" style="
+    background-image:url('./im6.webp');
+    background-size: 100% auto;
+    background-repeat: repeat-y;
+    background-position: center;
+  "></div>
+  <div class="cap">
+    <p class="cap-title">OSSM Convocation Address</p>
+    <p class="cap-meta">August 2025</p>
+  </div>
+</a>     
+
+<a class="tile" href="#"
+   data-img="./im2.webp"
+   data-title="Jane Street FOCUS"
+   data-meta="FOCUS was a real turning point for me — problem-heavy, fast-paced, and honest about what “good thinking” looks like under pressure. It also wasn’t a one-off: between the Diversity Summer Social, FOCUS, and now helping as a campus ambassador hosting events, I’ve felt consistent support for my research work and my broader goals."
+   data-modal-zoom="1.15">
+<div class="thumb" style="
+  background-image:url('./im2.webp');
+  background-size: 115% auto;   /* zoom in */
+  background-repeat: repeat-y;
+  background-position: center;
+"></div>
+  <div class="cap">
+    <p class="cap-title">Jane Street FOCUS</p>
+    <p class="cap-meta">May 2025</p>
+  </div>
+</a>   
+
+</div>
+    </section>
+
+<!-- MEDIA MODAL (lightbox) -->
+<div class="media-modal" id="mediaModal" aria-hidden="true">
+  <div class="media-modal-inner" role="dialog" aria-modal="true" aria-label="Media preview">
+    <div class="media-modal-close" id="mediaModalClose">×</div>
+
+    
+
+    <!-- REPLACE <img> WITH THIS: -->
+    <div class="media-modal-img" id="mediaModalImg" role="img" aria-label=""></div>
+
+    <div class="media-modal-cap">
+      <h3 id="mediaModalTitle">Title</h3>
+      <p id="mediaModalMeta">Caption · date · context</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- WHERE I'M FROM (mini globe) -->
+<section class="panel">
+  <div class="panel-top">
+    <div>
+      <h2>Where I’m From</h2>
+    </div>
+  </div>
+
+  <div class="globe-wrap" id="globeWrap">
+    <div class="globe-hint">drag + scroll </div>
+    <div id="globeViz" style="width:100%; height:100%;"></div>
+  </div>
+</section>
+
+    <!-- REFERENCE SHELF -->
+    <section class="panel">
+      <div class="panel-top">
+        <div>
+          <h2>Reference Shelf</h2>
+        </div>
+      </div>
+
+      <div class="ref-grid">
+        <div class="ref">
+          <div class="ref-top"><p class="ref-title">City of God by St. Augustine</p><span class="tag">theology</span></div>
+          <p class="ref-desc">City of God by St. Augustine is a foundational text in Western Christianity and philosophy.</p>
+          <a href="https://files.romanroadsstatic.com/materials/romans/nicene-christianity/City%20of%20God.pdf">book link ↗</a>
+        </div>
+        <div class="ref">
+          <div class="ref-top"><p class="ref-title">CES Homepage</p><span class="tag">project</span></div>
+          <p class="ref-desc">Feel free to explore the link to learn more about CES.</p>
+          <a href="https://undergrad.admissions.columbia.edu/studentgroup/economics-society">club link ↗</a>
+        </div>
+        <div class="ref">
+          <div class="ref-top"><p class="ref-title">Economic Stabilization for the American Indian</p><span class="tag">policy</span></div>
+          <p class="ref-desc">I have written exclusively about recent economic repercussions on American Indians.</p>
+          <a href="https://www.columbiapolicyinstitute.org/past-issues/cpj2425">writing link ↗</a>
+        </div>
+        <div class="ref">
+          <div class="ref-top"><p class="ref-title">AMS Contributed Paper Session on Probability</p><span class="tag">talk</span></div>
+          <p class="ref-desc">I have delivered a talk on theoretical coupling bound probabilities through the AMS.</p>
+          <a href="https://meetings.ams.org/math/jmm2026/meetingapp.cgi/Paper/52479">talk link ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>© 2025 Iz Tecúm</footer>
+  </main>
+
+<script>
+  const modal = document.getElementById("mediaModal");
+  const modalImg = document.getElementById("mediaModalImg");
+  const modalTitle = document.getElementById("mediaModalTitle");
+  const modalMeta = document.getElementById("mediaModalMeta");
+  const modalClose = document.getElementById("mediaModalClose");
+  const modalInner = document.querySelector(".media-modal-inner");
+  
+
+
+  function openModal({img, title, meta, mode}) {
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+
+    modalTitle.textContent = title || "";
+modalMeta.innerHTML = (meta || "").replace(/\n\n/g, "<br><br>").replace(/\n/g, "<br>");
+    // DEFAULT: normal photo behavior (img tag)
+    modalInner.style.backgroundImage = "";
+    modalInner.style.backgroundRepeat = "";
+    modalInner.style.backgroundPosition = "";
+    modalInner.style.backgroundSize = "";
+    modalImg.style.display = "block";
+
+    // SPECIAL: match Tile 1 thumb behavior exactly (3 repeats vertically)
+    if (mode === "repeat3y") {
+      modalImg.style.display = "none";
+      modalInner.style.backgroundImage = `url('${img}')`;
+      modalInner.style.backgroundRepeat = "repeat-y";
+      modalInner.style.backgroundPosition = "center";
+      modalInner.style.backgroundSize = "100% calc(100% / 3)";
+    } else {
+ modalImg.style.backgroundImage = `url("${img}")`;
+modalImg.setAttribute("aria-label", title || "Media image");
+    }
+
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeModal() {
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+    modalImg.style.backgroundImage = "";
+    modalImg.style.display = "block";
+
+    // clean up background mode
+    modalInner.style.backgroundImage = "";
+    modalInner.style.backgroundRepeat = "";
+    modalInner.style.backgroundPosition = "";
+    modalInner.style.backgroundSize = "";
+
+    document.body.style.overflow = "";
+  }
+
+  document.querySelectorAll(".tile").forEach(tile => {
+    tile.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      const img = tile.getAttribute("data-img");
+      const title = tile.getAttribute("data-title") || tile.querySelector(".cap-title")?.textContent;
+      const meta = tile.getAttribute("data-meta") || tile.querySelector(".cap-meta")?.textContent;
+      const mode = tile.getAttribute("data-mode") || "";
+
+      if (!img) return;
+
+      const zoom = tile.getAttribute("data-modal-zoom") || "1";
+modalImg.style.transform = `scale(${zoom})`;
+modalImg.style.transformOrigin = origin;
+      openModal({img, title, meta, mode});
+      
+    });
+  });
+
+  modalClose.addEventListener("click", closeModal);
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("open")) closeModal();
+  });
+</script>
+
+<script>
+  // ===== Globe: "Where I'm From" =====
+  // Requires globe.gl loaded on the page.
+
+  const globeEl = document.getElementById("globeViz");
+  const wrapEl  = document.getElementById("globeWrap");
+
+  // ===== Settings (edit these) =====
+  const POV_ALTITUDE = 0.5;
+
+  // Liberal, Kansas (red) — DO NOT CHANGE BEHAVIOR
+  const LIBERAL = { name: "Liberal, KS", lat: 37.0431, lng: -100.9210 };
+
+  // Green “nearby big cities”
+  const GREEN_POLE_COLOR   = "#34c759";
+  const GREEN_POLE_RADIUS  = 0.12;  // matches the Liberal pointRadius style (cylinder thickness)
+  const GREEN_POLE_HEIGHT  = 0.002; // matches the Liberal pointAltitude style (pole height)
+
+  const GREEN_CITIES = [
+    { name: "Wichita, KS",        lat: 37.6872, lng: -97.3301 },
+    { name: "Oklahoma City, OK",  lat: 35.4676, lng: -97.5164 },
+    { name: "Amarillo, TX",       lat: 35.2220, lng: -101.8313 },
+    { name: "Denver, CO",         lat: 39.7392, lng: -104.9903 }
+  ];
+
+  // ===== init =====
+  const globe = Globe()(globeEl)
+    .globeImageUrl("https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg")
+    .bumpImageUrl("https://unpkg.com/three-globe/example/img/earth-topology.png")
+    .backgroundColor("rgba(0,0,0,0)");
+
+  // size to container
+  function resizeGlobe() {
+    const r = wrapEl.getBoundingClientRect();
+    globe.width(Math.max(1, Math.floor(r.width)));
+    globe.height(Math.max(1, Math.floor(r.height)));
+  }
+  resizeGlobe();
+  window.addEventListener("resize", resizeGlobe);
+
+  // controls / starting view (center on Liberal)
+  globe.controls().enableDamping = true;
+  globe.controls().dampingFactor = 0.08;
+  globe.pointOfView({ lat: LIBERAL.lat, lng: LIBERAL.lng, altitude: POV_ALTITUDE }, 1200);
+
+  // ===== 1) POLES (Liberal + green cities) =====
+  // KEY: use pointsData for ALL poles so they render the same way (no floating).
+  const ALL_POINTS = [
+    // Liberal: keep the same values you had (behavior unchanged)
+    {
+      name: LIBERAL.name,
+      lat: LIBERAL.lat,
+      lng: LIBERAL.lng,
+      color: "#ff3b30",
+      altitude: 0.004,
+      radius: 0.12
+    },
+
+    // Green cities: replicate Liberal pole geometry
+    ...GREEN_CITIES.map(c => ({
+      name: c.name,
+      lat: c.lat,
+      lng: c.lng,
+      color: GREEN_POLE_COLOR,
+      altitude: GREEN_POLE_HEIGHT,
+      radius: GREEN_POLE_RADIUS
+    }))
+  ];
+
+  globe
+    .pointsData(ALL_POINTS)
+    .pointLat(d => d.lat)
+    .pointLng(d => d.lng)
+    .pointColor(d => d.color)
+    .pointAltitude(d => d.altitude)
+    .pointRadius(d => d.radius);
+
+  // ===== 2) Pulse ring (ONLY Liberal) =====
+  globe
+    .ringsData([{
+      lat: LIBERAL.lat,
+      lng: LIBERAL.lng,
+      maxR: 2.2,
+      propagationSpeed: 2.3,
+      repeatPeriod: 1600
+    }])
+    .ringLat(d => d.lat)
+    .ringLng(d => d.lng)
+    .ringMaxRadius(d => d.maxR)
+    .ringPropagationSpeed(d => d.propagationSpeed)
+    .ringRepeatPeriod(d => d.repeatPeriod)
+    .ringColor(() => t => `rgba(255,59,48,${Math.max(0, 1.05 - t)})`);
+
+  // ===== 3) Typewriter labels (consistent) =====
+  const LABELS = [
+    { lat: LIBERAL.lat, lng: LIBERAL.lng, text: LIBERAL.name, color: "rgba(255,255,255,0.95)" },
+  ];
+
+  globe
+    .htmlElementsData(LABELS)
+    .htmlLat(d => d.lat)
+    .htmlLng(d => d.lng)
+    .htmlAltitude(() => 0.02)
+    .htmlElement(d => {
+      const el = document.createElement("div");
+      el.textContent = d.text;
+
+      el.style.fontFamily = `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`;
+      el.style.fontSize = "11px";
+      el.style.letterSpacing = "0.02em";
+      el.style.color = d.color;
+      el.style.textShadow = "0 2px 14px rgba(0,0,0,0.65)";
+
+      el.style.padding = "6px 10px";
+      el.style.borderRadius = "999px";
+      el.style.background = "rgba(0,0,0,0.35)";
+      el.style.backdropFilter = "blur(6px)";
+      el.style.border = "0px solid rgba(255,255,255,0.18)";
+      el.style.transform = "translate(10px, -8px)";
+      el.style.pointerEvents = "none";
+
+      return el;
+    });
+</script>
+
+</body>
+</html>

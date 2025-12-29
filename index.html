@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Iz Tecúm</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for LaTeX rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+
+  <style>
+    *{ box-sizing:border-box; }
+    :root{
+      --navW: 1200px;
+      --w: 1200px;
+      --padX: 24px;
+      --padTop: 26px;
+      --padBot: 54px;
+      --gap: 56px;
+
+      --line:#eee;
+      --muted:#666;
+      --muted2:#777;
+
+      --topbarH: 58px;
+
+      --heroH: 320px;
+      --heroGap: 18px;
+
+      --page-chrome: calc(var(--topbarH) + var(--heroH) + var(--heroGap) + var(--padTop) + 24px);
+      --blog-h: calc(100vh - var(--page-chrome));
+
+      /* soft color accents for the diagram */
+      --ink: #111;
+      --sphere: #2563eb;    /* soft blue */
+      --plane: #16a34a;     /* soft green */
+      --proj: #dc2626;      /* muted red */
+      --grid: rgba(0,0,0,.05);
+    }
+
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      color:#111;
+      background:#fff;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background:#fff;
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar-inner{
+      max-width: var(--navW);
+      margin: 0 auto;
+      padding: 14px var(--padX);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 16px;
+    }
+    .brand{
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+    .topnav{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      justify-content:flex-end;
+    }
+    .topnav a{
+      display:inline-block;
+      padding: 10px 14px;
+      border-radius: 999px;
+      text-decoration:none;
+      transition: background-color .12s ease;
+      color:#333;
+    }
+    .topnav a:hover{ background: rgba(0,0,0,.06); text-decoration:none; }
+    .topnav a.active{ background: rgba(0,0,0,.08); }
+
+    .hero-strip{
+      width: 100%;
+      height: var(--heroH);
+      background: #dbf2ff;
+      margin: 0 0 var(--heroGap);
+    }
+    .hero-strip.bottom{
+      height: 280px;
+      margin: 26px 0 0;
+      background: #dbf2ff;
+
+    }
+
+    .container{
+      max-width: var(--w);
+      margin: 0 auto;
+      padding: var(--padTop) var(--padX) var(--padBot);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 280px 1.35fr 0.85fr;
+      gap: var(--gap);
+      align-items: stretch;
+    }
+
+    .leftSticky, .rightSticky{
+      position: sticky;
+      top: 24px;
+      align-self: start;
+    }
+
+    .blog{
+      max-height: var(--blog-h);
+      overflow-y: auto;
+      padding-right: 10px;
+      scrollbar-gutter: stable;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0,0,0,.35) transparent;
+    }
+
+.portrait-img{
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  display: block;
+
+  object-fit: cover;        /* forces the image to fill the box */
+  object-position: 50% 35%; /* tweak crop focus */
+  background: #e5e5e5;
+}
+
+/* hover zoom on portrait */
+.portrait-img{
+  transition: transform .18s ease;
+  will-change: transform;
+}
+
+.portrait-img:hover{
+  transform: scale(1.012);
+}
+
+    .bio{
+      font-size: 14px;
+      line-height: 1.7;
+      color:#555;
+      margin-bottom: 14px;
+    }
+    .email{
+      font-size: 14px;
+      color:#333;
+      margin-bottom: 18px;
+    }
+
+    .links{
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 14px;
+      background:#fff;
+    }
+    .links h4{
+      margin: 0 0 10px;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color:#111;
+    }
+    .links a{
+      display:block;
+      margin-bottom: 6px;
+      font-size: 14px;
+      color:#444;
+    }
+    .links a:last-child{ margin-bottom: 0; }
+
+    .blog-title{
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background:#fff;
+
+      margin: 0 0 18px;
+      padding: 6px 0 12px;
+      border-bottom: 4px solid #ddd;
+
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+
+    .post{
+      padding: 16px 0;
+      border-top: 1px solid var(--line);
+    }
+    .post:first-of-type{ border-top: 0; padding-top: 0; }
+
+    .post-title{
+      margin: 0 0 6px;
+      font-weight: 700;
+      font-size: 14px;
+      color:#111;
+    }
+    .post-meta{
+      font-size: 12px;
+      color:#888;
+      margin-bottom: 10px;
+    }
+    .post p{
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.75;
+      color:#555;
+    }
+    .post p + p{ margin-top: 10px; }
+
+    /* blocky retro note inside posts */
+    .retro-note{
+      margin-top: 12px;
+      border: 2px solid var(--ink);
+      border-radius: 0;
+      overflow:hidden;
+      background:#fff;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    .retro-head{
+      padding: 10px 12px;
+      border-bottom: 2px solid var(--ink);
+      display:flex;
+      justify-content:space-between;
+      gap: 12px;
+      align-items:flex-end;
+    }
+    .retro-head .tag{
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color:#111;
+    }
+    .retro-head .sub{
+      font-size: 12px;
+      color:#444;
+      text-align:right;
+      line-height: 1.3;
+    }
+
+    .retro-body{
+      padding: 12px;
+      font-size: 13px;
+      line-height: 1.7;
+      color:#111;
+      border-bottom: 2px dashed var(--ink);
+      background: rgba(37, 99, 235, .04); /* faint blue wash */
+    }
+
+    /* small human note above the diagram */
+    .retro-desc{
+      padding: 10px 12px 0;
+      font-size: 13px;
+      line-height: 1.7;
+      color:#222;
+      background:#fff;
+    }
+    .retro-desc em{
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    /* clean grid background for the SVG */
+    .retro-figure{
+      display:block;
+      width:100%;
+      height:auto;
+      background:
+        linear-gradient(#0000 19px, var(--grid) 20px),
+        linear-gradient(90deg, #0000 19px, var(--grid) 20px);
+      background-size: 20px 20px;
+    }
+
+    .retro-foot{
+      padding: 10px 12px;
+      font-size: 13px;
+      line-height: 1.7;
+      color:#111;
+      background: rgba(22, 163, 74, .04); /* faint green wash */
+      border-top: 2px dashed rgba(0,0,0,.15);
+    }
+
+    .stack{
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 14px;
+      background:#fff;
+      margin-bottom: 14px;
+    }
+    .stack h3{
+      margin: 0 0 12px;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color:#111;
+    }
+    .item{
+      display:flex;
+      gap: 12px;
+      margin-bottom: 12px;
+      font-size: 14px;
+      line-height: 1.6;
+      color:#555;
+    }
+    .item:last-child{ margin-bottom: 0; }
+    .num{
+      width: 26px;
+      color:#aaa;
+      font-weight: 600;
+      flex: 0 0 auto;
+    }
+
+    footer{
+      margin: 40px 0 0;
+      font-size: 13px;
+      color:#aaa;
+      text-align:center;
+    }
+
+    .katex{ font-size: 1.02em; }
+
+    @media (max-width: 980px){
+      :root{
+        --heroH: 220px;
+        --page-chrome: calc(var(--topbarH) + var(--heroH) + var(--heroGap) + var(--padTop) + 24px);
+        --blog-h: auto;
+      }
+      .grid{ grid-template-columns: 1fr; gap: 30px; }
+      .blog{ max-height: none; overflow: visible; padding-right: 0; }
+      .leftSticky, .rightSticky{ position: static; }
+    }
+
+    /* logo placeholder inside a post */
+.logo-card{
+  margin-top: 12px;
+  border: 2px solid #111;
+  border-radius: 0;
+  padding: 12px;
+  background:#fff;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+.logo-img{
+  display:block;
+  width:100%;
+  max-width: 520px;
+  height:auto;
+  border: 2px solid #111;
+  border-radius: 0;
+  background:#fff;
+}
+.logo-cap{
+  margin-top: 10px;
+  font-size: 12px;
+  color:#444;
+  line-height: 1.6;
+}
+
+.logo-img{
+  display:block;
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  border: 2px solid #111;
+}
+
+  </style>
+</head>
+
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand"><a href="./">Iz Tecúm</a></div>
+      <nav class="topnav">
+        <a href="./projects/">projects</a>
+        <a href="./research/">research</a>
+        <a href="./experience/">experience</a>
+        <a href="./organizations/">organizations</a>
+        <a href="./awards/">awards</a>
+        <a href="./media/">media</a>
+        <a href="./contact/">contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero-strip"></div>
+
+  <main class="container">
+    <div class="grid">
+
+      <!-- LEFT -->
+      <aside class="leftSticky">
+      <img class="portrait-img" src="./assets/iz-tecum.jpeg" alt="iz-tecum" />
+
+        <div class="bio">
+        <p>
+          Hey! I am a first-generation American Indian second-year student currently attending Columbia University. I study (pure) mathematics, and have recently been undertaking deep explorations in complex analysis, analytic number theory, and probability theory. 
+        </p>
+        <p>
+          My hometown is Optima, Oklahoma, and I was originally a farmer for most of my life.
+        </p>
+        </div>
+
+        <div class="email">ilt2109@columbia.edu</div>
+
+        <div class="links">
+          <h4>handles</h4>
+          <a href="https://github.com/iz-tecum">github ↗</a>
+          <a href="https://www.linkedin.com/in/israel-tramos/">linkedin ↗</a>
+        </div>
+      </aside>
+
+      <!-- MIDDLE -->
+      <section class="blog" aria-label="Discussion board">
+        <h3 class="blog-title">BLOG</h3>
+
+        <div class="post">
+          <div class="post-title">Representation of Riemann Sphere</div>
+          <div class="post-meta">2025 · December</div>
+
+          <p>
+            Hello everybody! I just wanted to draw a clean-ish picture of the Riemann sphere projected onto the plane for trivial demonstration. Clearly, \(\infty\) is unioned with the otherwise complete \(\mathbb{C}\).
+          </p>
+          <p>
+            Outside of the personal influences that this experience has shown on me, this is more-or-less a running mindful abstract I come back to when Möbius maps start feeling too overwhelming!
+          </p>
+          <p>
+            Of course, this is a first time I attempt to draw something while utilizing several languages and packages, CSS, JavaScript, KaTeX (the JS library that allows us to translate clean HTML code into rendered LaTeX), and several other little gadgets!
+          </p>
+
+          <div class="retro-note">
+            <div class="retro-head">
+              <div class="tag">riemann sphere</div>
+              <div class="sub">stereographic projection<br>static diagram</div>
+            </div>
+
+            <div class="retro-body">
+              Formally, we think of \(\mathbb{C}_\infty = \mathbb{C} \cup \{\infty\}\) as a sphere
+              The point \(\infty\) is the north pole in this picture
+            </div>
+
+            <div class="retro-desc">
+              Soft colors here are just a visual cue
+              <em>blue</em> lives on the sphere side
+              <em>green</em> lives on the plane side
+              and the <em>red</em> line is the projection path
+            </div>
+
+            <!-- SVG diagram -->
+            <svg class="retro-figure" viewBox="0 0 920 440" role="img" aria-label="Riemann sphere and complex plane with stereographic projection line">
+              <!-- frame -->
+              <rect x="28" y="28" width="864" height="384" fill="none" stroke="#111" stroke-width="2"/>
+
+              <!-- left block: sphere -->
+              <g transform="translate(70,70)">
+                <!-- sphere outline -->
+                <circle cx="180" cy="150" r="120" fill="none" stroke="var(--sphere)" stroke-width="2.5"/>
+                <!-- equator -->
+                <ellipse cx="180" cy="150" rx="120" ry="34" fill="none" stroke="var(--sphere)" stroke-width="2.5" stroke-dasharray="8 6" opacity="0.9"/>
+                <!-- meridian -->
+                <ellipse cx="180" cy="150" rx="32" ry="120" fill="none" stroke="var(--sphere)" stroke-width="2.5" opacity="0.9"/>
+
+                <!-- north pole -->
+                <rect x="176" y="26" width="8" height="8" fill="var(--sphere)"/>
+                <text x="190" y="36" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="var(--sphere)">N  ∞</text>
+
+                <!-- south label -->
+                <text x="176" y="286" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="var(--sphere)">S</text>
+
+                <!-- point P on sphere -->
+                <circle cx="238" cy="184" r="6" fill="none" stroke="var(--sphere)" stroke-width="2.5"/>
+                <text x="250" y="188" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="var(--sphere)">P</text>
+
+                <!-- projection line from north pole to P extended -->
+                <line x1="180" y1="30" x2="238" y2="184" stroke="var(--proj)" stroke-width="2.5" opacity="0.9"/>
+              </g>
+
+              <!-- right block: plane -->
+              <g transform="translate(470,90)">
+                <!-- plane rectangle -->
+                <rect x="0" y="0" width="360" height="260" fill="none" stroke="var(--plane)" stroke-width="2.5"/>
+                <!-- axes -->
+                <line x1="180" y1="18" x2="180" y2="242" stroke="var(--plane)" stroke-width="2.5" opacity="0.9"/>
+                <line x1="26" y1="130" x2="334" y2="130" stroke="var(--plane)" stroke-width="2.5" opacity="0.9"/>
+
+                <!-- axis labels -->
+                <text x="340" y="134" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="var(--plane)">Re</text>
+                <text x="172" y="14" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="var(--plane)">Im</text>
+
+                <!-- point z -->
+                <rect x="260" y="96" width="8" height="8" fill="var(--plane)"/>
+                <text x="276" y="104" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="var(--plane)">z</text>
+                <text x="276" y="124" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="var(--plane)">z = x + iy</text>
+
+                <!-- dashed guides -->
+                <line x1="264" y1="100" x2="264" y2="130" stroke="var(--plane)" stroke-width="2.5" stroke-dasharray="8 6" opacity="0.8"/>
+                <line x1="180" y1="100" x2="264" y2="100" stroke="var(--plane)" stroke-width="2.5" stroke-dasharray="8 6" opacity="0.8"/>
+              </g>
+
+              <!-- dashed projection continuation across -->
+              <line x1="308" y1="254" x2="650" y2="190" stroke="var(--proj)" stroke-width="2.5" stroke-dasharray="8 6" opacity="0.85"/>
+
+              <!-- small captions -->
+              <text x="72" y="408" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#111">
+                stereographic projection from N
+              </text>
+              <text x="470" y="408" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#111">
+                complex plane for z
+              </text>
+            </svg>
+
+            <div class="retro-foot">
+              When \(f = u + iv\) is holomorphic we get the usual Cauchy Riemann conditions
+              \(\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}\)
+              and
+              \(\frac{\partial u}{\partial y} = - \frac{\partial v}{\partial x}\)
+            </div>
+          </div>
+        </div>
+
+<div class="post">
+  <div class="post-title">Jane Street support of CES</div>
+  <div class="post-meta">2025 · December</div>
+
+  <p>
+    Quick appreciation post for Jane Street, newest corporate sponsor of Columbia Economics Society!
+  </p>
+  <p>
+    If any streeter is reading this, the community is deeply appreciated thank you for backing students who are trying to take the work seriously.
+  </p>
+
+  <div class="logo-card">
+<img
+  class="logo-img"
+  alt="Jane Street logo"
+  src="./assets/janestreet-logo.jpeg"
+/>
+    <div class="logo-cap">
+      Jane Street x Columbia Economics Society
+
+  </div>
+</div>
+
+       <div class="post">
+  <div class="post-title">First post</div>
+  <div class="post-meta">2025 · December</div>
+
+  <p>
+    Hey, just keeping this first post short as I continue testing layout and spacing.
+  </p>
+</div>
+      </section>
+
+      <!-- RIGHT -->
+      <aside class="rightSticky">
+        <div class="stack">
+          <h3>current readings</h3>
+          <div class="item"><div class="num">01</div>papers on probability</div>
+          <div class="item"><div class="num">02</div>complex analysis by Lars Ahlfors</div>
+          <div class="item"><div class="num">03</div>algebra ii notes on modules/exact sequences</div>
+          <div class="item"><div class="num">04</div>general eigenfunction expansions and unitary representations by Krzysztof Maurin</div>
+          <div class="item"><div class="num">05</div>algebraic number theory by Jürgen Neukirch</div>
+        </div>
+
+        <div class="stack">
+          <h3>open questions</h3>
+          <div class="item"><div class="num">01</div>Are there infinitely many Mersenne primes?</div>
+          <div class="item"><div class="num">02</div>Does every odd perfect number fail to exist?</div>
+          <div class="item"><div class="num">03</div>Is every smooth solution to 3D Navier-Stokes global in time?</div>
+          <div class="item"><div class="num">04</div>Are there infinitely many twin primes?</div>
+          <div class="item"><div class="num">05</div>Will I ever stop wearing my light blue Columbia undergraduate admissions sweater?</div>
+        </div>
+      </aside>
+
+    </div>
+
+    <footer>© 2025 Iz Tecúm</footer>
+  </main>
+
+  <div class="hero-strip bottom"></div>
+
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: "\\(", right: "\\)", display: false },
+            { left: "\\[", right: "\\)", display: true }
+          ],
+          throwOnError: false
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

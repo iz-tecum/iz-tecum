@@ -1,0 +1,944 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Awards — Iz Tecúm</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *{ box-sizing:border-box; }
+    :root{
+      --navW: 1200px;
+      --w: 1280px;
+      --padX: 24px;
+      --padTop: 26px;
+      --padBot: 90px;
+
+      --line:#eee;
+      --muted:#666;
+      --muted2:#777;
+
+      --heroH: 320px;
+      --heroGap: 18px;
+      --topbarH: 58px;
+
+      --radius: 18px;
+
+      /* scroll height for the “case” area */
+      --caseScrollH: calc(100vh - (var(--topbarH) + var(--heroH) + 52px));
+      --scrollPadRight: 10px;
+
+      /* awards */
+      --ring:#e8e8e8;
+    }
+
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color:#111;
+      background:#fff;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
+    /* TOP NAV */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background:#fff;
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar-inner{
+      max-width: var(--navW);
+      margin: 0 auto;
+      padding: 14px var(--padX);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 16px;
+    }
+    .brand{
+      font-weight: 700;
+      letter-spacing:-0.01em;
+      white-space: nowrap;
+    }
+    .topnav{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      justify-content:flex-end;
+    }
+    .topnav a{
+      display:inline-block;
+      padding: 10px 14px;
+      border-radius: 999px;
+      text-decoration:none;
+      transition: background-color .12s ease;
+      color:#333;
+    }
+    .topnav a:hover{ background: rgba(0,0,0,.06); text-decoration:none; }
+    .topnav a.active{ background: rgba(0,0,0,.08); }
+
+    /* HERO STRIP (top) */
+    .hero-strip{
+      width:100%;
+      height: var(--heroH);
+      background: #dbf2ff;
+      margin: 0 0 var(--heroGap);
+    }
+
+    .container{
+      max-width: var(--w);
+      margin: 0 auto;
+      padding: var(--padTop) var(--padX) var(--padBot);
+    }
+
+    /* page header row */
+    .page-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 18px;
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+      border-bottom: 4px solid var(--line);
+    }
+    .page-head h1{
+      margin: 0;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing:-0.02em;
+    }
+    .page-head p{
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+      max-width: 780px;
+    }
+    .head-right{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+    }
+    .pill{
+      display:inline-block;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.05);
+      color:#333;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    /* layout (same as exp/org) */
+    .layout{
+      display:grid;
+      grid-template-columns: 320px 1fr 360px;
+      gap: 18px;
+      align-items:start;
+    }
+
+    /* bubble cards */
+    .bubble{
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background:#fff;
+      padding: 16px 16px;
+      margin: 0 0 18px;
+    }
+    .bubble h3{
+      margin:0 0 10px;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color:#111;
+    }
+    .bubble a{
+      display:block;
+      margin: 8px 0 0;
+      font-size: 14px;
+      color:#333;
+      text-decoration:none;
+    }
+    .bubble a:hover{ text-decoration: underline; }
+
+    .portrait{
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      border-radius: calc(var(--radius) - 4px);
+      border: 1px solid var(--line);
+      background: #e5e5e5;
+      margin-bottom: 12px;
+    }
+    .mini{
+      margin:0;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .mini b{ color:#111; }
+
+    /* center panel */
+    .panel{
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background:#fff;
+      padding: 16px 16px;
+      margin: 0 0 18px;
+    }
+    .panel-top{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+    .panel h2{
+      margin:0;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing:-0.01em;
+    }
+    .panel .sub{
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* scrolling case wrapper */
+    .case-scroll{
+      max-height: var(--caseScrollH);
+      overflow-y: auto;
+      padding-right: var(--scrollPadRight);
+      scrollbar-gutter: stable;
+      scrollbar-color: rgba(0,0,0,.35) transparent;
+      scrollbar-width: thin;
+    }
+
+    /* ribbon rail (subtle, inside panel) */
+    .ribbon{
+      position: relative;
+      padding-left: 18px;
+      margin-top: 8px;
+    }
+    .ribbon::before{
+      content:"";
+      position:absolute;
+      left: 10px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: var(--ring);
+      background:#EAF7F0;
+
+    }
+
+    /* YEAR case */
+    details.year{
+      margin: 0 0 18px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background:#fff;
+      overflow:hidden;
+    }
+
+    summary.year-summary{
+      list-style:none;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      padding: 14px 14px;
+      position:relative;
+    }
+    summary.year-summary::-webkit-details-marker{ display:none; }
+    summary.year-summary::marker{ content:""; }
+
+    .year-left{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    /* medal */
+    .medal{
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      background:#EAF7F0;
+      border: 0px solid var(--line);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:800;
+      color:#111;
+      flex: 0 0 auto;
+      position: relative;
+    }
+    /* attach medal to ribbon */
+    .medal::before{
+      content:"";
+      position:absolute;
+      left: -22px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 22px;
+      height: 2px;
+      background: var(--ring);
+      background:#EAF7F0;
+
+    }
+
+    .year-title h3{
+      margin: 0;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing:-0.01em;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .year-title p{
+      margin: 4px 0 0;
+      color: var(--muted2);
+      font-size: 13px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    /* chevron */
+    summary.year-summary::after{
+      content:"";
+      width: 10px;
+      height: 10px;
+      border-right: 2px solid rgba(0,0,0,.35);
+      border-bottom: 2px solid rgba(0,0,0,.35);
+      transform: rotate(45deg);
+      transition: transform .12s ease;
+      flex: 0 0 auto;
+    }
+    details.year[open] summary.year-summary::after{
+      transform: rotate(-135deg);
+    }
+
+    .year-body{
+      border-top: 1px solid var(--line);
+      padding: 14px 14px;
+    }
+
+    /* award entries */
+    .award{
+      display:grid;
+      grid-template-columns: 20px 1fr;
+      gap: 18px;
+      padding: 12px 0;
+    }
+    .award + .award{ border-top: 1px solid var(--line); }
+
+    .award-pin{
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background:#bdbdbd;
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 1px #d9d9d9;
+      margin-top: 4px;
+      margin-left: 22px;
+      justify-self: center;
+    }
+
+    .award-title{
+      margin: 0;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+    }
+    .award-meta{
+      margin: 6px 0 0;
+      color: var(--muted2);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .award-desc{
+      margin: 8px 0 0;
+      color:#555;
+      font-size: 14px;
+      line-height: 1.75;
+    }
+    .award-desc ul{
+      margin: 8px 0 0 18px;
+      padding: 0;
+    }
+    .award-desc li{ margin: 6px 0; }
+
+    /* bottom hero (homepage vibe) */
+    .hero-strip-bottom{
+      max-width: var(--w);
+      margin: 26px auto 0;
+      height: 320px;
+      background:#ddd;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+    }
+
+    footer{
+      margin-top: 40px;
+      font-size: 13px;
+      color:#aaa;
+      text-align:center;
+      padding-bottom: 18px;
+    }
+
+    @media (max-width: 1200px){
+      .layout{ grid-template-columns: 1fr; }
+      .case-scroll{ max-height: none; overflow: visible; padding-right: 0; }
+    }
+    @media (max-width: 980px){
+      :root{ --heroH: 220px; }
+      .page-head{ align-items:flex-start; flex-direction:column; }
+      .head-right{ justify-content:flex-start; }
+      .ribbon{ padding-left: 0; }
+      .ribbon::before{ display:none; }
+      .medal::before{ display:none; }
+      .hero-strip-bottom{ height: 220px; border-radius: 22px; }
+    }
+
+    .portrait{
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: calc(var(--radius) - 4px);
+  border: 1px solid var(--line);
+  background: #e5e5e5;
+  margin-bottom: 12px;
+}
+
+/* --- portrait card (image + overlays) --- */
+.portrait-card{
+  position: relative;
+  overflow: hidden; /* keeps everything inside rounded border */
+  background: #e5e5e5;
+}
+
+.portrait-img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   /* snug, no stretching */
+  display: block;
+}
+
+/* top-left label */
+.portrait-badge{
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.38);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .01em;
+}
+
+/* bottom overlay using details/summary (no JS) */
+.portrait-info{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  border-top: 0px solid rgba(255,255,255,.18);
+  background: rgba(0,0,0,.22);
+  transition: background .15s ease;
+}
+
+.portrait-card:hover .portrait-info{
+  background: rgba(0,0,0,.34); /* more visible on hover */
+}
+
+.portrait-summary{
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.portrait-summary::-webkit-details-marker{ display:none; }
+.portrait-summary::marker{ content:""; }
+
+.portrait-summary-chev{
+  font-size: 12px;
+  opacity: .9;
+  transform: translateY(-1px);
+}
+.portrait-info[open] .portrait-summary-chev{
+  transform: rotate(180deg) translateY(1px);
+}
+
+/* expandable panel (scrolls if too long) */
+.portrait-panel{
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 12px;
+  transition: max-height .18s ease, padding .18s ease;
+}
+
+.portrait-info[open] .portrait-panel{
+  max-height: 160px;     /* “expand just a little more” */
+  padding: 10px 12px 12px;
+  overflow: auto;
+}
+
+/* bio text */
+.portrait-bio{
+  margin: 0;
+  color: rgba(255,255,255,.92);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+/* scrollbar styling (transparent track) */
+.portrait-panel{
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,.35) transparent;
+}
+.portrait-panel::-webkit-scrollbar{ width: 10px; }
+.portrait-panel::-webkit-scrollbar-track{ background: transparent; }
+.portrait-panel::-webkit-scrollbar-thumb{
+  background: rgba(255,255,255,.28);
+  border-radius: 999px;
+}
+.portrait-panel::-webkit-scrollbar-thumb:hover{
+  background: rgba(255,255,255,.38);
+}
+
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand"><a href="../">Iz Tecúm</a></div>
+      <nav class="topnav">
+        <a href="../projects/">projects</a>
+        <a href="../research/">research</a>
+        <a href="../experience/">experience</a>
+        <a href="../organizations/">organizations</a>
+        <a class="active" href="./">awards</a>
+        <a href="../media/">media</a>
+        <a href="../contact/">contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero-strip"></div>
+
+  <main class="container">
+
+    <div class="page-head">
+      <div>
+        <h1>Awards</h1>
+        <p>
+          Here I have curated a selection of scholarships, honors, and recognitions I have received over the years. The listing demonstrates my drastic life pivots and some of the key moments that have shaped my life.
+        </p>
+      </div>
+      <div class="head-right">
+        <span class="pill">achievements</span>
+      </div>
+    </div>
+
+    <div class="layout">
+
+      <!-- LEFT -->
+      <aside>
+<div class="portrait portrait-card">
+  <img class="portrait-img" src="./sa.jpg" alt="Krzysztof Maurin">
+
+  <!-- top-left label -->
+  <div class="portrait-badge">
+    St. Augustine of Hippo · Philosopher
+  </div>
+
+  <!-- bottom expandable overlay -->
+  <details class="portrait-info">
+    <summary class="portrait-summary">
+      <span class="portrait-summary-title">why he’s here</span>
+      <span class="portrait-summary-chev">⌃</span>
+    </summary>
+
+    <div class="portrait-panel">
+<p class="portrait-bio">
+  Augustine of Hippo was a late antique theologian and philosopher whose writing shaped how the West talks about
+  interiority, memory, time, and the will. I keep him here because <em>Confessions</em> is one of the cleanest examples
+  of sustained self-audit I know.
+</p>
+    </div>
+  </details>
+</div>
+<div class="bubble">
+  <p class="mini"><b>ganas</b></p>
+  <p class="mini"><i>n.</i> the soul's right to want.</p>
+</div>
+
+        <div class="bubble">
+          <h3>site</h3>
+          <a href="../">home ↩</a>
+          <a href="../projects/">projects →</a>
+          <a href="../research/">research →</a>
+          <a href="../media/">media →</a>
+        </div>
+
+        <div class="bubble">
+          <h3>handles</h3>
+          <a href="https://www.linkedin.com/in/israel-tramos/">linkedin ↗</a>
+          <a href="https://github.com/iz-tecum">github ↗</a>
+          <a href="mailto:ilt2109@columbia.edu">email ↗</a>
+        </div>
+      </aside>
+
+      <!-- CENTER -->
+      <section>
+        <div class="panel">
+          <div class="panel-top">
+            <div>
+              <h2>Selected Honors</h2>
+              <p class="sub">A year-by-year snapshot of received scholarships, awards, and recognitions.</p>
+            </div>
+          </div>
+
+          <div class="case-scroll">
+            <div class="ribbon">
+
+             <!-- 2025 -->
+<details class="year">
+  <summary class="year-summary">
+    <div class="year-left">
+      <div class="medal">25</div>
+      <div class="year-title">
+        <h3>2025</h3>
+        <p>recent highlights</p>
+      </div>
+    </div>
+  </summary>
+
+  <div class="year-body">
+
+    <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">AMS JMM United States Delegation</h4>
+        <div class="award-meta">American Mathematical Society · Nomination · 2026</div>
+      </div>
+    </div>
+
+        <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">ICM Recommendation</h4>
+        <div class="award-meta">International Congress of Mathematicians · Nomination · 2025</div>
+      </div>
+    </div>
+
+    <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">Honorary Valedictorian</h4>
+        <div class="award-meta">Oklahoma School of Science and Mathematics · Recognition · 2025</div>
+      </div>
+    </div>
+
+        <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">Dean's List (3x)</h4>
+        <div class="award-meta">Columbia University · Award · 2025</div>
+      </div>
+    </div>
+
+  </div>
+</details>
+
+<!-- 2024 -->
+<details class="year">
+  <summary class="year-summary">
+    <div class="year-left">
+      <div class="medal">24</div>
+      <div class="year-title">
+        <h3>2024</h3>
+        <p>scholarships and leadership awards</p>
+      </div>
+    </div>
+  </summary>
+
+  <div class="year-body">
+
+        <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">Valedictorian</h4>
+        <div class="award-meta">Guymon High School · Recognition · 2024</div>
+      </div>
+    </div>
+
+    <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">National College Match Scholarship</h4>
+        <div class="award-meta">QuestBridge · Scholarship · 2024</div>
+      </div>
+    </div>
+
+    <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">The Gates Scholarship</h4>
+        <div class="award-meta">The Gates Scholarship · Scholarship · 2024</div>
+      </div>
+    </div>
+
+    <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">Dell Scholarship</h4>
+        <div class="award-meta">Michael &amp; Susan Dell Foundation · Scholarship · 2024</div>
+      </div>
+    </div>
+
+    <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">GE-Reagan Foundation Scholarship</h4>
+        <div class="award-meta">Ronald Reagan Presidential Foundation · Scholarship · 2024</div>
+      </div>
+    </div>
+
+    <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">Elks Most Valuable Student Scholarship</h4>
+        <div class="award-meta">Elks National Foundation · Scholarship · 2024</div>
+      </div>
+    </div>
+
+    <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">National Honor Society Scholarship</h4>
+        <div class="award-meta">National Honor Society · Scholarship · 2024</div>
+      </div>
+    </div>
+
+    <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">Helium Litigation Fund Scholarship</h4>
+        <div class="award-meta">Helium Litigation Fund · Scholarship · 2024</div>
+      </div>
+    </div>
+
+    <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">PTCI Scholarship</h4>
+        <div class="award-meta">Panhandle Telephone Cooperative, Inc. · Scholarship · 2024</div>
+      </div>
+    </div>
+
+       <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">Burger King Scholarship</h4>
+        <div class="award-meta">Burger King Foundation · Scholarship · 2024</div>
+      </div>
+    </div>
+
+
+
+    <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">Seaboard Foods Scholarship</h4>
+        <div class="award-meta">Seaboard Foods · Scholarship · 2024</div>
+      </div>
+    </div>
+
+       <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">National Youth Science Camp Delegation</h4>
+        <div class="award-meta">National Youth Science Academy · Recognition · 2024</div>
+      </div>
+    </div>
+
+           <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">Grata Scholar with Distinction</h4>
+        <div class="award-meta">Grata Scholars Program · Recognition · 2024</div>
+      </div>
+    </div>
+
+  </div>
+</details>
+
+<!-- Earlier -->
+<details class="year">
+  <summary class="year-summary">
+    <div class="year-left">
+      <div class="medal">⋯</div>
+      <div class="year-title">
+        <h3>Earlier</h3>
+        <p>select early academic/athletic achievements</p>
+      </div>
+    </div>
+  </summary>
+
+  <div class="year-body">
+
+    <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">AMC 12B Honor Roll of Distinction</h4>
+        <div class="award-meta">Mathematical Association of America · Recognition · 2024</div>
+      </div>
+    </div>
+
+    <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">Class 5A Cross Country State Runner-Up</h4>
+        <div class="award-meta">OSSAA · Award · 2023</div>
+      </div>
+    </div>
+
+        <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">Class 5A Speech and Debate State Runner-Up</h4>
+        <div class="award-meta">OSSAA · Award · 2023</div>
+      </div>
+    </div>
+
+    <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">Class 2A Cross Country State Runner-Up</h4>
+        <div class="award-meta">OSSAA · Award · 2022</div>
+      </div>
+    </div>
+
+    <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">Class 2A Track and Field State Runner-Up</h4>
+        <div class="award-meta">OSSAA · Award · 2022</div>
+      </div>
+    </div>
+
+    <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">Class 2A 800m State Runner-Up</h4>
+        <div class="award-meta">OSSAA · Award · 2022</div>
+      </div>
+    </div>
+
+    <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">Class 2A 3200m State Runner-Up</h4>
+        <div class="award-meta">OSSAA · Award · 2022</div>
+      </div>
+    </div>
+
+    <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">Class 2A-6A All-State Orchestra</h4>
+        <div class="award-meta">OKMEA · Award · 2022</div>
+      </div>
+    </div>
+
+        <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">Class 5A Cross Country State Champion</h4>
+        <div class="award-meta">OSSAA · Award · 2021</div>
+      </div>
+    </div>
+
+  </div>
+</details>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT -->
+      <aside>
+        <div class="bubble">
+          <h3>signal types</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <span style="display:inline-block;padding:8px 10px;border-radius:999px;background:rgba(0,0,0,.05);font-size:13px;">scholarships</span>
+            <span style="display:inline-block;padding:8px 10px;border-radius:999px;background:rgba(0,0,0,.05);font-size:13px;">research</span>
+            <span style="display:inline-block;padding:8px 10px;border-radius:999px;background:rgba(0,0,0,.05);font-size:13px;">willpower</span>
+            <span style="display:inline-block;padding:8px 10px;border-radius:999px;background:rgba(0,0,0,.05);font-size:13px;">leadership</span>
+            <span style="display:inline-block;padding:8px 10px;border-radius:999px;background:rgba(0,0,0,.05);font-size:13px;">competitions</span>
+          </div>
+        </div>
+
+<div class="bubble">
+  <h3>context</h3>
+
+  <p class="mini">
+    I grew up in a situation where money wasn’t a “stress,” it was the weather. It shaped everything
+    in the background. There wasn’t a clean runway, and there definitely wasn’t a safety net.
+<br><br>
+    My late secondary education was an eye-opening impression. I graduated from two polar high schools and the experience
+    was not linear or “standard.” Parts of it felt as resource wars, and other parts
+    were intense and weirdly high-level because of a sudden influx of support.
+<br><br>
+
+    I applied to college as a financial independent. At Columbia, that’s not common at all,
+    it’s statistically something with less than 20 undergraduates out of the ~6,700 undergraduate population.
+    That’s the frame I’m operating in most days, which makes the daily experience quite unique.
+<br><br>
+Since arriving to Columbia, I have been fortunate to receive various scholarships and recognitions that have alleviated financial burdens and allowed me to focus on my academic and personal growth.
+  </p>
+</div>
+
+        <div class="bubble">
+          <h3>quick links</h3>
+          <a href="../research/resume.pdf" target="_blank" rel="noopener">resume ↗</a>
+          <a href="../contact/">contact →</a>
+        </div>
+      </aside>
+
+    </div>
+
+    <footer>© 2025 Iz Tecúm</footer>
+  </main>
+</body>
+</html>
