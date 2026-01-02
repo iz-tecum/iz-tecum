@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CES | Contact</title>
+  <title>CES | Recruitment</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,12 +20,12 @@
     }
 
     /* =========================
-       GLOBAL LINKS (smooth hover lighten)
+       GLOBAL LINKS (same system)
        ========================= */
     a{
       color: inherit;
       text-decoration: none;
-      transition: opacity 220ms ease, color 220ms ease, border-color 220ms ease, background-color 220ms ease;
+      transition: opacity 220ms ease, color 220ms ease, border-color 220ms ease;
     }
     a:hover{ opacity: .82; }
 
@@ -67,7 +67,7 @@
       --card-bg: rgb(245,245,245);
       --card-radius: 0px;
 
-      /* ✅ reserve space for floating logo (so nav aligns like other pages) */
+      /* reserve space for floating logo */
       --logo-w: 54px;
       --logo-h: 58px;
       --logo-gap: 18px;
@@ -467,7 +467,8 @@
     background: rgb(0, 0, 0);
   }
 }
-    /* =========================
+
+/* =========================
      HERO
      ========================= */
   .hero{
@@ -584,18 +585,18 @@
     }
 
     /* =========================
-       CONTACT LAYOUT (same as Alumni/FAQ)
+       RECRUITMENT LAYOUT (same as FAQ/Alumni)
        ========================= */
-    .contact-layout{
+    .recruit-layout{
       display:flex;
       align-items:flex-start;
       gap: 28px;
     }
-    .contact-main{
+    .recruit-main{
       flex: 1 1 auto;
       min-width: 0;
     }
-    .contact-side{
+    .recruit-side{
       width: 420px;
       flex: 0 0 420px;
       position: sticky;
@@ -625,7 +626,9 @@
     }
     .side-photo:hover::before{ transform: scale(var(--grid-scale)); }
 
-    /* Title rhythm */
+    /* =========================
+       TITLE + STACK (same rhythm)
+       ========================= */
     .block-title{
       margin: 40px 0 -28px;
       text-align:center;
@@ -635,115 +638,69 @@
       color: rgba(16,24,40,.92);
     }
 
-    /* Move EVERYTHING under title together (MAIN KNOB) */
-    .contact-stack{
+    /* MAIN KNOB: move everything under title together */
+    .recruit-stack{
       width: 80%;
       margin-left: 40px;
       transform: translateX(75px);
     }
 
-    /* description “card” */
-    .contact-intro{
+    .recruit-card{
       border: 0px solid rgba(16,24,40,.10);
       border-radius: var(--card-radius);
-      padding: 30px 34px 20px;
+      padding: 50px 34px 20px; /* keeps the “Our Alumni” spacing feel */
       text-align:center;
       background: transparent;
-      margin-top: 22px; /* gives the Alumni-style breathing room */
     }
-    .contact-text{
+    .recruit-text{
       margin: 0 auto;
-      max-width: 980px;
+      max-width: 1020px;
       color: rgba(16,24,40,.90);
-      font-size: 22px;
-      line-height: 1.95;
+      font-size: 20px;
+      line-height: 2.0;
       font-weight: 400;
       white-space: pre-line;
     }
 
-    /* Form container matches “class-card” gray blocks */
-    .form-card{
-      margin-top: 34px;
-      background: var(--card-bg);
-      border: 0px solid rgba(16,24,40,.10);
-      border-radius: var(--card-radius);
-      padding: 34px 34px 30px;
-      transition: background-color 220ms ease, opacity 220ms ease;
+    .recruit-text a{
+      border-bottom: 1px solid rgba(16,24,40,.22);
+      padding-bottom: 2px;
     }
-    .form-card:hover{ background: rgba(245,245,245,.92); }
-
-    .field{
-      margin: 0 0 18px;
-    }
-    .label{
-      display:block;
-      font-size: 12px;
-      letter-spacing: .10em;
-      text-transform: uppercase;
-      font-weight: 600;
-      color: rgba(16,24,40,.72);
-      margin: 0 0 10px;
-    }
-
-    .two-col{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    .input, .textarea{
-      width: 100%;
-      appearance: none;
-      border: 1px solid rgba(16,24,40,.16);
-      background: rgba(255,255,255,.70);
-      border-radius: 0px;
-      padding: 14px 14px;
-      font-family: inherit;
-      font-size: 14px;
-      color: rgba(16,24,40,.92);
-      outline: none;
-      transition: border-color 220ms ease, background-color 220ms ease;
-    }
-    .textarea{
-      min-height: 160px;
-      resize: vertical;
-      line-height: 1.85;
-    }
-    .input:focus, .textarea:focus{
-      border-color: rgba(16,24,40,.45);
-      background: rgba(255,255,255,.92);
-    }
-
-    .send-row{
-      margin-top: 10px;
-      display:flex;
-      justify-content: flex-end;
-    }
-
-    .send-btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding: 12px 22px;
-      min-width: 160px;
-
-      border: 2px solid rgb(0,0,0);
-      color: rgba(16,24,40,.92);
-      background: transparent;
-
-      font-weight: 600;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      font-size: 12px;
-
-      transition: background 220ms ease, transform 220ms ease, opacity 220ms ease;
-      cursor: pointer;
-    }
-    .send-btn:hover{ background: rgba(16,24,40,.06); }
-    .send-btn:active{ transform: translateY(0px); }
+    .recruit-text a:hover{ border-color: rgba(16,24,40,.12); opacity: .82; }
 
     /* =========================
-       FOOTER
+       SECTIONS (GETTING INVOLVED / IMPORTANT DATES)
+       ========================= */
+    .recruit-section{
+      margin-top: 44px;
+      text-align: center;
+    }
+    .recruit-section-title{
+      margin: 0 0 14px;
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(16,24,40,.70);
+    }
+    .recruit-section-body{
+      margin: 0 auto;
+      max-width: 1150px;
+      color: rgba(16,24,40,.80);
+      font-size: 20px;
+      line-height: 2.05;
+      font-weight: 400;
+      white-space: pre-line;
+    }
+    .recruit-divider{
+      margin: 48px 0;
+      border: 0;
+      border-top: 1px solid rgba(16,24,40,.16);
+      opacity: .7;
+    }
+
+    /* =========================
+       FOOTER (same system)
        ========================= */
     .footer{
       padding: 64px var(--padX);
@@ -792,19 +749,19 @@
     }
     .footer-links a:hover{ border-color: rgba(16,24,40,.12); opacity: .82; }
 
-    .footer-copy{
-      max-width: 1800px;
-      margin: 0px auto 0;
-      padding: 0 var(--padX);
-      text-align: center;
-      color: rgba(16,24,40,.60);
-      font-size: 12px;
-      letter-spacing: .02em;
+  .footer-copy{
+    max-width: 1800px;
+    margin: 0px auto 0;
+    padding: 0 var(--padX);
+    text-align: center;
+    color: rgba(16,24,40,.60);
+    font-size: 12px;
+    letter-spacing: .02em;
   }
 
     /* =========================
        PAGE LOAD + SCROLL REVEAL
-       (match your CES preload style system)
+       (match CES preload style system)
        ========================= */
     body.preload .hero-bg{ opacity: 1 !important; }
     body.preload .hero-inner > div{ opacity: 1; transform: translateY(10px); }
@@ -837,7 +794,7 @@
        RESPONSIVE
        ========================= */
     @media (max-width: 1680px){
-      .contact-side{ width: 320px; flex-basis: 320px; }
+      .recruit-side{ width: 320px; flex-basis: 320px; }
       .side-photo{ height: 740px; }
     }
 
@@ -846,8 +803,8 @@
       .recruit{ padding: 10px 14px !important; }
       .hero{ min-height: 560px; }
 
-      .contact-layout{ flex-direction: column; }
-      .contact-side{
+      .recruit-layout{ flex-direction: column; }
+      .recruit-side{
         position: static;
         width: 100%;
         flex-basis: auto;
@@ -855,19 +812,16 @@
       }
       .side-photo{ height: 520px; }
 
-      .contact-stack{
+      .recruit-stack{
         width: 100%;
         margin-left: 0;
         transform: none;
       }
 
-      .two-col{ grid-template-columns: 1fr; }
-
       .footer-inner{ flex-direction: column; }
       .footer-right{ text-align:left; }
       .footer-links{ align-items:flex-start; }
 
-      /* ✅ tighten logo + reserved padding on smaller screens */
       :root{ --logo-w: 46px; --logo-h: 50px; --logo-gap: 14px; }
       .topbar-inner{ padding-left: calc(var(--padX) + var(--logo-w) + var(--logo-gap)); }
     }
@@ -916,12 +870,12 @@
   <main class="page-clip">
     <!-- HERO -->
     <section class="hero" id="hero">
-      <div class="hero-bg a" id="bgA"></div>
-      <div class="hero-bg b" id="bgB"></div>
+      <div class="hero-bg" id="bgA"></div>
+      <div class="hero-bg" id="bgB"></div>
 
       <div class="hero-inner">
         <div>
-          <h1>Contact</h1>
+          <h1>Recruitment</h1>
         </div>
       </div>
 
@@ -937,103 +891,38 @@
   </main>
 
   <!-- MAIN -->
-  <section class="section reveal" id="contact-main">
+  <section class="section reveal" id="recruitment">
     <div class="wrap">
-      <div class="contact-layout">
+      <div class="recruit-layout">
 
         <!-- LEFT -->
-        <div class="contact-main">
-          <h2 class="block-title">Contact Us</h2>
+        <div class="recruit-main">
+          <h2 class="block-title">Getting Involved</h2>
 
-          <div class="contact-stack">
-            <div class="contact-intro">
-              <p class="contact-text">Fill out the form below to keep in touch!</p>
+          <div class="recruit-stack">
+            <div class="recruit-card">
+              <p class="recruit-text">Each fall, CES accepts new applicants. The application process involves a written application and two rounds of interviews. We look for candidates that have an interest in investing and a strong desire to learn. No prior experience is necessary. While real world experience is certainly a plus, we recognize that many students do not have exposure to the financial services industry. As such, CES accepts many students without prior investment experience or knowledge. Naturally, the process is competitive. Each year we accept about 12 applicants from a pool of over 200 applicants, and we encourage all current Columbia or Barnard students to apply.</p>
             </div>
 
-            <!-- FORM (replace action with your Formspree endpoint) -->
-            <div class="form-card">
-<form id="contactForm" action="/api/contact" method="POST" novalidate>
-  <!-- honeypot (bots fill this; humans won't see it) -->
-  <input type="text" name="company" autocomplete="off" tabindex="-1"
-         style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" />
+            <div class="recruit-section" aria-label="Getting involved">
+              <p class="recruit-section-body">For inquiries pertaining to the recruitment process, contact our board members
+<a href="mailto:jvc2142@columbia.edu">Jocelyn Chu</a> (<a href="mailto:jvc2142@columbia.edu">jvc2142@columbia.edu</a>),
+<a href="mailto:jp4346@columbia.edu">Joshua Park</a> (<a href="mailto:jp4346@columbia.edu">jp4346@columbia.edu</a>), and
+<a href="mailto:nzh2107@columbia.edu">Nicole Huang</a> (<a href="mailto:nzh2107@columbia.edu">nzh2107@columbia.edu</a>)</p>
+            </div>
 
-  <div class="field">
-    <label class="label">Name</label>
-    <input class="input" type="text" name="name" placeholder="Your name" required maxlength="80">
-  </div>
+            <hr class="recruit-divider" />
 
-  <div class="field">
-    <label class="label">Email</label>
-    <input class="input" type="email" name="email" placeholder="user@gmail.com" required maxlength="120">
-  </div>
-
-  <div class="field">
-    <label class="label">Subject</label>
-    <input class="input" type="text" name="subject" placeholder="What is this about?" required maxlength="120">
-  </div>
-
-  <div class="field">
-    <label class="label">Message</label>
-    <textarea class="textarea" name="message" placeholder="Write your message..." required maxlength="4000"></textarea>
-  </div>
-
-  <div class="send-row">
-    <button class="send-btn" type="submit">Send</button>
-  </div>
-
-  <p id="formStatus" style="margin:14px 0 0; font-size:14px;"></p>
-</form>
-
-<script>
-  const form = document.getElementById("contactForm");
-  const statusEl = document.getElementById("formStatus");
-
-  if (form && statusEl) {
-    
-    form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    statusEl.textContent = "";
-
-    const fd = new FormData(form);
-    const payload = Object.fromEntries(fd.entries());
-
-    // honeypot
-    if ((payload.company || "").trim().length) {
-      statusEl.textContent = "Sent!";
-      form.reset();
-      return;
-    }
-
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: payload.name,
-          email: payload.email,
-          subject: payload.subject,
-          message: payload.message,
-        })
-      });
-
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.error || "Failed to send.");
-
-      statusEl.textContent = "Sent!";
-      form.reset();
-    } catch (err) {
-      statusEl.textContent = `Couldn’t send — ${err.message}`;
-    }
-  });
-}
-</script>
+            <div class="recruit-section" aria-label="Important dates">
+              <div class="recruit-section-title">Important Dates</div>
+              <p class="recruit-section-body">Applications for the 2025-2026 year have now closed.</p>
             </div>
           </div>
         </div>
 
         <!-- RIGHT -->
-        <aside class="contact-side" aria-label="Campus photo">
-          <div class="side-photo" style="--img:url('../verticals/im3.jpg');"></div>
+        <aside class="recruit-side" aria-label="Campus photo">
+          <div class="side-photo" style="--img:url('../verticals/im2.jpg');"></div>
         </aside>
 
       </div>
@@ -1067,19 +956,19 @@
 </footer>
 
   <script>
-  // =========================
-  // NAV: transparent on hero, solid after scroll
-  // =========================
-  const topbar = document.getElementById("topbar");
-  const heroEl = document.getElementById("hero");
-  function setNavState(){
-    const heroBottom = heroEl.getBoundingClientRect().bottom;
-    if(heroBottom <= 71) topbar.classList.add("is-solid");
-    else topbar.classList.remove("is-solid");
-  }
-  window.addEventListener("scroll", setNavState, { passive:true });
-  window.addEventListener("resize", setNavState);
-  setNavState();
+    // =========================
+    // NAV: transparent on hero, solid after scroll
+    // =========================
+    const topbar = document.getElementById("topbar");
+    const heroEl = document.getElementById("hero");
+    function setNavState(){
+      const heroBottom = heroEl.getBoundingClientRect().bottom;
+      if(heroBottom <= 71) topbar.classList.add("is-solid");
+      else topbar.classList.remove("is-solid");
+    }
+    window.addEventListener("scroll", setNavState, { passive:true });
+    window.addEventListener("resize", setNavState);
+    setNavState();
 
   // =========================
   // YEAR
@@ -1088,13 +977,12 @@
 
 
     // =========================
-    // HERO SLIDESHOW (crossfade)
-    // Fix: start black, then fade in immediately after first image loads
+    // HERO SLIDESHOW (fast first-paint fix)
     // =========================
     const slides = [
-      "../horizontals/im4.jpg",
+      "../horizontals/im2.jpg",
       "../horizontals/im6.jpg",
-      "../horizontals/im2.jpg"
+      "../horizontals/im1.jpg"
     ];
 
     const bgA = document.getElementById("bgA");
@@ -1102,50 +990,74 @@
 
     let idx = 0;
     let showingA = true;
-    let timer = null;
+
+    function setBg(el, src){
+      el.style.backgroundImage = `url('${src}')`;
+    }
+
+    function warmCache(){
+      slides.slice(1).forEach(src => { const img = new Image(); img.src = src; });
+    }
+
+    function bootHero(){
+      const first = new Image();
+      first.src = slides[0];
+
+      const revealHero = () => {
+        setBg(bgA, slides[0]);
+        bgA.style.opacity = "1";
+        bgB.style.opacity = "0";
+
+        document.body.classList.remove("preload");
+        requestAnimationFrame(() => document.body.classList.add("is-loaded"));
+
+        warmCache();
+        startInterval();
+      };
+
+      if (first.complete) {
+        revealHero();
+      } else {
+        first.onload = revealHero;
+        setTimeout(() => {
+          if (document.body.classList.contains("preload")) revealHero();
+        }, 900);
+      }
+    }
 
     function nextSlide(){
       idx = (idx + 1) % slides.length;
+      const nextSrc = slides[idx];
 
       if(showingA){
-        bgB.style.backgroundImage = `url('${slides[idx]}')`;
+        setBg(bgB, nextSrc);
         bgB.style.opacity = "1";
         bgA.style.opacity = "1";
       }else{
-        bgA.style.backgroundImage = `url('${slides[idx]}')`;
+        setBg(bgA, nextSrc);
         bgA.style.opacity = "1";
         bgB.style.opacity = "0";
       }
       showingA = !showingA;
     }
 
-    function startSlideshow(){
+    let heroTimer = null;
+    function startInterval(){
       const intervalMs = parseInt(
         getComputedStyle(document.documentElement).getPropertyValue("--hero-interval-ms")
-      );
-      if (timer) clearInterval(timer);
-      timer = setInterval(nextSlide, intervalMs);
+      ) || 5200;
+
+      if (heroTimer) clearInterval(heroTimer);
+      heroTimer = setInterval(nextSlide, intervalMs);
     }
 
-    // Preload remaining slides (after first)
-    function preloadRest(){
-      slides.slice(1).forEach(src => { const img = new Image(); img.src = src; });
-    }
+    document.addEventListener("DOMContentLoaded", bootHero);
 
-    // First slide: wait for it to load, then fade in (consistent w/ other pages)
-    const first = new Image();
-    first.onload = () => {
-      bgA.style.backgroundImage = `url('${slides[0]}')`;
-      bgA.style.opacity = "1";
-      bgB.style.opacity = "0";
-
-      document.body.classList.remove("preload");
-      requestAnimationFrame(() => document.body.classList.add("is-loaded"));
-
-      preloadRest();
-      startSlideshow();
-    };
-    first.src = slides[0];
+    // =========================
+    // COPYRIGHT YEAR
+    // =========================
+    const y = document.getElementById("copyrightYear");
+    if (y) y.textContent = new Date().getFullYear();
 
     // =========================
     // SCROLL REVEAL
@@ -1157,7 +1069,7 @@
     revealEls.forEach(el => io.observe(el));
   </script>
 
-<script>
+  <script>
   (function () {
     const topbar = document.querySelector('.topbar');
     const toggle = document.querySelector('.nav-toggle');

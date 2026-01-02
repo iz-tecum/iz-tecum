@@ -1,9 +1,10 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <link rel="preload" as="image" href="../horizontals/im6.jpg">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CES | Contact</title>
+  <title>CES | FAQ</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,15 +20,35 @@
       background:transparent;
     }
 
-    /* =========================
-       GLOBAL LINKS (smooth hover lighten)
-       ========================= */
+    /* =========
+       GLOBAL LINKS (match About/Events)
+       ========= */
     a{
       color: inherit;
       text-decoration: none;
-      transition: opacity 220ms ease, color 220ms ease, border-color 220ms ease, background-color 220ms ease;
+      transition: opacity 220ms ease, color 220ms ease, border-color 220ms ease, background-color 220ms ease, transform 220ms ease;
     }
-    a:hover{ opacity: .82; }
+    a:hover{ text-decoration:none; opacity: .85; }
+
+    /* accessibility focus (match About/Events) */
+    a:focus-visible,
+    button:focus-visible{
+      outline: 3px solid rgba(16,24,40,.35);
+      outline-offset: 3px;
+    }
+
+    /* keep “underline links” crisp but still responsive on hover */
+    .hero-socials a,
+    .footer-left a,
+    .footer-links a{
+      opacity: 1;
+      transition: opacity 220ms ease, border-color 220ms ease;
+    }
+    .hero-socials a:hover,
+    .footer-left a:hover,
+    .footer-links a:hover{
+      opacity: .88;
+    }
 
     :root{
       /* NAVBAR */
@@ -51,6 +72,7 @@
       --hero-dim-top: 0.00;
       --hero-dim-bottom: 0.00;
 
+      /* MATCH About/Events */
       --hero-ease: cubic-bezier(0.22, 0, 0.36, 1);
       --hero-fade-ms: 1200ms;
       --hero-hover-ms: 1000ms;
@@ -67,13 +89,13 @@
       --card-bg: rgb(245,245,245);
       --card-radius: 0px;
 
-      /* ✅ reserve space for floating logo (so nav aligns like other pages) */
+      /* logo sizing vars (match About system) */
       --logo-w: 54px;
       --logo-h: 58px;
       --logo-gap: 18px;
     }
 
-  /* =========================
+    /* =========================
      TOP NAV
      ========================= */
   .topbar{
@@ -467,7 +489,8 @@
     background: rgb(0, 0, 0);
   }
 }
-    /* =========================
+
+/* =========================
      HERO
      ========================= */
   .hero{
@@ -584,23 +607,23 @@
     }
 
     /* =========================
-       CONTACT LAYOUT (same as Alumni/FAQ)
+       FAQ LAYOUT (match About/Events)
        ========================= */
-    .contact-layout{
+    .faq-layout{
       display:flex;
       align-items:flex-start;
       gap: 28px;
     }
-    .contact-main{
+    .faq-main{
       flex: 1 1 auto;
       min-width: 0;
     }
-    .contact-side{
+    .faq-side{
       width: 420px;
       flex: 0 0 420px;
       position: sticky;
       top: 50px;
-      margin-left: 200px;
+      margin-left: clamp(40px, 7vw, 200px);
     }
 
     .side-photo{
@@ -625,7 +648,9 @@
     }
     .side-photo:hover::before{ transform: scale(var(--grid-scale)); }
 
-    /* Title rhythm */
+    /* =========================
+       TITLE + STACK (match Events centering)
+       ========================= */
     .block-title{
       margin: 40px 0 -28px;
       text-align:center;
@@ -635,25 +660,25 @@
       color: rgba(16,24,40,.92);
     }
 
-    /* Move EVERYTHING under title together (MAIN KNOB) */
-    .contact-stack{
-      width: 80%;
-      margin-left: 40px;
-      transform: translateX(75px);
+    /* ✅ FIX: keep the whole stack centered under the title */
+    .faq-stack{
+      width: min(1200px, 100%);
+      margin: 0 auto;
+      transform: none;
     }
 
-    /* description “card” */
-    .contact-intro{
+    .faq-card{
       border: 0px solid rgba(16,24,40,.10);
       border-radius: var(--card-radius);
-      padding: 30px 34px 20px;
+      padding: 50px 34px 20px;
       text-align:center;
       background: transparent;
-      margin-top: 22px; /* gives the Alumni-style breathing room */
+      width: 100%;
+      margin: 0;
     }
-    .contact-text{
+    .faq-text{
       margin: 0 auto;
-      max-width: 980px;
+      max-width: 940px;
       color: rgba(16,24,40,.90);
       font-size: 22px;
       line-height: 1.95;
@@ -661,89 +686,116 @@
       white-space: pre-line;
     }
 
-    /* Form container matches “class-card” gray blocks */
-    .form-card{
-      margin-top: 34px;
+    /* =========================
+       FAQ SECTIONS + ACCORDION
+       ========================= */
+    .faq-section{
+      margin-top: 46px;
+    }
+
+    .faq-section-title{
+      margin: 0 0 16px;
+      font-size: 34px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: rgba(16,24,40,.92);
+      text-align: left;
+    }
+
+    .faq-list{
+      display:flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .faq-item{
       background: var(--card-bg);
       border: 0px solid rgba(16,24,40,.10);
       border-radius: var(--card-radius);
-      padding: 34px 34px 30px;
-      transition: background-color 220ms ease, opacity 220ms ease;
+      padding: 22px 22px 18px;
+      transition: background-color 220ms ease, transform 220ms ease;
     }
-    .form-card:hover{ background: rgba(245,245,245,.92); }
-
-    .field{
-      margin: 0 0 18px;
-    }
-    .label{
-      display:block;
-      font-size: 12px;
-      letter-spacing: .10em;
-      text-transform: uppercase;
-      font-weight: 600;
-      color: rgba(16,24,40,.72);
-      margin: 0 0 10px;
+    .faq-item:hover{
+      background: rgb(252,252,252);
     }
 
-    .two-col{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    .input, .textarea{
+    .faq-btn{
       width: 100%;
-      appearance: none;
-      border: 1px solid rgba(16,24,40,.16);
-      background: rgba(255,255,255,.70);
-      border-radius: 0px;
-      padding: 14px 14px;
-      font-family: inherit;
-      font-size: 14px;
-      color: rgba(16,24,40,.92);
-      outline: none;
-      transition: border-color 220ms ease, background-color 220ms ease;
-    }
-    .textarea{
-      min-height: 160px;
-      resize: vertical;
-      line-height: 1.85;
-    }
-    .input:focus, .textarea:focus{
-      border-color: rgba(16,24,40,.45);
-      background: rgba(255,255,255,.92);
-    }
-
-    .send-row{
-      margin-top: 10px;
-      display:flex;
-      justify-content: flex-end;
-    }
-
-    .send-btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding: 12px 22px;
-      min-width: 160px;
-
-      border: 2px solid rgb(0,0,0);
-      color: rgba(16,24,40,.92);
       background: transparent;
-
-      font-weight: 600;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      font-size: 12px;
-
-      transition: background 220ms ease, transform 220ms ease, opacity 220ms ease;
+      border: 0;
+      padding: 0;
+      margin: 0;
       cursor: pointer;
+      text-align: left;
+      font-family: inherit;
+
+      display:flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
     }
-    .send-btn:hover{ background: rgba(16,24,40,.06); }
-    .send-btn:active{ transform: translateY(0px); }
+
+    .faq-q{
+      margin: 0;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: rgba(16,24,40,.92);
+      line-height: 1.35;
+    }
+
+    .faq-icon{
+      width: 28px;
+      height: 28px;
+      position: relative;
+      flex: 0 0 28px;
+      opacity: .85;
+      transition: opacity 220ms ease;
+    }
+    .faq-item:hover .faq-icon{ opacity: 1; }
+    .faq-icon::before,
+    .faq-icon::after{
+      content:"";
+      position:absolute;
+      left: 50%;
+      top: 50%;
+      width: 18px;
+      height: 2px;
+      background: rgba(16,24,40,.92);
+      transform: translate(-50%,-50%);
+      transition: transform 220ms ease, opacity 220ms ease;
+    }
+    .faq-icon::after{
+      transform: translate(-50%,-50%) rotate(90deg);
+    }
+    .faq-item.open .faq-icon::after{
+      opacity: 0;
+      transform: translate(-50%,-50%) rotate(90deg) scaleY(0.2);
+    }
+
+    .faq-body{
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: max-height 320ms var(--hero-ease), opacity 240ms var(--hero-ease), transform 240ms var(--hero-ease);
+    }
+    .faq-item.open .faq-body{
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .faq-a{
+      margin: 14px 2px 0;
+      color: rgba(16,24,40,.78);
+      font-size: 16px;
+      line-height: 1.95;
+      font-weight: 400;
+      white-space: pre-line;
+    }
 
     /* =========================
-       FOOTER
+       FOOTER (match About/Events)
        ========================= */
     .footer{
       padding: 64px var(--padX);
@@ -773,8 +825,9 @@
     .footer-left a{
       border-bottom: 1px solid rgba(16,24,40,.22);
       padding-bottom: 2px;
+      transition: opacity 220ms ease, border-color 220ms ease;
     }
-    .footer-left a:hover{ border-color: rgba(16,24,40,.12); opacity: .82; }
+    .footer-left a:hover{ opacity: .88; border-bottom-color: rgba(16,24,40,.40); }
 
     .footer-right{ text-align: right; }
     .footer-links{
@@ -789,8 +842,9 @@
       font-weight: 400;
       border-bottom: 1px solid rgba(16,24,40,.22);
       padding-bottom: 2px;
+      transition: opacity 220ms ease, border-color 220ms ease;
     }
-    .footer-links a:hover{ border-color: rgba(16,24,40,.12); opacity: .82; }
+    .footer-links a:hover{ opacity: .88; border-bottom-color: rgba(16,24,40,.40); }
 
     .footer-copy{
       max-width: 1800px;
@@ -800,11 +854,10 @@
       color: rgba(16,24,40,.60);
       font-size: 12px;
       letter-spacing: .02em;
-  }
+    }
 
     /* =========================
-       PAGE LOAD + SCROLL REVEAL
-       (match your CES preload style system)
+       PAGE LOAD + SCROLL REVEAL (match About/Events preload rules)
        ========================= */
     body.preload .hero-bg{ opacity: 1 !important; }
     body.preload .hero-inner > div{ opacity: 1; transform: translateY(10px); }
@@ -834,20 +887,18 @@
     }
 
     /* =========================
-       RESPONSIVE
+       RESPONSIVE (match About/Events)
        ========================= */
-    @media (max-width: 1680px){
-      .contact-side{ width: 320px; flex-basis: 320px; }
-      .side-photo{ height: 740px; }
+    @media (max-width: 1180px){
+      .faq-side{ width: 320px; flex-basis: 320px; margin-left: 40px; }
+      .side-photo{ height: 640px; }
     }
 
     @media (max-width: 980px){
-      .nav{ gap: 10px; font-size: 12px; }
-      .recruit{ padding: 10px 14px !important; }
       .hero{ min-height: 560px; }
 
-      .contact-layout{ flex-direction: column; }
-      .contact-side{
+      .faq-layout{ flex-direction: column; }
+      .faq-side{
         position: static;
         width: 100%;
         flex-basis: auto;
@@ -855,21 +906,17 @@
       }
       .side-photo{ height: 520px; }
 
-      .contact-stack{
-        width: 100%;
-        margin-left: 0;
-        transform: none;
-      }
-
-      .two-col{ grid-template-columns: 1fr; }
+      .faq-stack{ width: 100%; }
 
       .footer-inner{ flex-direction: column; }
       .footer-right{ text-align:left; }
       .footer-links{ align-items:flex-start; }
+    }
 
-      /* ✅ tighten logo + reserved padding on smaller screens */
-      :root{ --logo-w: 46px; --logo-h: 50px; --logo-gap: 14px; }
-      .topbar-inner{ padding-left: calc(var(--padX) + var(--logo-w) + var(--logo-gap)); }
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      *{ transition: none !important; scroll-behavior: auto !important; }
+      .hero-bg{ transition: none !important; }
     }
   </style>
 </head>
@@ -921,7 +968,7 @@
 
       <div class="hero-inner">
         <div>
-          <h1>Contact</h1>
+          <h1>FAQ</h1>
         </div>
       </div>
 
@@ -937,164 +984,233 @@
   </main>
 
   <!-- MAIN -->
-  <section class="section reveal" id="contact-main">
+  <section class="section reveal" id="faq">
     <div class="wrap">
-      <div class="contact-layout">
+      <div class="faq-layout">
 
         <!-- LEFT -->
-        <div class="contact-main">
-          <h2 class="block-title">Contact Us</h2>
+        <div class="faq-main">
+          <h2 class="block-title">Frequently Asked Questions</h2>
 
-          <div class="contact-stack">
-            <div class="contact-intro">
-              <p class="contact-text">Fill out the form below to keep in touch!</p>
+          <div class="faq-stack">
+            <div class="faq-card">
+              <p class="faq-text">Answers to common questions about membership, involvement, and CES programming.</p>
             </div>
 
-            <!-- FORM (replace action with your Formspree endpoint) -->
-            <div class="form-card">
-<form id="contactForm" action="/api/contact" method="POST" novalidate>
-  <!-- honeypot (bots fill this; humans won't see it) -->
-  <input type="text" name="company" autocomplete="off" tabindex="-1"
-         style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" />
+<!-- SECTION 1 -->
+<div class="faq-section" aria-label="Membership and Involvement">
+  <h3 class="faq-section-title">Membership &amp; Involvement</h3>
 
-  <div class="field">
-    <label class="label">Name</label>
-    <input class="input" type="text" name="name" placeholder="Your name" required maxlength="80">
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-btn" aria-expanded="false">
+        <h4 class="faq-q">What are the key differences between our General Body and Division Representatives?</h4>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq-body">
+        <p class="faq-a">General Body members are welcome to attend CES events and engage with our community throughout the semester. Division Representatives take on a more active role supporting programming and operations, including event logistics, outreach, and internal initiatives alongside the E-Board.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-btn" aria-expanded="false">
+        <h4 class="faq-q">Who can apply to be a Division Representative?</h4>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq-body">
+        <p class="faq-a">Division Representative roles are open to Columbia undergraduates across CC, SEAS, Barnard, and GS. These positions are designed for students who want to contribute more directly to CES operations and division programming while building experience early on.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-btn" aria-expanded="false">
+        <h4 class="faq-q">When do Division Representative applications open?</h4>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq-body">
+        <p class="faq-a">Division Representative recruitment typically runs early in the fall semester. We announce exact dates on our Instagram/LinkedIn and through campus channels—check those first if you’re planning ahead. In addition, be on the lookout for us at the annual fall club fair!</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-btn" aria-expanded="false">
+        <h4 class="faq-q">What is the Division Representative application process like?</h4>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq-body">
+        <p class="faq-a">Expect a short written application (interest + availability) and, if selected, a brief interview or conversation. We mainly want to understand how you’d contribute to CES and which division you’re most excited to help build.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-btn" aria-expanded="false">
+        <h4 class="faq-q">What kind of candidate do we look for?</h4>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq-body">
+        <p class="faq-a">We value reliability, initiative, and strong communication more than a specific major or prior experience. If you’re consistent, curious, and willing to help execute high-signal programming, you’ll fit in.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-btn" aria-expanded="false">
+        <h4 class="faq-q">What are Division Representative responsibilities?</h4>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq-body">
+        <p class="faq-a">Division Representatives support event execution (setup, check-in, speaker support), outreach and promotion, and division-specific projects that improve CES programming and operations. Responsibilities vary by week depending on the event calendar and division needs.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-btn" aria-expanded="false">
+        <h4 class="faq-q">What is the expected time commitment?</h4>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq-body">
+        <p class="faq-a">Time commitment depends on the programming calendar. Most weeks are light, with heavier involvement around major events. We aim to be respectful of academics and communicate expectations clearly.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-btn" aria-expanded="false">
+        <h4 class="faq-q">Can I get involved if I’m not a Division Representative?</h4>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq-body">
+        <p class="faq-a">Yes. CES events are designed to be accessible and student-first. Attend events, introduce yourself to organizers, and stay engaged—many members start that way before applying later.</p>
+      </div>
+    </div>
   </div>
+</div>
 
-  <div class="field">
-    <label class="label">Email</label>
-    <input class="input" type="email" name="email" placeholder="user@gmail.com" required maxlength="120">
-  </div>
+            <!-- SECTION 2 -->
+            <div class="faq-section" aria-label="Programs and Events">
+              <h3 class="faq-section-title">Programs &amp; Events</h3>
 
-  <div class="field">
-    <label class="label">Subject</label>
-    <input class="input" type="text" name="subject" placeholder="What is this about?" required maxlength="120">
-  </div>
+              <div class="faq-list">
+                <div class="faq-item">
+                  <button class="faq-btn" aria-expanded="false">
+                    <h4 class="faq-q">What kinds of events does CES host?</h4>
+                    <span class="faq-icon" aria-hidden="true"></span>
+                  </button>
+                  <div class="faq-body">
+                    <p class="faq-a">CES hosts speaker events, recruiting prep sessions, alumni panels, and community gatherings focused on practical pathways across finance, consulting, research, and beyond.</p>
+                  </div>
+                </div>
 
-  <div class="field">
-    <label class="label">Message</label>
-    <textarea class="textarea" name="message" placeholder="Write your message..." required maxlength="4000"></textarea>
-  </div>
+                <div class="faq-item">
+                  <button class="faq-btn" aria-expanded="false">
+                    <h4 class="faq-q">Are CES events open to all students?</h4>
+                    <span class="faq-icon" aria-hidden="true"></span>
+                  </button>
+                  <div class="faq-body">
+                    <p class="faq-a">In general, yes. Some events may have limited capacity or require RSVP, but our goal is broad access and high-signal programming for the wider campus community.</p>
+                  </div>
+                </div>
 
-  <div class="send-row">
-    <button class="send-btn" type="submit">Send</button>
-  </div>
+                <div class="faq-item">
+                  <button class="faq-btn" aria-expanded="false">
+                    <h4 class="faq-q">How do I hear about upcoming events?</h4>
+                    <span class="faq-icon" aria-hidden="true"></span>
+                  </button>
+                  <div class="faq-body">
+                    <p class="faq-a">Follow our Instagram and LinkedIn for announcements. We also share updates through campus channels and email—if you don’t see something, check our recent posts first.</p>
+                  </div>
+                </div>
 
-  <p id="formStatus" style="margin:14px 0 0; font-size:14px;"></p>
-</form>
+                <div class="faq-item">
+                  <button class="faq-btn" aria-expanded="false">
+                    <h4 class="faq-q">Can I suggest a speaker or event idea?</h4>
+                    <span class="faq-icon" aria-hidden="true"></span>
+                  </button>
+                  <div class="faq-body">
+                    <p class="faq-a">Yes — we welcome suggestions. Send ideas with a short rationale (topic + audience + why now) to our board email so we can evaluate fit and feasibility.</p>
+                  </div>
+                </div>
 
-<script>
-  const form = document.getElementById("contactForm");
-  const statusEl = document.getElementById("formStatus");
+                <div class="faq-item">
+                  <button class="faq-btn" aria-expanded="false">
+                    <h4 class="faq-q">How can alumni or organizations partner with CES?</h4>
+                    <span class="faq-icon" aria-hidden="true"></span>
+                  </button>
+                  <div class="faq-body">
+                    <p class="faq-a">For partnerships, speaker opportunities, or hosting an event with CES, reach out via email with your goals, timeline, and what you’d like to run. We’ll respond with next steps and logistics.</p>
+                  </div>
+                </div>
 
-  if (form && statusEl) {
-    
-    form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    statusEl.textContent = "";
-
-    const fd = new FormData(form);
-    const payload = Object.fromEntries(fd.entries());
-
-    // honeypot
-    if ((payload.company || "").trim().length) {
-      statusEl.textContent = "Sent!";
-      form.reset();
-      return;
-    }
-
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: payload.name,
-          email: payload.email,
-          subject: payload.subject,
-          message: payload.message,
-        })
-      });
-
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.error || "Failed to send.");
-
-      statusEl.textContent = "Sent!";
-      form.reset();
-    } catch (err) {
-      statusEl.textContent = `Couldn’t send — ${err.message}`;
-    }
-  });
-}
-</script>
+                <div class="faq-item">
+                  <button class="faq-btn" aria-expanded="false">
+                    <h4 class="faq-q">Do you run recruiting prep or skill-building programming?</h4>
+                    <span class="faq-icon" aria-hidden="true"></span>
+                  </button>
+                  <div class="faq-body">
+                    <p class="faq-a">Yes — we periodically run recruiting-focused sessions (resume, networking, interview prep) alongside industry panels and talks. The best way to catch these is through announcements during the semester.</p>
+                  </div>
+                </div>
+              </div>
             </div>
+
           </div>
         </div>
 
         <!-- RIGHT -->
-        <aside class="contact-side" aria-label="Campus photo">
-          <div class="side-photo" style="--img:url('../verticals/im3.jpg');"></div>
+        <aside class="faq-side" aria-label="Campus photo">
+          <div class="side-photo" style="--img:url('../verticals/im4.jpg');"></div>
         </aside>
 
       </div>
     </div>
   </section>
 
-<!-- FOOTER -->
-<footer class="footer reveal" id="contact">
-  <div class="footer-inner">
-    <div class="footer-left">
-      <h4>Columbia Economics Society</h4>
-      <div class="line"><a href="mailto:econboard@columbia.edu">econboard@columbia.edu</a></div>
-      <div class="line">70 Morningside Drive</div>
-      <div class="line">New York, NY 10027</div>
-    </div>
+  <!-- FOOTER -->
+  <footer class="footer reveal" id="contact">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <h4>Columbia Economics Society</h4>
+        <div class="line"><a href="mailto:econboard@columbia.edu">econboard@columbia.edu</a></div>
+        <div class="line">70 Morningside Drive</div>
+        <div class="line">New York, NY 10027</div>
+      </div>
 
-    <div class="footer-right">
-      <h4>Follow Us</h4>
-      <div class="footer-links">
-        <a href="https://www.facebook.com/ColumbiaEconomicsSociety/" aria-label="Facebook">Facebook</a>
-        <a href="https://www.instagram.com/cueconsociety/?hl=en" aria-label="Instagram">Instagram</a>
-        <a href="https://www.linkedin.com/company/columbia-economics-society/" aria-label="LinkedIn">LinkedIn</a>
-        <a href="https://linktr.ee/columbiaeconsociety?utm_source=ig&utm_medium=social&utm_content=link_in_bio" aria-label="Linktree">Linktree</a>
+      <div class="footer-right">
+        <h4>Follow Us</h4>
+        <div class="footer-links">
+          <a href="https://www.facebook.com/ColumbiaEconomicsSociety/" aria-label="Facebook">Facebook</a>
+          <a href="https://www.instagram.com/cueconsociety/?hl=en" aria-label="Instagram">Instagram</a>
+          <a href="https://www.linkedin.com/company/columbia-economics-society/" aria-label="LinkedIn">LinkedIn</a>
+          <a href="https://linktr.ee/columbiaeconsociety?utm_source=ig&utm_medium=social&utm_content=link_in_bio" aria-label="Linktree">Linktree</a>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="footer-copy">
-    © <span id="year"></span> Columbia Economics Society. All rights reserved.
-  </div>
-</footer>
+    <div class="footer-copy">
+      © <span id="year"></span> Columbia Economics Society. All rights reserved.
+    </div>
+  </footer>
 
   <script>
-  // =========================
-  // NAV: transparent on hero, solid after scroll
-  // =========================
-  const topbar = document.getElementById("topbar");
-  const heroEl = document.getElementById("hero");
-  function setNavState(){
-    const heroBottom = heroEl.getBoundingClientRect().bottom;
-    if(heroBottom <= 71) topbar.classList.add("is-solid");
-    else topbar.classList.remove("is-solid");
-  }
-  window.addEventListener("scroll", setNavState, { passive:true });
-  window.addEventListener("resize", setNavState);
-  setNavState();
-
-  // =========================
-  // YEAR
-  // =========================
-  document.getElementById("year").textContent = new Date().getFullYear();
-
+    // =========================
+    // NAV: transparent on hero, solid after scroll
+    // =========================
+    const topbar = document.getElementById("topbar");
+    const heroEl = document.getElementById("hero");
+    function setNavState(){
+      if(!topbar || !heroEl) return;
+      const heroBottom = heroEl.getBoundingClientRect().bottom;
+      if(heroBottom <= 71) topbar.classList.add("is-solid");
+      else topbar.classList.remove("is-solid");
+    }
+    window.addEventListener("scroll", setNavState, { passive:true });
+    window.addEventListener("resize", setNavState);
 
     // =========================
-    // HERO SLIDESHOW (crossfade)
-    // Fix: start black, then fade in immediately after first image loads
+    // HERO SLIDESHOW (crossfade) + reveal on first image (match Events)
     // =========================
     const slides = [
-      "../horizontals/im4.jpg",
       "../horizontals/im6.jpg",
-      "../horizontals/im2.jpg"
+      "../horizontals/im5.jpg",
+      "../horizontals/im1.jpg"
     ];
 
     const bgA = document.getElementById("bgA");
@@ -1104,48 +1220,114 @@
     let showingA = true;
     let timer = null;
 
-    function nextSlide(){
-      idx = (idx + 1) % slides.length;
-
-      if(showingA){
-        bgB.style.backgroundImage = `url('${slides[idx]}')`;
-        bgB.style.opacity = "1";
-        bgA.style.opacity = "1";
-      }else{
-        bgA.style.backgroundImage = `url('${slides[idx]}')`;
-        bgA.style.opacity = "1";
-        bgB.style.opacity = "0";
-      }
-      showingA = !showingA;
-    }
-
     function startSlideshow(){
-      const intervalMs = parseInt(
-        getComputedStyle(document.documentElement).getPropertyValue("--hero-interval-ms")
-      );
-      if (timer) clearInterval(timer);
-      timer = setInterval(nextSlide, intervalMs);
+      if(timer) return;
+
+      const intervalMsRaw = getComputedStyle(document.documentElement)
+        .getPropertyValue("--hero-interval-ms")
+        .trim();
+
+      const intervalMs = Number.parseInt(intervalMsRaw || "5200", 10);
+
+      timer = setInterval(() => {
+        idx = (idx + 1) % slides.length;
+
+        if(showingA){
+          bgB.style.backgroundImage = `url('${slides[idx]}')`;
+          bgB.style.opacity = "1";
+          bgA.style.opacity = "1";
+        } else {
+          bgA.style.backgroundImage = `url('${slides[idx]}')`;
+          bgA.style.opacity = "1";
+          bgB.style.opacity = "0";
+        }
+
+        showingA = !showingA;
+      }, intervalMs);
     }
 
-    // Preload remaining slides (after first)
-    function preloadRest(){
-      slides.slice(1).forEach(src => { const img = new Image(); img.src = src; });
+    function revealHeroNow(){
+      requestAnimationFrame(() => {
+        document.body.classList.remove("preload");
+        document.body.classList.add("is-loaded");
+      });
     }
 
-    // First slide: wait for it to load, then fade in (consistent w/ other pages)
-    const first = new Image();
-    first.onload = () => {
+    function primeFirstHeroImage(){
+      const firstSrc = slides[0];
+
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.src = firstSrc;
+
+        const done = () => resolve();
+
+        if (img.decode) {
+          img.decode().then(done).catch(() => {
+            img.onload = done;
+            img.onerror = done;
+          });
+        } else {
+          img.onload = done;
+          img.onerror = done;
+        }
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      setNavState();
+
+      if(!bgA || !bgB){
+        revealHeroNow();
+        return;
+      }
+
       bgA.style.backgroundImage = `url('${slides[0]}')`;
       bgA.style.opacity = "1";
       bgB.style.opacity = "0";
 
-      document.body.classList.remove("preload");
-      requestAnimationFrame(() => document.body.classList.add("is-loaded"));
+      for (let i = 1; i < slides.length; i++){
+        const im = new Image();
+        im.src = slides[i];
+      }
 
-      preloadRest();
+      await primeFirstHeroImage();
+      revealHeroNow();
       startSlideshow();
-    };
-    first.src = slides[0];
+    });
+
+    // =========================
+    // FAQ ACCORDION
+    // =========================
+    const items = document.querySelectorAll(".faq-item");
+    items.forEach(item => {
+      const btn = item.querySelector(".faq-btn");
+      const body = item.querySelector(".faq-body");
+      if(!btn || !body) return;
+
+      body.style.maxHeight = "0px";
+
+      btn.addEventListener("click", () => {
+        const isOpen = item.classList.contains("open");
+
+        if (isOpen) {
+          item.classList.remove("open");
+          btn.setAttribute("aria-expanded", "false");
+          body.style.maxHeight = "0px";
+        } else {
+          item.classList.add("open");
+          btn.setAttribute("aria-expanded", "true");
+          body.style.maxHeight = body.scrollHeight + "px";
+        }
+      });
+    });
+
+    // keep open panels sized correctly on resize
+    window.addEventListener("resize", () => {
+      document.querySelectorAll(".faq-item.open .faq-body").forEach(body => {
+        body.style.maxHeight = body.scrollHeight + "px";
+      });
+    });
 
     // =========================
     // SCROLL REVEAL
@@ -1155,6 +1337,11 @@
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("in"); });
     }, { threshold: 0.03 });
     revealEls.forEach(el => io.observe(el));
+
+    // =========================
+    // YEAR
+    // =========================
+    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 
 <script>
