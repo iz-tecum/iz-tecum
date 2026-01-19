@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <style>
+<style>
     *{ box-sizing:border-box; }
     :root{
       --navW: 1200px;
@@ -85,6 +85,43 @@
     }
     .topnav a:hover{ background: rgba(0,0,0,.06); text-decoration:none; }
     .topnav a.active{ background: rgba(0,0,0,.08); }
+
+    /* =========================================================
+       DASHBAR (PME-style) ✅ ONLY ADDITIONS BELOW
+       - Desktop: hidden (no layout change).
+       - Mobile: shows 3 bars + dropdown panel.
+       ========================================================= */
+    .nav-toggle{
+      display:none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 999px;
+      padding: 10px;
+      cursor: pointer;
+      align-items:center;
+      justify-content:center;
+      gap: 4px;
+    }
+    .nav-toggle .bar{
+      display:block;
+      width: 18px;
+      height: 2px;
+      background: #111;
+      border-radius: 2px;
+      transition: transform .18s ease, opacity .18s ease;
+    }
+    .topbar.nav-open .nav-toggle .bar:nth-child(1){
+      transform: translateY(6px) rotate(45deg);
+    }
+    .topbar.nav-open .nav-toggle .bar:nth-child(2){
+      opacity: 0;
+    }
+    .topbar.nav-open .nav-toggle .bar:nth-child(3){
+      transform: translateY(-6px) rotate(-45deg);
+    }
+    /* ========================================================= */
 
     /* HERO STRIP (top) */
     .hero-strip{
@@ -241,7 +278,6 @@
       width: 2px;
       background: var(--ring);
       background:#EAF7F0;
-
     }
 
     /* YEAR case */
@@ -299,7 +335,6 @@
       height: 2px;
       background: var(--ring);
       background:#EAF7F0;
-
     }
 
     .year-title h3{
@@ -407,6 +442,10 @@
       .layout{ grid-template-columns: 1fr; }
       .case-scroll{ max-height: none; overflow: visible; padding-right: 0; }
     }
+
+    /* =========================================================
+       DASHBAR MOBILE PANEL ✅ ONLY ADDITIONS IN THIS BLOCK
+       ========================================================= */
     @media (max-width: 980px){
       :root{ --heroH: 220px; }
       .page-head{ align-items:flex-start; flex-direction:column; }
@@ -415,7 +454,37 @@
       .ribbon::before{ display:none; }
       .medal::before{ display:none; }
       .hero-strip-bottom{ height: 220px; border-radius: 22px; }
+
+      /* show hamburger */
+      .nav-toggle{ display:inline-flex; }
+      .topbar-inner{ position: relative; }
+
+      /* nav becomes dropdown panel */
+      .topnav{
+        display:none; /* shown when .topbar.nav-open */
+        position:absolute;
+        right: var(--padX);
+        top: calc(100% + 10px);
+        width: min(520px, calc(100vw - 2*var(--padX)));
+        background:#fff;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 10px;
+        box-shadow: 0 14px 40px rgba(0,0,0,.10);
+
+        flex-direction: column;
+        gap: 6px;
+        justify-content:flex-start;
+      }
+      .topbar.nav-open .topnav{ display:flex; }
+
+      .topnav a{
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 12px;
+      }
     }
+    /* ========================================================= */
 
     .portrait{
   width: 100%;
@@ -550,6 +619,13 @@
         <a href="../media/">media</a>
         <a href="../contact/">contact</a>
       </nav>
+
+      <!-- PME-style dashbar (mobile only via your CSS) -->
+      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
     </div>
   </header>
 
@@ -631,7 +707,7 @@
           <div class="case-scroll">
             <div class="ribbon">
 
-             <!-- 2025 -->
+<!-- 2025 -->
 <details class="year">
   <summary class="year-summary">
     <div class="year-left">
@@ -648,16 +724,64 @@
     <div class="award">
       <div class="award-pin"></div>
       <div>
-        <h4 class="award-title">AMS JMM United States Delegation</h4>
+        <h4 class="award-title">Gathering4Gardner Scholarship</h4>
+        <div class="award-meta">Gathering4Gardner · Award · 2026</div>
+      </div>
+    </div>
+
+    <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">Gathering4Gardner 2026 Invitation</h4>
+        <div class="award-meta">Gathering4Gardner · Recognition · 2026</div>
+      </div>
+    </div>
+
+    <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">AMS State Leader</h4>
         <div class="award-meta">American Mathematical Society · Nomination · 2026</div>
       </div>
     </div>
 
-        <div class="award">
+    <div class="award">
       <div class="award-pin"></div>
       <div>
-        <h4 class="award-title">ICM Recommendation</h4>
-        <div class="award-meta">International Congress of Mathematicians · Nomination · 2025</div>
+        <h4 class="award-title">All-Conference Orchestra</h4>
+        <div class="award-meta">American Mathematical Society · Recognition · 2026</div>
+      </div>
+    </div>
+
+    <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">MathSciOnTheHill Representative</h4>
+        <div class="award-meta">Mathematical Association of America · Nomination · 2026</div>
+      </div>
+    </div>
+
+    <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">ICM 2026 Invitation</h4>
+        <div class="award-meta">International Mathematical Union · Recogntion · 2026</div>
+      </div>
+    </div>
+
+    <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">Undergraduate Travel Grant</h4>
+        <div class="award-meta">National Science Foundation · Award · 2025</div>
+      </div>
+    </div>
+
+    <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">JMM 2026 Invitation</h4>
+        <div class="award-meta">American Mathematical Society · Recogntion · 2025</div>
       </div>
     </div>
 
@@ -774,8 +898,6 @@
       </div>
     </div>
 
-
-
     <div class="award">
       <div class="award-pin"></div>
       <div>
@@ -844,7 +966,23 @@
     <div class="award">
       <div class="award-pin"></div>
       <div>
-        <h4 class="award-title">Class 2A Cross Country State Runner-Up</h4>
+        <h4 class="award-title">Class 5A Cross Country State Runner-Up</h4>
+        <div class="award-meta">OSSAA · Award · 2022</div>
+      </div>
+    </div>
+
+    <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">MOC 3200m Fifth Place</h4>
+        <div class="award-meta">OSSAA · Award · 2022</div>
+      </div>
+    </div>
+
+    <div class="award">
+      <div class="award-pin"></div>
+      <div>
+        <h4 class="award-title">Class 2A-6A All-State Track & Field</h4>
         <div class="award-meta">OSSAA · Award · 2022</div>
       </div>
     </div>
@@ -860,7 +998,7 @@
     <div class="award">
       <div class="award-pin"></div>
       <div>
-        <h4 class="award-title">Class 2A 800m State Runner-Up</h4>
+        <h4 class="award-title">Class 2A 4x800m State Runner-Up</h4>
         <div class="award-meta">OSSAA · Award · 2022</div>
       </div>
     </div>
@@ -884,7 +1022,7 @@
         <div class="award">
       <div class="award-pin"></div>
       <div>
-        <h4 class="award-title">Class 5A Cross Country State Champion</h4>
+        <h4 class="award-title">Class 2A Cross Country State Runner-Up</h4>
         <div class="award-meta">OSSAA · Award · 2021</div>
       </div>
     </div>
@@ -939,5 +1077,41 @@ Since arriving to Columbia, I have been fortunate to receive various scholarship
 
     <footer>© 2025 Iz Tecúm</footer>
   </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Hamburger nav toggle (mobile)
+      const topbar = document.querySelector(".topbar");
+      const btn = document.querySelector(".nav-toggle");
+      const nav = document.querySelector(".topnav");
+
+      if (btn && topbar && nav) {
+        const setOpen = (open) => {
+          topbar.classList.toggle("nav-open", open);
+          btn.setAttribute("aria-expanded", open ? "true" : "false");
+        };
+
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          setOpen(!topbar.classList.contains("nav-open"));
+        });
+
+        // close when clicking outside
+        document.addEventListener("click", (e) => {
+          if (!topbar.contains(e.target)) setOpen(false);
+        });
+
+        // close on Escape
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") setOpen(false);
+        });
+
+        // close after tapping a link
+        nav.querySelectorAll("a").forEach(a => {
+          a.addEventListener("click", () => setOpen(false));
+        });
+      }
+    });
+  </script>
 </body>
 </html>

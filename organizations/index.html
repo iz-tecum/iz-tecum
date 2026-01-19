@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <style>
+<style>
     *{ box-sizing:border-box; }
     :root{
       --navW: 1200px;
@@ -81,6 +81,43 @@
     }
     .topnav a:hover{ background: rgba(0,0,0,.06); text-decoration:none; }
     .topnav a.active{ background: rgba(0,0,0,.08); }
+
+    /* =========================================================
+       DASHBAR (PME-style)  ✅ ONLY ADDITIONS BELOW
+       - Desktop: hidden (no layout change).
+       - Mobile: shows 3 bars + dropdown panel.
+       ========================================================= */
+    .nav-toggle{
+      display:none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 999px;
+      padding: 10px;
+      cursor: pointer;
+      align-items:center;
+      justify-content:center;
+      gap: 4px;
+    }
+    .nav-toggle .bar{
+      display:block;
+      width: 18px;
+      height: 2px;
+      background: #111;
+      border-radius: 2px;
+      transition: transform .18s ease, opacity .18s ease;
+    }
+    .topbar.nav-open .nav-toggle .bar:nth-child(1){
+      transform: translateY(6px) rotate(45deg);
+    }
+    .topbar.nav-open .nav-toggle .bar:nth-child(2){
+      opacity: 0;
+    }
+    .topbar.nav-open .nav-toggle .bar:nth-child(3){
+      transform: translateY(-6px) rotate(-45deg);
+    }
+    /* ========================================================= */
 
     /* HERO STRIP (top) */
     .hero-strip{
@@ -286,7 +323,7 @@
       height: 56px;
       border-radius: 14px;
       background:#e9e9e9;
-      border: 1px solid var(--line);
+      border: 0px solid var(--line);
       display:flex;
       align-items:center;
       justify-content:center;
@@ -362,12 +399,50 @@
       .layout{ grid-template-columns: 1fr; }
       .timeline-scroll{ max-height: none; overflow: visible; padding-right: 0; }
     }
+
+    /* =========================================================
+       DASHBAR MOBILE PANEL ✅ ONLY ADDITIONS IN THIS BLOCK
+       ========================================================= */
     @media (max-width: 980px){
       :root{ --heroH: 220px; }
+
+      /* show hamburger */
+      .nav-toggle{ display:inline-flex; }
+
+      /* needed for absolute dropdown positioning */
+      .topbar-inner{ position: relative; }
+
+      /* nav becomes dropdown panel */
+      .topnav{
+        display:none; /* shown when .topbar.nav-open */
+        position:absolute;
+        right: var(--padX);
+        top: calc(100% + 10px);
+        width: min(520px, calc(100vw - 2*var(--padX)));
+        background:#fff;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 10px;
+        box-shadow: 0 14px 40px rgba(0,0,0,.10);
+
+        flex-direction: column;
+        gap: 6px;
+        justify-content:flex-start;
+      }
+      .topbar.nav-open .topnav{ display:flex; }
+
+      .topnav a{
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 12px;
+      }
+
+      /* your existing mobile tweaks (kept unchanged) */
       .page-head{ align-items:flex-start; flex-direction:column; }
       .head-right{ justify-content:flex-start; }
       .hero-strip-bottom{ height: 220px; border-radius: 22px; }
     }
+    /* ========================================================= */
 
 .logo img{
   width: 100%;
@@ -525,6 +600,13 @@
         <a href="../media/">media</a>
         <a href="../contact/">contact</a>
       </nav>
+
+      <!-- PME-style dashbar (mobile only via your CSS) -->
+      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
     </div>
   </header>
 
@@ -611,14 +693,14 @@
     </div>
     <div>
       <div class="company-name">Columbia Model United Nations Conference and Exposition</div>
-      <div class="tenure">Crisis Staff</div>
+      <div class="tenure">National Competition</div>
     </div>
   </summary>
 
   <div class="timeline">
     <div class="role">
       <h2 class="role-title">Crisis Analyst/Director</h2>
-      <div class="role-meta">2025 – Present · New York, NY · On-site</div>
+      <div class="role-meta">Dec 2025 – Jan 2026 · New York, NY · On-site</div>
       <div class="role-desc">
         <ul>
           <li>Lead crisis development and execution, writing arcs and coordinating real-time committee flow.</li>
@@ -627,8 +709,8 @@
     </div>
 
     <div class="role">
-      <h2 class="role-title">Crisis Analyst</h2>
-      <div class="role-meta">2024 – 2025 · New York, NY · On-site</div>
+      <h2 class="role-title">Crisis Analyst/Director</h2>
+      <div class="role-meta">Dec 2024 – Jan 2025 · New York, NY · On-site</div>
       <div class="role-desc">
         <ul>
           <li>Wrote crisis updates and responses, keeping committee pacing tight and internally consistent.</li>
@@ -646,14 +728,14 @@
     </div>
     <div>
       <div class="company-name">Columbia University Science Olympiad</div>
-      <div class="tenure">Event Staff</div>
+      <div class="tenure">National Competition</div>
     </div>
   </summary>
 
   <div class="timeline">
     <div class="role">
-      <h2 class="role-title">Event Staff</h2>
-      <div class="role-meta">2025 – Present · New York, NY · On-site</div>
+      <h2 class="role-title">Event Supervisor</h2>
+      <div class="role-meta">Oct 2025 – Present · New York, NY · On-site</div>
       <div class="role-desc">
         <ul>
           <li>Supervise Helicopter and run event logistics to keep builds fair, consistent, and on-time.</li>
@@ -663,7 +745,7 @@
 
     <div class="role">
       <h2 class="role-title">Olympiad Volunteer</h2>
-      <div class="role-meta">2025 – Present · New York, NY · On-site</div>
+      <div class="role-meta">Oct 2025 – Present · New York, NY · On-site</div>
       <div class="role-desc">
         <ul>
           <li>Support competition operations and volunteer math help with local students in the Bronx area.</li>
@@ -673,7 +755,7 @@
 
     <div class="role">
       <h2 class="role-title">Exam Grader/Proctor</h2>
-      <div class="role-meta">2024 – 2025 · New York, NY · On-site</div>
+      <div class="role-meta">Oct 2024 – Jan 2025 · New York, NY · On-site</div>
       <div class="role-desc">
         <ul>
           <li>Graded Chemistry and Materials Science exams and ensured consistent scoring across teams.</li>
@@ -691,18 +773,18 @@
     </div>
     <div>
       <div class="company-name">Princeton Business Challenge</div>
-      <div class="tenure">National Judge</div>
+      <div class="tenure">National Competition</div>
     </div>
   </summary>
 
   <div class="timeline">
     <div class="role">
-      <h2 class="role-title">National Judge</h2>
-      <div class="role-meta">2025 – Present · United States · Remote</div>
+      <h2 class="role-title">Judge</h2>
+      <div class="role-meta">Sep 2025 – Jan 2026 · Princeton, NJ · Remote</div>
       <div class="role-desc">
         <ul>
-          <li>Evaluate written submissions and presentations using standardized judging criteria.</li>
-          <li>Provide feedback focused on clarity, strategy, and execution quality.</li>
+          <li>Evaluated written submissions and presentations using standardized judging criteria.</li>
+          <li>Provided feedback focused on clarity, strategy, and execution quality.</li>
         </ul>
       </div>
     </div>
@@ -717,14 +799,14 @@
     </div>
     <div>
       <div class="company-name">Management Leadership for Tomorrow</div>
-      <div class="tenure">Technology Fellow</div>
+      <div class="tenure">Fellowship Program</div>
     </div>
   </summary>
 
   <div class="timeline">
     <div class="role">
-      <h2 class="role-title">Technology Fellow</h2>
-      <div class="role-meta">Oct 2025 – Present · Remote</div>
+      <h2 class="role-title">Consulting Fellow</h2>
+      <div class="role-meta">Oct 2025 – Present · New York, NY · Hybrid</div>
       <div class="role-desc">
         <ul>
           <li>Structured training in problem solving, professional communication, and career execution.</li>
@@ -742,15 +824,26 @@
       <img src="../organizations/hs.png" alt="Goldman Sachs logo">
     </div>
     <div>
-      <div class="company-name">HeadStart Fellowship</div>
-      <div class="tenure">Technology Fellow</div>
+      <div class="company-name">HeadStart</div>
+      <div class="tenure">Fellowship Program</div>
     </div>
   </summary>
 
   <div class="timeline">
     <div class="role">
+      <h2 class="role-title">Finance Mentor</h2>
+      <div class="role-meta">Jan 2026 – Present · New York, NY · Hybrid</div>
+      <div class="role-desc">
+        <ul>
+          <li>Providing selective feedback, personalized application advice, and biweekly meetings to select mentees.</li>
+          <li>Implementing, soliciting monthly events between both local and visiting students in New York City.</li>
+        </ul>
+      </div>
+    </div>
+
+        <div class="role">
       <h2 class="role-title">Technology Fellow</h2>
-      <div class="role-meta">Sep 2025 – Present · Hybrid</div>
+      <div class="role-meta">Sep 2025 – Dec 2025 · New York, NY · Hybrid</div>
       <div class="role-desc">
         <ul>
           <li>Selective mentorship community centered on high-agency execution and technical growth.</li>
@@ -769,14 +862,14 @@
     </div>
     <div>
       <div class="company-name">Propel2Excel</div>
-      <div class="tenure">Consulting Fellow</div>
+      <div class="tenure">Fellowship Program</div>
     </div>
   </summary>
 
   <div class="timeline">
     <div class="role">
       <h2 class="role-title">Consulting Fellow</h2>
-      <div class="role-meta">Sep 2025 – Present · Hybrid</div>
+      <div class="role-meta">Sep 2025 – Present · New York, NY · Hybrid</div>
       <div class="role-desc">
         <ul>
           <li>1 to 1 mentorship and structured training focused on high-signal career acceleration.</li>

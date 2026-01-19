@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <style>
+<style>
 
 /* ===== MINI GLOBE ===== */
 .globe-wrap{
@@ -45,206 +45,235 @@
   backdrop-filter: blur(10px);
 }
 
-    *{ box-sizing:border-box; }
-    :root{
-      --navW: 1200px;         /* keep NAV consistent with other pages */
-      --w: 1280px;            /* page content width (media can be wider) */
-      --padX: 24px;
-      --padTop: 26px;
-      --padBot: 90px;
+*{ box-sizing:border-box; }
+:root{
+  --navW: 1200px;         /* keep NAV consistent with other pages */
+  --w: 1280px;            /* page content width (media can be wider) */
+  --padX: 24px;
+  --padTop: 26px;
+  --padBot: 90px;
 
-      --line:#eee;
-      --muted:#666;
-      --muted2:#777;
+  --line:#eee;
+  --muted:#666;
+  --muted2:#777;
 
-      --heroH: 320px;
-      --heroGap: 18px;
-      --topbarH: 58px;
+  --heroH: 320px;
+  --heroGap: 18px;
+  --topbarH: 58px;
 
-      --radius: 18px;
-    }
+  --radius: 18px;
+}
 
-    body{
-      margin:0;
-      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color:#111;
-      background:#fff;
-    }
-    a{ color:inherit; text-decoration:none; }
-    a:hover{ text-decoration:underline; }
+body{
+  margin:0;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color:#111;
+  background:#fff;
+}
+a{ color:inherit; text-decoration:none; }
+a:hover{ text-decoration:underline; }
 
-    /* TOP NAV */
-    .topbar{
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      background:#fff;
-      border-bottom: 1px solid var(--line);
-    }
-    .topbar-inner{
-      max-width: var(--navW); /* <- makes the nav bar match the rest of the site */
-      margin: 0 auto;
-      padding: 14px var(--padX);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 16px;
-    }
-    .brand{
-      font-weight: 700;
-      letter-spacing:-0.01em;
-      white-space: nowrap;
-    }
-    .topnav{
-      display:flex;
-      flex-wrap:wrap;
-      gap: 10px;
-      justify-content:flex-end;
-    }
-    .topnav a{
-      display:inline-block;
-      padding: 10px 14px;
-      border-radius: 999px;
-      text-decoration:none;
-      transition: background-color .12s ease;
-      color:#333;
-    }
-    .topnav a:hover{ background: rgba(0,0,0,.06); text-decoration:none; }
-    .topnav a.active{ background: rgba(0,0,0,.08); }
+/* TOP NAV */
+.topbar{
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background:#fff;
+  border-bottom: 1px solid var(--line);
+}
+.topbar-inner{
+  max-width: var(--navW); /* <- makes the nav bar match the rest of the site */
+  margin: 0 auto;
+  padding: 14px var(--padX);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 16px;
+}
+.brand{
+  font-weight: 700;
+  letter-spacing:-0.01em;
+  white-space: nowrap;
+}
+.topnav{
+  display:flex;
+  flex-wrap:wrap;
+  gap: 10px;
+  justify-content:flex-end;
+}
+.topnav a{
+  display:inline-block;
+  padding: 10px 14px;
+  border-radius: 999px;
+  text-decoration:none;
+  transition: background-color .12s ease;
+  color:#333;
+}
+.topnav a:hover{ background: rgba(0,0,0,.06); text-decoration:none; }
+.topnav a.active{ background: rgba(0,0,0,.08); }
 
-    /* HERO */
-    .hero-strip{
-      width:100%;
-      height: var(--heroH);
-      background: #dbf2ff;
-      margin: 0 0 var(--heroGap);
-    }
+/* =========================
+   PME-style DASHBAR (same as homepage)
+   - Desktop: hidden (no layout change).
+   - Mobile: shows 3 bars + dropdown panel.
+   ========================= */
+.nav-toggle{
+  display:none;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 999px;
+  padding: 10px;
+  cursor: pointer;
+  align-items:center;
+  justify-content:center;
+  gap: 4px;
+}
+.nav-toggle .bar{
+  display:block;
+  width: 18px;
+  height: 2px;
+  background: #111;
+  border-radius: 2px;
+  transition: transform .18s ease, opacity .18s ease;
+}
+.topbar.nav-open .nav-toggle .bar:nth-child(1){
+  transform: translateY(6px) rotate(45deg);
+}
+.topbar.nav-open .nav-toggle .bar:nth-child(2){
+  opacity: 0;
+}
+.topbar.nav-open .nav-toggle .bar:nth-child(3){
+  transform: translateY(-6px) rotate(-45deg);
+}
 
-    .container{
-      max-width: var(--w);
-      margin: 0 auto;
-      padding: var(--padTop) var(--padX) var(--padBot);
-    }
+/* HERO */
+.hero-strip{
+  width:100%;
+  height: var(--heroH);
+  background: #dbf2ff;
+  margin: 0 0 var(--heroGap);
+}
 
-    /* compact header row */
-    .page-head{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap: 18px;
-      padding-bottom: 14px;
-      margin-bottom: 18px;
-      border-bottom: 4px solid var(--line);
-    }
-    .page-head h1{
-      margin: 0;
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing:-0.02em;
-    }
-    .page-head p{
-      margin: 6px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.6;
-      max-width: 760px;
-    }
-    .head-right{
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:flex-end;
-    }
-    .pill{
-      display:inline-block;
-      padding: 10px 12px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.05);
-      color:#333;
-      font-size: 13px;
-      white-space: nowrap;
-    }
+.container{
+  max-width: var(--w);
+  margin: 0 auto;
+  padding: var(--padTop) var(--padX) var(--padBot);
+}
 
-    /* SECTION PANELS (full width) */
-    .panel{
-      border: 2px solid #dbf2ff;
-      border-radius: var(--radius);
-      background:#fff;
-      padding: 16px 16px;
-      margin: 0 0 18px;
-    }
-    .panel-top{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap: 16px;
-      margin-bottom: 14px;
-    }
-    .panel h2{
-      margin:0;
-      font-size: 16px;
-      font-weight: 800;
-      letter-spacing:-0.01em;
-    }
-    .panel .sub{
-      margin: 6px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.6;
-    }
-    .panel-actions{
-      display:flex;
-      gap: 8px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-    .ghost{
-      display:inline-block;
-      padding: 9px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background:#fff;
-      font-size: 13px;
-      color:#333;
-      cursor: default;
-      white-space: nowrap;
-    }
-    /* clickable ghost button */
-    a.ghost{
-      cursor: pointer;
-    }
-    a.ghost:hover{
-      text-decoration:none;
-      background: rgba(0,0,0,.04);
-    }
+/* compact header row */
+.page-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap: 18px;
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+  border-bottom: 4px solid var(--line);
+}
+.page-head h1{
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing:-0.02em;
+}
+.page-head p{
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+  max-width: 760px;
+}
+.head-right{
+  display:flex;
+  gap: 10px;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:flex-end;
+}
+.pill{
+  display:inline-block;
+  padding: 10px 12px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.05);
+  color:#333;
+  font-size: 13px;
+  white-space: nowrap;
+}
 
-    /* MEDIA WALL */
-    .wall{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
+/* SECTION PANELS (full width) */
+.panel{
+  border: 2px solid #dbf2ff;
+  border-radius: var(--radius);
+  background:#fff;
+  padding: 16px 16px;
+  margin: 0 0 18px;
+}
+.panel-top{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.panel h2{
+  margin:0;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing:-0.01em;
+}
+.panel .sub{
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.panel-actions{
+  display:flex;
+  gap: 8px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+.ghost{
+  display:inline-block;
+  padding: 9px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background:#fff;
+  font-size: 13px;
+  color:#333;
+  cursor: default;
+  white-space: nowrap;
+}
+a.ghost{ cursor: pointer; }
+a.ghost:hover{ text-decoration:none; background: rgba(0,0,0,.04); }
 
-    .tile{
-      display:block;
-      border: 2px solid #dbf2ff;
-      border-radius: calc(var(--radius) - 4px);
-      overflow:hidden;
-      background:#fff;
-      text-decoration:none;
-      transition: transform .12s ease;
-      min-height: 260px;
-    }
-    .tile:hover{ transform: translateY(-1px); text-decoration:none; }
+/* MEDIA WALL */
+.wall{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.tile{
+  display:block;
+  border: 2px solid #dbf2ff;
+  border-radius: calc(var(--radius) - 4px);
+  overflow:hidden;
+  background:#fff;
+  text-decoration:none;
+  transition: transform .12s ease;
+  min-height: 260px;
+}
+.tile:hover{ transform: translateY(-1px); text-decoration:none; }
 
-    .thumb{
-      width:100%;
-      aspect-ratio: 16 / 10;
-      background: linear-gradient(135deg, #e9e9e9, #d9d9d9);
-      position: relative;
-    }
-  .thumb::after{
+.thumb{
+  width:100%;
+  aspect-ratio: 16 / 10;
+  background: linear-gradient(135deg, #e9e9e9, #d9d9d9);
+  position: relative;
+}
+.thumb::after{
   content:"↗";
   position:absolute;
   right: 12px;
@@ -262,137 +291,167 @@
   line-height: 1;
 }
 
-    .cap{
-      padding: 12px 12px 14px;
-      border-top: 2px solid #dbf2ff;
-    }
-    .cap-title{
-      margin:0;
-      font-weight: 800;
-      font-size: 14px;
-      letter-spacing:-0.01em;
-    }
-    .cap-meta{
-      margin: 6px 0 0;
-      font-size: 13px;
-      color: var(--muted2);
-      line-height: 1.5;
-    }
+.cap{
+  padding: 12px 12px 14px;
+  border-top: 2px solid #dbf2ff;
+}
+.cap-title{
+  margin:0;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing:-0.01em;
+}
+.cap-meta{
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--muted2);
+  line-height: 1.5;
+}
 
-    /* REFERENCE SHELF */
-    .ref-grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .ref{
-      border: 2px solid #dbf2ff;
-      border-radius: calc(var(--radius) - 4px);
-      padding: 12px 12px;
-      background:#fff;
-    }
-    .ref-top{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap: 10px;
-    }
-    .ref-title{
-      margin:0;
-      font-weight: 800;
-      font-size: 14px;
-      letter-spacing:-0.01em;
-    }
-    .tag{
-      flex: 0 0 auto;
-      font-size: 12px;
-      color:#333;
-      background: rgba(0,0,0,.05);
-      border-radius: 999px;
-      padding: 6px 10px;
-      white-space: nowrap;
-    }
-    .ref-desc{
-      margin: 8px 0 0;
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.75;
-    }
-    .ref a{
-      display:inline-block;
-      margin-top: 10px;
-      font-size: 13px;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      color:#333;
-    }
+/* REFERENCE SHELF */
+.ref-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.ref{
+  border: 2px solid #dbf2ff;
+  border-radius: calc(var(--radius) - 4px);
+  padding: 12px 12px;
+  background:#fff;
+}
+.ref-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap: 10px;
+}
+.ref-title{
+  margin:0;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing:-0.01em;
+}
+.tag{
+  flex: 0 0 auto;
+  font-size: 12px;
+  color:#333;
+  background: rgba(0,0,0,.05);
+  border-radius: 999px;
+  padding: 6px 10px;
+  white-space: nowrap;
+}
+.ref-desc{
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.75;
+}
+.ref a{
+  display:inline-block;
+  margin-top: 10px;
+  font-size: 13px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color:#333;
+}
 
-    /* CREDENTIALS */
-    .cred{
-      display:grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 14px;
-      align-items:start;
-    }
-    .badges{
-      display:flex;
-      flex-wrap:wrap;
-      gap: 8px;
-      margin-top: 6px;
-    }
-    .badge{
-      display:inline-block;
-      padding: 10px 12px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.05);
-      color:#333;
-      font-size: 13px;
-    }
-    .cv{
-      margin: 10px 0 0;
-      padding-left: 18px;
-      color:#333;
-      font-size: 13px;
-      line-height: 1.75;
-    }
-    .cv li{ margin: 6px 0; }
+/* CREDENTIALS */
+.cred{
+  display:grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 14px;
+  align-items:start;
+}
+.badges{
+  display:flex;
+  flex-wrap:wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+.badge{
+  display:inline-block;
+  padding: 10px 12px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.05);
+  color:#333;
+  font-size: 13px;
+}
+.cv{
+  margin: 10px 0 0;
+  padding-left: 18px;
+  color:#333;
+  font-size: 13px;
+  line-height: 1.75;
+}
+.cv li{ margin: 6px 0; }
 
-    .cred-side{
-      border: 1px solid var(--line);
-      border-radius: calc(var(--radius) - 4px);
-      padding: 12px 12px;
-      background:#fff;
-    }
-    .cred-side h3{
-      margin:0 0 8px;
-      font-size: 12px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color:#111;
-    }
-    .mini{
-      margin:0;
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-    .mini b{ color:#111; }
+.cred-side{
+  border: 1px solid var(--line);
+  border-radius: calc(var(--radius) - 4px);
+  padding: 12px 12px;
+  background:#fff;
+}
+.cred-side h3{
+  margin:0 0 8px;
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color:#111;
+}
+.mini{
+  margin:0;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.mini b{ color:#111; }
 
-    footer{
-      margin-top: 70px;
-      font-size: 13px;
-      color:#aaa;
-      text-align:center;
-    }
+footer{
+  margin-top: 70px;
+  font-size: 13px;
+  color:#aaa;
+  text-align:center;
+}
 
-    @media (max-width: 980px){
-      :root{ --heroH: 220px; }
-      .page-head{ align-items:flex-start; flex-direction:column; }
-      .head-right{ justify-content:flex-start; }
-      .wall{ grid-template-columns: 1fr; }
-      .ref-grid{ grid-template-columns: 1fr; }
-      .cred{ grid-template-columns: 1fr; }
-    }
+/* MOBILE */
+@media (max-width: 980px){
+  :root{ --heroH: 220px; }
+  .page-head{ align-items:flex-start; flex-direction:column; }
+  .head-right{ justify-content:flex-start; }
+  .wall{ grid-template-columns: 1fr; }
+  .ref-grid{ grid-template-columns: 1fr; }
+  .cred{ grid-template-columns: 1fr; }
+
+  /* dashbar dropdown (same pattern as homepage) */
+  .nav-toggle{ display:inline-flex; }
+  .topbar-inner{ position: relative; }
+
+  .topnav{
+    display:none; /* shown when .topbar.nav-open */
+    position:absolute;
+    right: var(--padX);
+    top: calc(100% + 10px);
+    width: min(520px, calc(100vw - 2*var(--padX)));
+    background:#fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 10px;
+    box-shadow: 0 14px 40px rgba(0,0,0,.10);
+
+    flex-direction: column;
+    gap: 6px;
+    justify-content:flex-start;
+  }
+  .topbar.nav-open .topnav{ display:flex; }
+
+  .topnav a{
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+  }
+}
+
 /* ===== MEDIA LIGHTBOX (click-to-expand) ===== */
 :root{
   --modal-bg: url("../media/cu.jpg");
@@ -405,15 +464,13 @@
   position: fixed;
   inset: 0;
   z-index: 999;
-  /* display: none;   <-- REMOVE THIS */
-  display: flex;               /* keep it renderable so it can animate */
+  display: flex;
   align-items: center;
   justify-content: center;
   padding: 28px;
 
   background: transparent;
 
-  /* NEW: transition state */
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -421,14 +478,12 @@
 }
 
 .media-modal.open{
-  /* display: flex;   <-- REMOVE THIS */
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
   transition: opacity 420ms ease, visibility 0s;
 }
 
-/* Image overlay (sits above page, below modal card) */
 .media-modal::before{
   content:"";
   position:absolute;
@@ -444,16 +499,13 @@
   filter: blur(var(--modal-blur));
   transform: scale(1.06);
 
-  /* NEW */
   transition: opacity 420ms ease;
 }
 
-/* Keep the popup above the overlay layers */
 .media-modal-inner{
   position: relative;
   z-index: 2;
 
-  /* Match the tile’s image box aspect ratio */
   width: min(1100px, 92vw, calc(78vh * 16 / 10));
   aspect-ratio: 16 / 10;
   height: auto;
@@ -470,19 +522,17 @@
   height: 100%;
   display: block;
 
-  /* match tile placeholder behavior */
-  background-size: 100% auto;      /* fit-to-width like the tile */
-  background-repeat: repeat-y;     /* repeats vertically */
-  background-position: center; /* same anchor point */
+  background-size: 100% auto;
+  background-repeat: repeat-y;
+  background-position: center;
 }
 
-/* close button: match tile arrow + never get buried */
 .media-modal-close{
   position: absolute;
   right: 12px;
   top: 10px;
 
-  z-index: 50;                 /* KEY: keep it above image/caption */
+  z-index: 50;
   font-weight: 800;
   color: rgba(0,0,0,.45);
   background: rgba(255,255,255,.75);
@@ -537,31 +587,29 @@
   font-size: 15px;
   line-height: 1.7;
 }
-/* ===== pattern/repeat mode: modal matches tile thumb ===== */
+
 .media-modal-inner.is-repeat{
-  background-color: #fff;                 /* avoids weird dark behind gaps */
+  background-color: #fff;
   background-repeat: repeat;
   background-position: center;
-  background-size: var(--repeatSize, 420px) auto;  /* same as tile */
+  background-size: var(--repeatSize, 420px) auto;
 }
 
-/* hide the <img> when we are using the tiled background */
 .media-modal-inner.is-repeat .media-modal-img{
   display: none;
 }
-/* keep your existing hover animation exactly as-is */
+
 .media-modal-cap a{ text-decoration: underline; text-underline-offset: 3px; }
 
-  
-  
-  </style>
+</style>
 </head>
 
 <body>
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand"><a href="../">Iz Tecúm</a></div>
-      <nav class="topnav">
+
+      <nav class="topnav" aria-label="Primary">
         <a href="../projects/">projects</a>
         <a href="../research/">research</a>
         <a href="../experience/">experience</a>
@@ -570,6 +618,13 @@
         <a class="active" href="./">media</a>
         <a href="../contact/">contact</a>
       </nav>
+
+      <!-- PME-style dashbar (mobile only via your CSS) -->
+      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
     </div>
   </header>
 
@@ -599,150 +654,143 @@
 
       <div class="wall">
 
-  <a class="tile" href="#"
-   data-img="./im3.webp"   background: rgba(255, 255, 255, 1.00);
-   data-title="AMS Joint Mathematics Meeting"
-   data-meta="AMS has backed me way harder than I ever expected. They were my first-ever publisher, and honestly the first place that made my work feel “real” outside my own notes. Then it turned into JMM, early ICM consideration, and now I’m on the U.S. delegation for the Capitol Hill visits. I started intently pursuing math ~2 years ago, so this is still kind of insane to process, but of course I am enjoying the ride in higher mathematics."
-   data-modal-zoom="1.00">
-<div class="thumb" style="
-  background-image:url('./im3.webp');
-  background-size: 100% auto;   /* zoom in */
-  background-repeat: no-repeat;
-  background-position: center;
-"></div>
-  <div class="cap">
-    <p class="cap-title">AMS Joint Mathematics Meeting</p>
-    <p class="cap-meta">January 2026</p>
-  </div>
-</a>    
+        <a class="tile" href="#"
+           data-img="./im3.webp"
+           data-title="AMS Joint Mathematics Meeting"
+           data-meta="AMS has backed me way harder than I ever expected. They were my first-ever publisher, and honestly the first place that made my work feel “real” outside my own notes. Then it turned into JMM, early ICM consideration, and now I’m on the U.S. delegation for the Capitol Hill visits. I started intently pursuing math ~2 years ago, so this is still kind of insane to process, but of course I am enjoying the ride in higher mathematics."
+           data-modal-zoom="1.00">
+          <div class="thumb" style="
+            background-image:url('./im3.webp');
+            background-size: 100% auto;
+            background-repeat: no-repeat;
+            background-position: center;
+          "></div>
+          <div class="cap">
+            <p class="cap-title">AMS Joint Mathematics Meeting</p>
+            <p class="cap-meta">January 2026</p>
+          </div>
+        </a>
 
-<a class="tile" href="#"
-   data-img="./im5.jpeg"
-   data-title="Knot Theory Lecture"
-   data-meta="This one’s out of the established norm, but honestly: out of all the courses I’ve taken, nothing felt like Introduction to Knot Theory (GU4052) at Columbia. It was taught by Professor Rostislav Akhmechet, and it was my first real geometrically-inclined class. It opened a whole new lane of math for me — including first-time exposure to higher-level homotopy theory, and it's suitable applications in other fields such as Riemannian geometry. Professor Rostislav was an incredible professor, and the course wrapped with a brief introduction to Khovanov homology."
-   data-modal-zoom="1.05">
-<div class="thumb" style="
-  background-image:url('./im5.jpeg');
-  background-size: 105% auto;   /* zoom in */
-  background-repeat: repeat-y;
-  background-position: center;
-"></div>
-  <div class="cap">
-    <p class="cap-title">Knot Theory Lecture</p>
-    <p class="cap-meta">December 2025</p>
-  </div>
-</a> 
+        <a class="tile" href="#"
+           data-img="./im5.jpeg"
+           data-title="Knot Theory Lecture"
+           data-meta="This one’s out of the established norm, but honestly: out of all the courses I’ve taken, nothing felt like Introduction to Knot Theory (GU4052) at Columbia. It was taught by Professor Rostislav Akhmechet, and it was my first real geometrically-inclined class. It opened a whole new lane of math for me — including first-time exposure to higher-level homotopy theory, and it's suitable applications in other fields such as Riemannian geometry. Professor Rostislav was an incredible professor, and the course wrapped with a brief introduction to Khovanov homology."
+           data-modal-zoom="1.05">
+          <div class="thumb" style="
+            background-image:url('./im5.jpeg');
+            background-size: 105% auto;
+            background-repeat: repeat-y;
+            background-position: center;
+          "></div>
+          <div class="cap">
+            <p class="cap-title">Knot Theory Lecture</p>
+            <p class="cap-meta">December 2025</p>
+          </div>
+        </a>
 
-<a class="tile" href="#"
-   data-img="./im1.png"
-   data-title="DE Shaw CONNECT"
-   data-meta="A four-hour gathering at the Whitney Museum of American Art with an unusually strong cohort of mainly sophomores from across the country, spanning math-heavy tracks, CS, and the social sciences/humanities. Great conversations, a well-run program, and genuinely good catering. It felt like a rare cross-discipline room where everyone was sharp and curious.">
-<div class="thumb"
-  aria-label="Media tile 1"
-  style="
-    background-image: url('./im1.png');
-    background-size: 100% auto;
-    background-repeat: repeat-y;
-    background-position: center;
-  ">
-</div>
-  <div class="cap">
-    <p class="cap-title">DE Shaw CONNECT</p>
-    <p class="cap-meta">October 2025</p>
-  </div>
-</a>      
-      
-<a class="tile" href="#"
-   data-img="./im4.jpeg"
-   data-title="Columbia Economics Society Orientation"
-   data-meta="This one feels quite special. This was our first CES meeting, right after we took the group photo and then split into four divisions: business, consulting, banking, and economics. I got placed into the business division as a Business Representative under our director Arthur Campos (fantastic energy, super attentive to his reps). CES is run by genuinely socially active presidents James & Joshua Park, though it’s not just vibes — it’s a real concentration of talent across both Columbia College and SEAS, and it’s given me a ton of opportunity already."
-   data-modal-zoom="1.05">
-<div class="thumb" style="
-  background-image:url('./im4.jpeg');
-  background-size: 105% auto; /* zoom in */
-  background-repeat: repeat-y;
-  background-position: center;
-"></div>
-  <div class="cap">
-    <p class="cap-title">Columbia Economics Society Orientation</p>
-    <p class="cap-meta">September 2025</p>
-  </div>
-</a>   
- 
-<a class="tile" href="#"
-   data-img="./im6.webp"
-   data-title="OSSM Convocation Address"
-   data-meta='Going into senior year, it honestly felt like the world had already decided my ceiling. I was coming from Guymon High School, which (at the time) was listed at #17,655 / 17,656 on U.S. News for the 2023–2024 academic year — basically the edge of the map. But a newly built virtual pathway at the Oklahoma School of Science and Mathematics cracked the whole trajectory open.
+        <a class="tile" href="#"
+           data-img="./im1.png"
+           data-title="DE Shaw CONNECT"
+           data-meta="A four-hour gathering at the Whitney Museum of American Art with an unusually strong cohort of mainly sophomores from across the country, spanning math-heavy tracks, CS, and the social sciences/humanities. Great conversations, a well-run program, and genuinely good catering. It felt like a rare cross-discipline room where everyone was sharp and curious.">
+          <div class="thumb" aria-label="Media tile 1" style="
+            background-image: url('./im1.png');
+            background-size: 100% auto;
+            background-repeat: repeat-y;
+            background-position: center;
+          "></div>
+          <div class="cap">
+            <p class="cap-title">DE Shaw CONNECT</p>
+            <p class="cap-meta">October 2025</p>
+          </div>
+        </a>
+
+        <a class="tile" href="#"
+           data-img="./im4.jpeg"
+           data-title="Columbia Economics Society Orientation"
+           data-meta="This one feels quite special. This was our first CES meeting, right after we took the group photo and then split into four divisions: business, consulting, banking, and economics. I got placed into the business division as a Business Representative under our director Arthur Campos (fantastic energy, super attentive to his reps). CES is run by genuinely socially active presidents James & Joshua Park, though it’s not just vibes — it’s a real concentration of talent across both Columbia College and SEAS, and it’s given me a ton of opportunity already."
+           data-modal-zoom="1.05">
+          <div class="thumb" style="
+            background-image:url('./im4.jpeg');
+            background-size: 105% auto;
+            background-repeat: repeat-y;
+            background-position: center;
+          "></div>
+          <div class="cap">
+            <p class="cap-title">Columbia Economics Society Orientation</p>
+            <p class="cap-meta">September 2025</p>
+          </div>
+        </a>
+
+        <a class="tile" href="#"
+           data-img="./im6.webp"
+           data-title="OSSM Convocation Address"
+           data-meta='Going into senior year, it honestly felt like the world had already decided my ceiling. I was coming from Guymon High School, which (at the time) was listed at #17,655 / 17,656 on U.S. News for the 2023–2024 academic year — basically the edge of the map. But a newly built virtual pathway at the Oklahoma School of Science and Mathematics cracked the whole trajectory open.
 
 And even before OSSM fully “started,” there’s one moment that still feels unreal to me. I had only taken the ACT one time before — and I genuinely took it as a joke. The second time around, now at OSSM, Dr. Frank Wang personally sponsored me (on behalf of OSSM) to take the exam, including covering gas money, even though it meant doing something absurd: the only testing site I could get was in Des Moines, Iowa. From Optima, that turned into roughly 1,400 miles of total driving. I left in the middle of the night, tested on a Sunday, and then drove back the following night so I could still make it to work/school. That kind of “we’re going to make this happen anyway” support wasn’t what I expected from anyone — and it set the tone for what OSSM ended up meaning in my life. That door existed because of Dr. Frank Wang — his leadership and sheer insistence on what Oklahoma education could be changed what was possible for students like me.
 
-OSSM was a completely different universe. It wasn’t just “a better school,” it was a different standard of seriousness, talent, and expectation — a place that (for 2023–2024) was ranked #5 / 20,733 schools on <a href="https://www.niche.com/about/niche-releases-its-10th-annual-best-schools-and-districts-rankings-for-2024/" target="_blank" rel="noopener">Niche</a>. And I stood out in a weird way: I was the only kid taking exams on campus, but also the only one not living there (it’s a boarding school) — while trying to compress a two-year residential high school into one year, juggling bureaucratic friction and real-life obligations. It was one of the hardest years I’ve ever had to navigate, but it also introduced me to the American Mathematics Competitions (AMCs) scene and put me around students who would go on to represent the United States at the Chemistry, Biology, and Physics Olympiads. Being in that orbit changed how I thought about what “normal” effort and “normal” excellence even mean.
+OSSM was a completely different universe. It wasn’t just “a better school,” it was a different standard of seriousness, talent, and expectation — a place that (for 2023–2024) was ranked #5 / 20,733 schools on Niche. And I stood out in a weird way: I was the only kid taking exams on campus, but also the only one not living there (it’s a boarding school) — while trying to compress a two-year residential high school into one year, juggling bureaucratic friction and real-life obligations. It was one of the hardest years I’ve ever had to navigate, but it also introduced me to the American Mathematics Competitions (AMCs) scene and put me around students who would go on to represent the United States at the Chemistry, Biology, and Physics Olympiads. Being in that orbit changed how I thought about what “normal” effort and “normal” excellence even mean.
 
 Coming back in August to give a convocation address — nominated by a majority of the faculty (mostly professors) — felt surreal. OSSM earned its reputation, and with Dr. Wang (a now-retired MIT professor) leading in recent years, his influence is a huge part of why I was able to claim an OSSM education at all, even from nearly five hours away. It wasn’t just a speech — it felt as though I were in the shoes of a priest, and I was delivering a sermon on what everybody in that room was needing to hear about the potential of an OSSM education. It works if you let it.'
-   data-modal-zoom="1.00">
-  <div class="thumb" style="
-    background-image:url('./im6.webp');
-    background-size: 100% auto;
-    background-repeat: repeat-y;
-    background-position: center;
-  "></div>
-  <div class="cap">
-    <p class="cap-title">OSSM Convocation Address</p>
-    <p class="cap-meta">August 2025</p>
-  </div>
-</a>     
+           data-modal-zoom="1.00">
+          <div class="thumb" style="
+            background-image:url('./im6.webp');
+            background-size: 100% auto;
+            background-repeat: repeat-y;
+            background-position: center;
+          "></div>
+          <div class="cap">
+            <p class="cap-title">OSSM Convocation Address</p>
+            <p class="cap-meta">August 2025</p>
+          </div>
+        </a>
 
-<a class="tile" href="#"
-   data-img="./im2.webp"
-   data-title="Jane Street FOCUS"
-   data-meta="FOCUS was a real turning point for me — problem-heavy, fast-paced, and honest about what “good thinking” looks like under pressure. It also wasn’t a one-off: between the Diversity Summer Social, FOCUS, and now helping as a campus ambassador hosting events, I’ve felt consistent support for my research work and my broader goals."
-   data-modal-zoom="1.15">
-<div class="thumb" style="
-  background-image:url('./im2.webp');
-  background-size: 115% auto;   /* zoom in */
-  background-repeat: repeat-y;
-  background-position: center;
-"></div>
-  <div class="cap">
-    <p class="cap-title">Jane Street FOCUS</p>
-    <p class="cap-meta">May 2025</p>
-  </div>
-</a>   
+        <a class="tile" href="#"
+           data-img="./im2.webp"
+           data-title="Jane Street FOCUS"
+           data-meta="FOCUS was a real turning point for me — problem-heavy, fast-paced, and honest about what “good thinking” looks like under pressure. It also wasn’t a one-off: between the Diversity Summer Social, FOCUS, and now helping as a campus ambassador hosting events, I’ve felt consistent support for my research work and my broader goals."
+           data-modal-zoom="1.15">
+          <div class="thumb" style="
+            background-image:url('./im2.webp');
+            background-size: 115% auto;
+            background-repeat: repeat-y;
+            background-position: center;
+          "></div>
+          <div class="cap">
+            <p class="cap-title">Jane Street FOCUS</p>
+            <p class="cap-meta">May 2025</p>
+          </div>
+        </a>
 
-</div>
+      </div>
     </section>
 
-<!-- MEDIA MODAL (lightbox) -->
-<div class="media-modal" id="mediaModal" aria-hidden="true">
-  <div class="media-modal-inner" role="dialog" aria-modal="true" aria-label="Media preview">
-    <div class="media-modal-close" id="mediaModalClose">×</div>
+    <!-- MEDIA MODAL (lightbox) -->
+    <div class="media-modal" id="mediaModal" aria-hidden="true">
+      <div class="media-modal-inner" role="dialog" aria-modal="true" aria-label="Media preview">
+        <div class="media-modal-close" id="mediaModalClose">×</div>
 
-    
+        <div class="media-modal-img" id="mediaModalImg" role="img" aria-label=""></div>
 
-    <!-- REPLACE <img> WITH THIS: -->
-    <div class="media-modal-img" id="mediaModalImg" role="img" aria-label=""></div>
-
-    <div class="media-modal-cap">
-      <h3 id="mediaModalTitle">Title</h3>
-      <p id="mediaModalMeta">Caption · date · context</p>
+        <div class="media-modal-cap">
+          <h3 id="mediaModalTitle">Title</h3>
+          <p id="mediaModalMeta">Caption · date · context</p>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
+    <!-- WHERE I'M FROM (mini globe) -->
+    <section class="panel">
+      <div class="panel-top">
+        <div>
+          <h2>Where I’m From</h2>
+        </div>
+      </div>
 
-<!-- WHERE I'M FROM (mini globe) -->
-<section class="panel">
-  <div class="panel-top">
-    <div>
-      <h2>Where I’m From</h2>
-    </div>
-  </div>
-
-  <div class="globe-wrap" id="globeWrap">
-    <div class="globe-hint">drag + scroll </div>
-    <div id="globeViz" style="width:100%; height:100%;"></div>
-  </div>
-</section>
+      <div class="globe-wrap" id="globeWrap">
+        <div class="globe-hint">drag + scroll</div>
+        <div id="globeViz" style="width:100%; height:100%;"></div>
+      </div>
+    </section>
 
     <!-- REFERENCE SHELF -->
     <section class="panel">
@@ -754,22 +802,22 @@ Coming back in August to give a convocation address — nominated by a majority 
 
       <div class="ref-grid">
         <div class="ref">
-          <div class="ref-top"><p class="ref-title">PME Homepage</p><span class="tag">project</span></div>
+          <div class="ref-top"><p class="ref-title">PME Homepage</p><span class=""></span></div>
           <p class="ref-desc">Currently in the process of co-founding a premier math honor society at Columbia.</p>
           <a href="https://iz-tecum.github.io/columbiapme/index.html">website link ↗</a>
         </div>
         <div class="ref">
-          <div class="ref-top"><p class="ref-title">CES Homepage</p><span class="tag">project</span></div>
+          <div class="ref-top"><p class="ref-title">CES Homepage</p><span class=""></span></div>
           <p class="ref-desc">Spent the last week of the year bootstrapping this website from scratch. Have a look!</p>
           <a href="https://iz-tecum.github.io/cueconsociety/about/index.html">club link ↗</a>
         </div>
         <div class="ref">
-          <div class="ref-top"><p class="ref-title">Economic Stabilization for the American Indian</p><span class="tag">policy</span></div>
+          <div class="ref-top"><p class="ref-title">Economic Stabilization for the American Indian</p><span class=""></span></div>
           <p class="ref-desc">I have written exclusively about recent economic repercussions on American Indians.</p>
           <a href="https://www.columbiapolicyinstitute.org/past-issues/cpj2425">writing link ↗</a>
         </div>
         <div class="ref">
-          <div class="ref-top"><p class="ref-title">AMS Contributed Paper Session on Probability</p><span class="tag">talk</span></div>
+          <div class="ref-top"><p class="ref-title">AMS Contributed Paper Session on Probability</p><span class=""></span></div>
           <p class="ref-desc">I have delivered a talk on theoretical coupling bound probabilities through the AMS.</p>
           <a href="https://meetings.ams.org/math/jmm2026/meetingapp.cgi/Paper/52479">talk link ↗</a>
         </div>
@@ -778,214 +826,275 @@ Coming back in August to give a convocation address — nominated by a majority 
 
     <footer>© 2025 Iz Tecúm</footer>
   </main>
-
-<script>
-  const modal = document.getElementById("mediaModal");
-  const modalImg = document.getElementById("mediaModalImg");
-  const modalTitle = document.getElementById("mediaModalTitle");
-  const modalMeta = document.getElementById("mediaModalMeta");
-  const modalClose = document.getElementById("mediaModalClose");
-  const modalInner = document.querySelector(".media-modal-inner");
   
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+  
+  <script>
+    const modal = document.getElementById("mediaModal");
+    const modalImg = document.getElementById("mediaModalImg");
+    const modalTitle = document.getElementById("mediaModalTitle");
+    const modalMeta = document.getElementById("mediaModalMeta");
+    const modalClose = document.getElementById("mediaModalClose");
+    const modalInner = document.querySelector(".media-modal-inner");
 
+    function openModal({img, title, meta, mode}) {
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
 
-  function openModal({img, title, meta, mode}) {
-    modal.classList.add("open");
-    modal.setAttribute("aria-hidden", "false");
+      modalTitle.textContent = title || "";
+      modalMeta.innerHTML = (meta || "").replace(/\n\n/g, "<br><br>").replace(/\n/g, "<br>");
 
-    modalTitle.textContent = title || "";
-modalMeta.innerHTML = (meta || "").replace(/\n\n/g, "<br><br>").replace(/\n/g, "<br>");
-    // DEFAULT: normal photo behavior (img tag)
-    modalInner.style.backgroundImage = "";
-    modalInner.style.backgroundRepeat = "";
-    modalInner.style.backgroundPosition = "";
-    modalInner.style.backgroundSize = "";
-    modalImg.style.display = "block";
+      modalInner.style.backgroundImage = "";
+      modalInner.style.backgroundRepeat = "";
+      modalInner.style.backgroundPosition = "";
+      modalInner.style.backgroundSize = "";
+      modalImg.style.display = "block";
 
-    // SPECIAL: match Tile 1 thumb behavior exactly (3 repeats vertically)
-    if (mode === "repeat3y") {
-      modalImg.style.display = "none";
-      modalInner.style.backgroundImage = `url('${img}')`;
-      modalInner.style.backgroundRepeat = "repeat-y";
-      modalInner.style.backgroundPosition = "center";
-      modalInner.style.backgroundSize = "100% calc(100% / 3)";
-    } else {
- modalImg.style.backgroundImage = `url("${img}")`;
-modalImg.setAttribute("aria-label", title || "Media image");
+      if (mode === "repeat3y") {
+        modalImg.style.display = "none";
+        modalInner.style.backgroundImage = `url('${img}')`;
+        modalInner.style.backgroundRepeat = "repeat-y";
+        modalInner.style.backgroundPosition = "center";
+        modalInner.style.backgroundSize = "100% calc(100% / 3)";
+      } else {
+        modalImg.style.backgroundImage = `url("${img}")`;
+        modalImg.setAttribute("aria-label", title || "Media image");
+      }
+
+      document.body.style.overflow = "hidden";
     }
 
-    document.body.style.overflow = "hidden";
-  }
+    function closeModal() {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+      modalImg.style.backgroundImage = "";
+      modalImg.style.display = "block";
 
-  function closeModal() {
-    modal.classList.remove("open");
-    modal.setAttribute("aria-hidden", "true");
-    modalImg.style.backgroundImage = "";
-    modalImg.style.display = "block";
+      modalInner.style.backgroundImage = "";
+      modalInner.style.backgroundRepeat = "";
+      modalInner.style.backgroundPosition = "";
+      modalInner.style.backgroundSize = "";
 
-    // clean up background mode
-    modalInner.style.backgroundImage = "";
-    modalInner.style.backgroundRepeat = "";
-    modalInner.style.backgroundPosition = "";
-    modalInner.style.backgroundSize = "";
+      document.body.style.overflow = "";
+    }
 
-    document.body.style.overflow = "";
-  }
+    document.querySelectorAll(".tile").forEach(tile => {
+      tile.addEventListener("click", (e) => {
+        e.preventDefault();
 
-  document.querySelectorAll(".tile").forEach(tile => {
-    tile.addEventListener("click", (e) => {
-      e.preventDefault();
+        const img = tile.getAttribute("data-img");
+        const title = tile.getAttribute("data-title") || tile.querySelector(".cap-title")?.textContent;
+        const meta = tile.getAttribute("data-meta") || tile.querySelector(".cap-meta")?.textContent;
+        const mode = tile.getAttribute("data-mode") || "";
 
-      const img = tile.getAttribute("data-img");
-      const title = tile.getAttribute("data-title") || tile.querySelector(".cap-title")?.textContent;
-      const meta = tile.getAttribute("data-meta") || tile.querySelector(".cap-meta")?.textContent;
-      const mode = tile.getAttribute("data-mode") || "";
+        if (!img) return;
 
-      if (!img) return;
+        const zoom = tile.getAttribute("data-modal-zoom") || "1";
+        modalImg.style.transform = `scale(${zoom})`;
+        modalImg.style.transformOrigin = "center";
 
-      const zoom = tile.getAttribute("data-modal-zoom") || "1";
-modalImg.style.transform = `scale(${zoom})`;
-modalImg.style.transformOrigin = origin;
-      openModal({img, title, meta, mode});
-      
+        openModal({img, title, meta, mode});
+      });
     });
-  });
 
-  modalClose.addEventListener("click", closeModal);
+    modalClose.addEventListener("click", closeModal);
 
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) closeModal();
-  });
-
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && modal.classList.contains("open")) closeModal();
-  });
-</script>
-
-<script>
-  // ===== Globe: "Where I'm From" =====
-  // Requires globe.gl loaded on the page.
-
-  const globeEl = document.getElementById("globeViz");
-  const wrapEl  = document.getElementById("globeWrap");
-
-  // ===== Settings (edit these) =====
-  const POV_ALTITUDE = 0.5;
-
-  // Liberal, Kansas (red) — DO NOT CHANGE BEHAVIOR
-  const LIBERAL = { name: "Liberal, KS", lat: 37.0431, lng: -100.9210 };
-
-  // Green “nearby big cities”
-  const GREEN_POLE_COLOR   = "#34c759";
-  const GREEN_POLE_RADIUS  = 0.12;  // matches the Liberal pointRadius style (cylinder thickness)
-  const GREEN_POLE_HEIGHT  = 0.002; // matches the Liberal pointAltitude style (pole height)
-
-  const GREEN_CITIES = [
-    { name: "Wichita, KS",        lat: 37.6872, lng: -97.3301 },
-    { name: "Oklahoma City, OK",  lat: 35.4676, lng: -97.5164 },
-    { name: "Amarillo, TX",       lat: 35.2220, lng: -101.8313 },
-    { name: "Denver, CO",         lat: 39.7392, lng: -104.9903 }
-  ];
-
-  // ===== init =====
-  const globe = Globe()(globeEl)
-    .globeImageUrl("https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg")
-    .bumpImageUrl("https://unpkg.com/three-globe/example/img/earth-topology.png")
-    .backgroundColor("rgba(0,0,0,0)");
-
-  // size to container
-  function resizeGlobe() {
-    const r = wrapEl.getBoundingClientRect();
-    globe.width(Math.max(1, Math.floor(r.width)));
-    globe.height(Math.max(1, Math.floor(r.height)));
-  }
-  resizeGlobe();
-  window.addEventListener("resize", resizeGlobe);
-
-  // controls / starting view (center on Liberal)
-  globe.controls().enableDamping = true;
-  globe.controls().dampingFactor = 0.08;
-  globe.pointOfView({ lat: LIBERAL.lat, lng: LIBERAL.lng, altitude: POV_ALTITUDE }, 1200);
-
-  // ===== 1) POLES (Liberal + green cities) =====
-  // KEY: use pointsData for ALL poles so they render the same way (no floating).
-  const ALL_POINTS = [
-    // Liberal: keep the same values you had (behavior unchanged)
-    {
-      name: LIBERAL.name,
-      lat: LIBERAL.lat,
-      lng: LIBERAL.lng,
-      color: "#ff3b30",
-      altitude: 0.002,
-      radius: 0.12
-    },
-
-    // Green cities: replicate Liberal pole geometry
-    ...GREEN_CITIES.map(c => ({
-      name: c.name,
-      lat: c.lat,
-      lng: c.lng,
-      color: GREEN_POLE_COLOR,
-      altitude: GREEN_POLE_HEIGHT,
-      radius: GREEN_POLE_RADIUS
-    }))
-  ];
-
-  globe
-    .pointsData(ALL_POINTS)
-    .pointLat(d => d.lat)
-    .pointLng(d => d.lng)
-    .pointColor(d => d.color)
-    .pointAltitude(d => d.altitude)
-    .pointRadius(d => d.radius);
-
-  // ===== 2) Pulse ring (ONLY Liberal) =====
-  globe
-    .ringsData([{
-      lat: LIBERAL.lat,
-      lng: LIBERAL.lng,
-      maxR: 2.2,
-      propagationSpeed: 2.3,
-      repeatPeriod: 1600
-    }])
-    .ringLat(d => d.lat)
-    .ringLng(d => d.lng)
-    .ringMaxRadius(d => d.maxR)
-    .ringPropagationSpeed(d => d.propagationSpeed)
-    .ringRepeatPeriod(d => d.repeatPeriod)
-    .ringColor(() => t => `rgba(255,59,48,${Math.max(0, 1.05 - t)})`);
-
-  // ===== 3) Typewriter labels (consistent) =====
-  const LABELS = [
-    { lat: LIBERAL.lat, lng: LIBERAL.lng, text: LIBERAL.name, color: "rgba(255,255,255,0.95)" },
-  ];
-
-  globe
-    .htmlElementsData(LABELS)
-    .htmlLat(d => d.lat)
-    .htmlLng(d => d.lng)
-    .htmlAltitude(() => 0.02)
-    .htmlElement(d => {
-      const el = document.createElement("div");
-      el.textContent = d.text;
-
-      el.style.fontFamily = `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`;
-      el.style.fontSize = "11px";
-      el.style.letterSpacing = "0.02em";
-      el.style.color = d.color;
-      el.style.textShadow = "0 2px 14px rgba(0,0,0,0.65)";
-
-      el.style.padding = "6px 10px";
-      el.style.borderRadius = "999px";
-      el.style.background = "rgba(0,0,0,0.35)";
-      el.style.backdropFilter = "blur(6px)";
-      el.style.border = "0px solid rgba(255,255,255,0.18)";
-      el.style.transform = "translate(10px, -8px)";
-      el.style.pointerEvents = "none";
-
-      return el;
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
     });
-</script>
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("open")) closeModal();
+    });
+  </script>
+  
+  <script>
+    // ===== Globe: "Where I'm From" =====
+    // Requires globe.gl loaded on the page.
+
+    const globeEl = document.getElementById("globeViz");
+    const wrapEl  = document.getElementById("globeWrap");
+
+    const POV_ALTITUDE = 0.5;
+
+    const LIBERAL = { name: "Liberal, KS", lat: 37.0431, lng: -100.9210 };
+
+    const GREEN_POLE_COLOR   = "#34c759";
+    const GREEN_POLE_RADIUS  = 0.12;
+    const GREEN_POLE_HEIGHT  = 0.001;
+
+    const GREEN_CITIES = [
+      { name: "Wichita, KS",     lat: 37.6872, lng: -97.3301 },
+      { name: "Topeka, KS",      lat: 39.0558, lng: -95.6890 },
+      { name: "Kansas City, KS", lat: 39.1141, lng: -94.6275 }
+    ];
+
+    const ORANGE_HUB_COLOR  = "#ff9500";
+    const ORANGE_HUB_RADIUS = 0.12;
+    const ORANGE_HUB_HEIGHT = 0.001;
+
+    const ORANGE_HUBS = [
+      { name: "New York City, NY", lat: 40.7128, lng: -74.0060 }
+    ];
+
+
+    const globe = Globe()(globeEl)
+      .globeImageUrl("https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg")
+      .bumpImageUrl("https://unpkg.com/three-globe/example/img/earth-topology.png")
+      .backgroundColor("rgba(0,0,0,0)");
+      window.globe = globe;
+      window.wrapEl = wrapEl;
+      window.LIBERAL = LIBERAL;
+      window.GREEN_CITIES = GREEN_CITIES;
+      window.ORANGE_HUBS = ORANGE_HUBS;
+
+    function resizeGlobe() {
+      const r = wrapEl.getBoundingClientRect();
+      globe.width(Math.max(1, Math.floor(r.width)));
+      globe.height(Math.max(1, Math.floor(r.height)));
+    }
+    resizeGlobe();
+    window.addEventListener("resize", resizeGlobe);
+
+    globe.controls().enableDamping = true;
+    globe.controls().dampingFactor = 0.08;
+    globe.pointOfView({ lat: LIBERAL.lat, lng: LIBERAL.lng, altitude: POV_ALTITUDE }, 1200);
+
+    const ALL_POINTS = [
+      {
+        name: LIBERAL.name,
+        lat: LIBERAL.lat,
+        lng: LIBERAL.lng,
+        color: "#ff3b30",
+        altitude: 0.001,
+        radius: 0.12
+      },
+      ...GREEN_CITIES.map(c => ({
+        name: c.name,
+        lat: c.lat,
+        lng: c.lng,
+        color: GREEN_POLE_COLOR,
+        altitude: GREEN_POLE_HEIGHT,
+        radius: GREEN_POLE_RADIUS
+      })),
+      ...ORANGE_HUBS.map(c => ({
+        name: c.name,
+        lat: c.lat,
+        lng: c.lng,
+        color: ORANGE_HUB_COLOR,
+        altitude: ORANGE_HUB_HEIGHT,
+        radius: ORANGE_HUB_RADIUS
+      }))
+    ];
+
+    globe
+      .pointsData(ALL_POINTS)
+      .pointLat(d => d.lat)
+      .pointLng(d => d.lng)
+      .pointColor(d => d.color)
+      .pointAltitude(d => d.altitude)
+      .pointRadius(d => d.radius);
+
+    globe
+      .ringsData([{
+        altitude: 0.0005,
+        lat: LIBERAL.lat,
+        lng: LIBERAL.lng,
+        maxR: 2.2,
+        propagationSpeed: 2.3,
+        repeatPeriod: 1600
+      }])
+      .ringLat(d => d.lat)
+      .ringLng(d => d.lng)
+      .ringAltitude(d => d.altitude)
+      .ringMaxRadius(d => d.maxR)
+      .ringPropagationSpeed(d => d.propagationSpeed)
+      .ringRepeatPeriod(d => d.repeatPeriod)
+      .ringColor(() => t => `rgba(255,59,48,${Math.max(0, 1.05 - t)})`);
+
+    globe
+      .htmlElementsData(LABELS)
+      .htmlLat(d => d.lat)
+      .htmlLng(d => d.lng)
+      .htmlAltitude(() => 0.02)
+      .htmlElement(d => {
+        const el = document.createElement("div");
+        el.textContent = d.text;
+
+        el.style.fontFamily = `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`;
+        el.style.fontSize = "11px";
+        el.style.letterSpacing = "0.02em";
+        el.style.color = d.color;
+        el.style.textShadow = "0 2px 14px rgba(0,0,0,0.65)";
+
+        el.style.padding = "6px 10px";
+        el.style.borderRadius = "999px";
+        el.style.background = "rgba(0,0,0,0.35)";
+        el.style.backdropFilter = "blur(6px)";
+        el.style.border = "0px solid rgba(255,255,255,0.18)";
+        el.style.transform = "translate(10px, -8px)";
+        el.style.pointerEvents = "none";
+
+        return el;
+      });
+  </script>
+
+  <script>
+  (async () => {
+    const res = await fetch("https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json");
+    const topo = await res.json();
+
+    const statesFC = topojson.feature(topo, topo.objects.states);
+    const KANSAS_ID = "20"; // Kansas FIPS
+
+    globe
+      .polygonsData(statesFC.features)
+      .polygonAltitude(() => 0.00010)                // tiny lift so it draws above the texture
+      .polygonCapColor(() => "rgba(0,0,0,0)")        // NO FILL anywhere
+      .polygonSideColor(() => "rgba(0,0,0,0)")       // NO WALLS
+      .polygonStrokeColor(f =>
+        String(f.id) === KANSAS_ID
+          ? "rgba(52,199,89,0.98)"                   // Kansas = green
+          : "rgba(255,255,255,0.20)"                 // others = soft white
+      )
+      .polygonStrokeWidth(f =>
+        String(f.id) === KANSAS_ID ? 2.2 : 0.9       // Kansas thicker
+      );
+  })();
+  </script>
+
+  <!-- Dashbar toggle JS (same behavior as homepage) -->
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const topbar = document.querySelector(".topbar");
+      const btn = document.querySelector(".nav-toggle");
+      const nav = document.querySelector(".topnav");
+      if (!topbar || !btn || !nav) return;
+
+      const setOpen = (open) => {
+        topbar.classList.toggle("nav-open", open);
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+      };
+
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        setOpen(!topbar.classList.contains("nav-open"));
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!topbar.contains(e.target)) setOpen(false);
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") setOpen(false);
+      });
+
+      nav.querySelectorAll("a").forEach(a => {
+        a.addEventListener("click", () => setOpen(false));
+      });
+    });
+  </script>
+
 
 </body>
 </html>

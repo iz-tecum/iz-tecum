@@ -43,6 +43,7 @@
       justify-content:space-between;
       gap: 16px;
       font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      position: relative; /* needed for mobile dropdown */
     }
     .brand{
       font-weight: 700;
@@ -68,6 +69,41 @@
     }
     .topnav a:hover{ background: rgba(0,0,0,.08); text-decoration:none; }
     .topnav a.active{ background: rgba(0,0,0,.10); }
+
+    /* =========================
+       PME-style DASHBAR
+       ========================= */
+    .nav-toggle{
+      display:none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.92);
+      border-radius: 999px;
+      padding: 10px;
+      cursor: pointer;
+      align-items:center;
+      justify-content:center;
+      gap: 4px;
+      backdrop-filter: saturate(1.05);
+    }
+    .nav-toggle .bar{
+      display:block;
+      width: 18px;
+      height: 2px;
+      background: #111;
+      border-radius: 2px;
+      transition: transform .18s ease, opacity .18s ease;
+    }
+    .topbar.nav-open .nav-toggle .bar:nth-child(1){
+      transform: translateY(6px) rotate(45deg);
+    }
+    .topbar.nav-open .nav-toggle .bar:nth-child(2){
+      opacity: 0;
+    }
+    .topbar.nav-open .nav-toggle .bar:nth-child(3){
+      transform: translateY(-6px) rotate(-45deg);
+    }
 
     /* Contact center */
     .wrap{
@@ -97,6 +133,38 @@
       text-underline-offset: 4px;
     }
     .stack a:hover{ opacity: .75; }
+
+    /* =========================
+       MOBILE: dropdown nav
+       ========================= */
+    @media (max-width: 980px){
+      .nav-toggle{ display:inline-flex; }
+
+      .topnav{
+        display:none; /* shown when .topbar.nav-open */
+        position:absolute;
+        right: var(--padX);
+        top: calc(100% + 10px);
+        width: min(520px, calc(100vw - 2*var(--padX)));
+        background: rgba(255,255,255,.96);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 10px;
+        box-shadow: 0 14px 40px rgba(0,0,0,.10);
+
+        flex-direction: column;
+        gap: 6px;
+        justify-content:flex-start;
+        backdrop-filter: saturate(1.05);
+      }
+      .topbar.nav-open .topnav{ display:flex; }
+
+      .topnav a{
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 12px;
+      }
+    }
   </style>
 </head>
 
@@ -104,7 +172,8 @@
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand"><a href="../">Iz Tecúm</a></div>
-      <nav class="topnav">
+
+      <nav class="topnav" aria-label="Primary">
         <a href="../projects/">projects</a>
         <a href="../research/">research</a>
         <a href="../experience/">experience</a>
@@ -113,6 +182,13 @@
         <a href="../media/">media</a>
         <a class="active" href="./">contact</a>
       </nav>
+
+      <!-- PME-style dashbar (mobile only via CSS) -->
+      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
     </div>
   </header>
 
@@ -129,5 +205,37 @@
       </div>
     </div>
   </main>
+
+  <!-- Dashbar toggle JS (same behavior as homepage) -->
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const topbar = document.querySelector(".topbar");
+      const btn = document.querySelector(".nav-toggle");
+      const nav = document.querySelector(".topnav");
+      if (!topbar || !btn || !nav) return;
+
+      const setOpen = (open) => {
+        topbar.classList.toggle("nav-open", open);
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+      };
+
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        setOpen(!topbar.classList.contains("nav-open"));
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!topbar.contains(e.target)) setOpen(false);
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") setOpen(false);
+      });
+
+      nav.querySelectorAll("a").forEach(a => {
+        a.addEventListener("click", () => setOpen(false));
+      });
+    });
+  </script>
 </body>
 </html>

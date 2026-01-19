@@ -13,469 +13,508 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    *{ box-sizing:border-box; }
-    :root{
-      --navW: 1200px;
-      --w: 1280px;
-      --padX: 24px;
-      --padTop: 26px;
-      --padBot: 90px;
+<style>
+  *{ box-sizing:border-box; }
+  :root{
+    --navW: 1200px;
+    --w: 1280px;
+    --padX: 24px;
+    --padTop: 26px;
+    --padBot: 90px;
 
-      --line:#eee;
-      --muted:#666;
-      --muted2:#777;
+    --line:#eee;
+    --muted:#666;
+    --muted2:#777;
 
-      --heroH: 320px;
-      --heroGap: 18px;
-      --topbarH: 58px;
+    --heroH: 320px;
+    --heroGap: 18px;
+    --topbarH: 58px;
 
-      --radius: 18px;
+    --radius: 18px;
 
-      /* scroll height for the wall area */
-      --wallScrollH: calc(100vh - (var(--topbarH) + var(--heroH) + 20px));
-    }
+    /* scroll height for the wall area */
+    --wallScrollH: calc(100vh - (var(--topbarH) + var(--heroH) + 20px));
+  }
 
-    body{
-      margin:0;
-      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color:#111;
-      background:#fff;
-    }
+  body{
+    margin:0;
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color:#111;
+    background:#fff;
+  }
 
-    a{ color:inherit; text-decoration:none; }
-    a:hover{ text-decoration:underline; }
+  a{ color:inherit; text-decoration:none; }
+  a:hover{ text-decoration:underline; }
 
-    .topbar{
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      background:#fff;
-      border-bottom: 1px solid var(--line);
-    }
-    .topbar-inner{
-      max-width: var(--navW);
-      margin: 0 auto;
-      padding: 14px var(--padX);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 16px;
-    }
-    .brand{
-      font-weight: 700;
-      letter-spacing:-0.01em;
-      white-space: nowrap;
-    }
+  /* =========================
+     TOPBAR
+     ========================= */
+  .topbar{
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background:#fff;
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar-inner{
+    max-width: var(--navW);
+    margin: 0 auto;
+    padding: 14px var(--padX);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap: 16px;
+  }
+  .brand{
+    font-weight: 700;
+    letter-spacing:-0.01em;
+    white-space: nowrap;
+  }
+
+  .topnav{
+    display:flex;
+    flex-wrap:wrap;
+    gap: 10px;
+    justify-content:flex-end;
+  }
+  .topnav a{
+    display:inline-block;
+    padding: 10px 14px;
+    border-radius: 999px;
+    text-decoration:none;
+    transition: background-color .12s ease;
+    color:#333;
+  }
+  .topnav a:hover{ background: rgba(0,0,0,.06); text-decoration:none; }
+  .topnav a.active{ background: rgba(0,0,0,.08); }
+
+  /* =========================
+     HAMBURGER (PME-style)
+     - Desktop: hidden (no layout change).
+     - Mobile: shows 3 bars + dropdown panel.
+     ========================= */
+  .nav-toggle{
+    display:none;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--line);
+    background: #fff;
+    border-radius: 999px;
+    padding: 10px;
+    cursor: pointer;
+    align-items:center;
+    justify-content:center;
+    gap: 4px;
+  }
+  .nav-toggle .bar{
+    display:block;
+    width: 18px;
+    height: 2px;
+    background: #111;
+    border-radius: 2px;
+    transition: transform .18s ease, opacity .18s ease;
+  }
+  .topbar.nav-open .nav-toggle .bar:nth-child(1){
+    transform: translateY(6px) rotate(45deg);
+  }
+  .topbar.nav-open .nav-toggle .bar:nth-child(2){
+    opacity: 0;
+  }
+  .topbar.nav-open .nav-toggle .bar:nth-child(3){
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  /* =========================
+     HERO STRIP
+     ========================= */
+  .hero-strip{
+    width:100%;
+    height: var(--heroH);
+    background: #dbf2ff;
+    margin: 0 0 var(--heroGap);
+  }
+
+  .container{
+    max-width: var(--w);
+    margin: 0 auto;
+    padding: var(--padTop) var(--padX) var(--padBot);
+  }
+
+  .page-head{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap: 18px;
+    padding-bottom: 14px;
+    margin-bottom: 18px;
+    border-bottom: 4px solid var(--line);
+  }
+  .page-head h1{
+    margin: 0;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing:-0.02em;
+  }
+  .page-head p{
+    margin: 6px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+    max-width: 780px;
+  }
+  .head-right{
+    display:flex;
+    gap: 10px;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:flex-end;
+  }
+  .pill{
+    display:inline-block;
+    padding: 10px 12px;
+    border-radius: 999px;
+    background: rgba(0,0,0,.05);
+    color:#333;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .layout{
+    display:grid;
+    grid-template-columns: 1fr 360px;
+    gap: 18px;
+    align-items:start;
+  }
+
+  .bubble{
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background:#fff;
+    padding: 16px 16px;
+    margin: 0 0 18px;
+  }
+  .bubble h3{
+    margin:0 0 10px;
+    font-size: 12px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color:#111;
+  }
+  .bubble a{
+    display:block;
+    margin: 8px 0 0;
+    font-size: 14px;
+    color:#333;
+    text-decoration:none;
+  }
+  .bubble a:hover{ text-decoration: underline; }
+
+  .portrait{
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    border-radius: calc(var(--radius) - 4px);
+    border: 1px solid var(--line);
+    background: #e5e5e5;
+    margin-bottom: 12px;
+  }
+  .mini{
+    margin:0;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .mini b{ color:#111; }
+
+  .panel{
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background:#fff;
+    padding: 16px 16px;
+    margin: 0 0 18px;
+  }
+  .panel-top{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+  .panel h2{
+    margin:0;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing:-0.01em;
+  }
+  .panel .sub{
+    margin: 6px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .panel-actions{
+    display:flex;
+    gap: 8px;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+  .ghost{
+    display:inline-block;
+    padding: 9px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background:#fff;
+    font-size: 13px;
+    color:#333;
+    cursor: default;
+    white-space: nowrap;
+  }
+  a.ghost{ cursor:pointer; }
+  a.ghost:hover{ text-decoration:none; background: rgba(0,0,0,.04); }
+
+  /* scroll container for the wall */
+  .wall-scroll{
+    max-height: var(--wallScrollH);
+    overflow-y: auto;
+    padding-right: 10px;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,0,0,.35) transparent;
+  }
+
+  /* ✅ FIX: two independent column stacks (no neighbor stretching, true L→R order) */
+  .wall{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    align-items:start;
+  }
+  .colstack{
+    display:flex;
+    flex-direction:column;
+    gap: 18px;
+  }
+
+  .proj{
+    border: 1px solid var(--line);
+    border-radius: calc(var(--radius) - 4px);
+    overflow:hidden;
+    background:#fff;
+  }
+
+  /* Thumbnail container */
+  .thumb{
+    width:100%;
+    aspect-ratio: 16 / 9;
+    background: #e6e6e6;
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+  }
+  /* Canvas fills the thumbnail */
+  .thumb-canvas{
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  /* ✅ helps the “open write-up draft” rows line up nicer */
+  .meta{
+    padding: 12px 12px 14px;
+    border-top: 1px solid var(--line);
+    display:flex;
+    flex-direction:column;
+    min-height: 190px;
+  }
+  .title{
+    margin:0;
+    font-weight: 900;
+    font-size: 15px;
+    letter-spacing:-0.01em;
+  }
+  .blurb{
+    margin: 7px 0 0;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+
+    display:-webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow:hidden;
+  }
+  .meta-bottom{ margin-top:auto; }
+
+  .tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .tag{
+    display:inline-block;
+    padding: 7px 10px;
+    border-radius: 999px;
+    background: rgba(0,0,0,.05);
+    color:#333;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  details.drop{
+    border-top: 1px solid var(--line);
+    background:#fff;
+  }
+  summary.drop-sum{
+    list-style:none;
+    cursor:pointer;
+    padding: 12px 12px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap: 12px;
+    user-select:none;
+    font-size: 13px;
+    color:#333;
+  }
+  summary.drop-sum::-webkit-details-marker{ display:none; }
+  summary.drop-sum::marker{ content:""; }
+
+  summary.drop-sum .left{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    min-width: 0;
+  }
+  .chip{
+    display:inline-block;
+    padding: 7px 10px;
+    border-radius: 999px;
+    background: rgba(0,0,0,.05);
+    font-size: 12px;
+    color:#333;
+    white-space: nowrap;
+  }
+  summary.drop-sum::after{
+    content:"";
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid rgba(0,0,0,.35);
+    border-bottom: 2px solid rgba(0,0,0,.35);
+    transform: rotate(45deg);
+    transition: transform .12s ease;
+    flex: 0 0 auto;
+  }
+  details.drop[open] summary.drop-sum::after{
+    transform: rotate(-135deg);
+  }
+
+  .pdfwrap{ padding: 0 12px 14px; }
+  .pdf{
+    width:100%;
+    height: 520px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background:#fff;
+  }
+  .pdf-fallback{
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .pdf-fallback a{
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    color:#333;
+  }
+
+  .linksrow{
+    display:flex;
+    gap: 10px;
+    flex-wrap:wrap;
+    margin-top: 10px;
+  }
+  .linksrow a{
+    font-size: 13px;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    color:#333;
+  }
+
+  footer{
+    margin-top: 70px;
+    font-size: 13px;
+    color:#aaa;
+    text-align:center;
+  }
+
+  @media (max-width: 1100px){
+    .layout{ grid-template-columns: 1fr; }
+    .wall-scroll{ max-height: none; overflow: visible; padding-right: 0; }
+  }
+
+  /* MOBILE: preserve your landscape; only add dropdown nav */
+  @media (max-width: 980px){
+    :root{ --heroH: 220px; }
+
+    /* hamburger */
+    .nav-toggle{ display:inline-flex; }
+    .topbar-inner{ position: relative; }
+
+    /* nav becomes dropdown panel */
     .topnav{
-      display:flex;
-      flex-wrap:wrap;
-      gap: 10px;
-      justify-content:flex-end;
-    }
-    .topnav a{
-      display:inline-block;
-      padding: 10px 14px;
-      border-radius: 999px;
-      text-decoration:none;
-      transition: background-color .12s ease;
-      color:#333;
-    }
-    .topnav a:hover{ background: rgba(0,0,0,.06); text-decoration:none; }
-    .topnav a.active{ background: rgba(0,0,0,.08); }
-
-    .hero-strip{
-      width:100%;
-      height: var(--heroH);
-      background: #dbf2ff;
-      margin: 0 0 var(--heroGap);
-    }
-
-    .container{
-      max-width: var(--w);
-      margin: 0 auto;
-      padding: var(--padTop) var(--padX) var(--padBot);
-    }
-
-    .page-head{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap: 18px;
-      padding-bottom: 14px;
-      margin-bottom: 18px;
-      border-bottom: 4px solid var(--line);
-    }
-    .page-head h1{
-      margin: 0;
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing:-0.02em;
-    }
-    .page-head p{
-      margin: 6px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.6;
-      max-width: 780px;
-    }
-    .head-right{
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:flex-end;
-    }
-    .pill{
-      display:inline-block;
-      padding: 10px 12px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.05);
-      color:#333;
-      font-size: 13px;
-      white-space: nowrap;
-    }
-
-    .layout{
-      display:grid;
-      grid-template-columns: 1fr 360px;
-      gap: 18px;
-      align-items:start;
-    }
-
-    .bubble{
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background:#fff;
-      padding: 16px 16px;
-      margin: 0 0 18px;
-    }
-    .bubble h3{
-      margin:0 0 10px;
-      font-size: 12px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color:#111;
-    }
-    .bubble a{
-      display:block;
-      margin: 8px 0 0;
-      font-size: 14px;
-      color:#333;
-      text-decoration:none;
-    }
-    .bubble a:hover{ text-decoration: underline; }
-
-    .portrait{
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      border-radius: calc(var(--radius) - 4px);
-      border: 1px solid var(--line);
-      background: #e5e5e5;
-      margin-bottom: 12px;
-    }
-    .mini{
-      margin:0;
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-    .mini b{ color:#111; }
-
-    .panel{
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background:#fff;
-      padding: 16px 16px;
-      margin: 0 0 18px;
-    }
-    .panel-top{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap: 16px;
-      margin-bottom: 14px;
-    }
-    .panel h2{
-      margin:0;
-      font-size: 16px;
-      font-weight: 800;
-      letter-spacing:-0.01em;
-    }
-    .panel .sub{
-      margin: 6px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.6;
-    }
-    .panel-actions{
-      display:flex;
-      gap: 8px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-    .ghost{
-      display:inline-block;
-      padding: 9px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background:#fff;
-      font-size: 13px;
-      color:#333;
-      cursor: default;
-      white-space: nowrap;
-    }
-    a.ghost{ cursor:pointer; }
-    a.ghost:hover{ text-decoration:none; background: rgba(0,0,0,.04); }
-
-    /* scroll container for the wall */
-    .wall-scroll{
-      max-height: var(--wallScrollH);
-      overflow-y: auto;
-      padding-right: 10px;
-      scrollbar-gutter: stable;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(0,0,0,.35) transparent;
-    }
-
-    /* ✅ FIX: two independent column stacks (no neighbor stretching, true L→R order) */
-    .wall{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;                 /* space between columns */
-      align-items:start;
-    }
-    .colstack{
-      display:flex;
-      flex-direction:column;
-      gap: 18px;                 /* vertical spacing between projects */
-    }
-
-    .proj{
-      border: 1px solid var(--line);
-      border-radius: calc(var(--radius) - 4px);
-      overflow:hidden;
-      background:#fff;
-    }
-
-    .thumb{
-      width:100%;
-      aspect-ratio: 16 / 9;
-      background: linear-gradient(135deg, #e9e9e9, #d9d9d9);
-      position: relative;
-    }
-    .thumb::after{
-      content:"preview";
+      display:none; /* shown when .topbar.nav-open */
       position:absolute;
-      left: 12px;
-      top: 10px;
-      font-weight: 700;
-      font-size: 12px;
-      color: rgba(0,0,0,.45);
-      background: rgba(255,255,255,.75);
-      border: 1px solid rgba(0,0,0,.08);
-      border-radius: 999px;
-      padding: 7px 10px;
-    }
-
-    /* ✅ helps the “open write-up draft” rows line up nicer */
-    .meta{
-      padding: 12px 12px 14px;
-      border-top: 1px solid var(--line);
-      display:flex;
-      flex-direction:column;
-      min-height: 190px;          /* tune 180–210 if you want */
-    }
-    .title{
-      margin:0;
-      font-weight: 900;
-      font-size: 15px;
-      letter-spacing:-0.01em;
-    }
-    .blurb{
-      margin: 7px 0 0;
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.65;
-
-      /* clamp so row-1 cards align better */
-      display:-webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow:hidden;
-    }
-    .meta-bottom{ margin-top:auto; }
-
-    .tags{
-      display:flex;
-      flex-wrap:wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
-    .tag{
-      display:inline-block;
-      padding: 7px 10px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.05);
-      color:#333;
-      font-size: 12px;
-      white-space: nowrap;
-    }
-
-    details.drop{
-      border-top: 1px solid var(--line);
+      right: var(--padX);
+      top: calc(100% + 10px);
+      width: min(520px, calc(100vw - 2*var(--padX)));
       background:#fff;
-    }
-    summary.drop-sum{
-      list-style:none;
-      cursor:pointer;
-      padding: 12px 12px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 12px;
-      user-select:none;
-      font-size: 13px;
-      color:#333;
-    }
-    summary.drop-sum::-webkit-details-marker{ display:none; }
-    summary.drop-sum::marker{ content:""; }
-
-    summary.drop-sum .left{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      min-width: 0;
-    }
-    .chip{
-      display:inline-block;
-      padding: 7px 10px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.05);
-      font-size: 12px;
-      color:#333;
-      white-space: nowrap;
-    }
-    summary.drop-sum::after{
-      content:"";
-      width: 10px;
-      height: 10px;
-      border-right: 2px solid rgba(0,0,0,.35);
-      border-bottom: 2px solid rgba(0,0,0,.35);
-      transform: rotate(45deg);
-      transition: transform .12s ease;
-      flex: 0 0 auto;
-    }
-    details.drop[open] summary.drop-sum::after{
-      transform: rotate(-135deg);
-    }
-
-    .pdfwrap{ padding: 0 12px 14px; }
-    .pdf{
-      width:100%;
-      height: 520px;
       border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 10px;
+      box-shadow: 0 14px 40px rgba(0,0,0,.10);
+
+      flex-direction: column;
+      gap: 6px;
+      justify-content:flex-start;
+    }
+    .topbar.nav-open .topnav{ display:flex; }
+
+    .topnav a{
+      width: 100%;
+      padding: 12px 14px;
       border-radius: 12px;
-      background:#fff;
-    }
-    .pdf-fallback{
-      margin-top: 10px;
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-    .pdf-fallback a{
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      color:#333;
     }
 
-    .linksrow{
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      margin-top: 10px;
-    }
-    .linksrow a{
-      font-size: 13px;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      color:#333;
-    }
+    .page-head{ align-items:flex-start; flex-direction:column; }
+    .head-right{ justify-content:flex-start; }
+    .wall{ grid-template-columns: 1fr; }
+    .pdf{ height: 420px; }
+    .wall-scroll{ max-height: none; overflow: visible; padding-right: 0; }
+    .meta{ min-height: 0; }
+  }
 
-    footer{
-      margin-top: 70px;
-      font-size: 13px;
-      color:#aaa;
-      text-align:center;
-    }
+  /* make the gray box act like a clipped viewport */
+  .portrait.viz{
+    position: relative;
+    overflow: hidden;
+    border-radius: calc(var(--radius) - 4px);
+  }
 
-    @media (max-width: 1100px){
-      .layout{ grid-template-columns: 1fr; }
-      .wall-scroll{ max-height: none; overflow: visible; padding-right: 0; }
-    }
-    @media (max-width: 980px){
-      :root{ --heroH: 220px; }
-      .page-head{ align-items:flex-start; flex-direction:column; }
-      .head-right{ justify-content:flex-start; }
-      .wall{ grid-template-columns: 1fr; }
-      .pdf{ height: 420px; }
-      .wall-scroll{ max-height: none; overflow: visible; padding-right: 0; }
-      .meta{ min-height: 0; }
-    }
-/* Thumbnail container */
-.thumb{
-  width:100%;
-  aspect-ratio: 16 / 9;
-  background: #e5e5e5;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Canvas fills the thumbnail */
-.thumb-canvas{
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-/* thumbnail area */
-.thumb{
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  background: #e6e6e6;
-  position: relative;
-  overflow: hidden;
-  display: grid;
-  place-items: center;      /* centers whatever is inside */
-}
-
-/* canvas should fill the tile like an image cover */
-.thumb-canvas{
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;        /* works for replaced elements; still helpful */
-}  
-
-/* make the gray box act like a clipped viewport */
-.portrait.viz{
-  position: relative;
-  overflow: hidden;                 /* <-- clips to rounded corners */
-  border-radius: calc(var(--radius) - 4px);
-}
-
-/* make the iframe fill that box */
-.portrait.viz > iframe{
-  position: absolute;
-  inset: 0;                         /* top/right/bottom/left = 0 */
-  width: 100%;
-  height: 100%;
-  transform: scale(1.05);
-  transform-origin: center center;
-  border: 0;                        /* <-- removes the tiny border */
-  display: block;
-}
-
+  /* make the iframe fill that box */
+  .portrait.viz > iframe{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform: scale(1.05);
+    transform-origin: center center;
+    border: 0;
+    display: block;
+  }
 </style>
 </head>
 
@@ -483,7 +522,8 @@
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand"><a href="../">Iz Tecúm</a></div>
-      <nav class="topnav">
+
+      <nav class="topnav" aria-label="Primary">
         <a class="active" href="./">projects</a>
         <a href="../research/">research</a>
         <a href="../experience/">experience</a>
@@ -492,6 +532,13 @@
         <a href="../media/">media</a>
         <a href="../contact/">contact</a>
       </nav>
+
+      <!-- PME-style hamburger (mobile only via CSS) -->
+      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
     </div>
   </header>
 
@@ -532,9 +579,10 @@
 
                 <!-- PROJECT 1 -->
                 <article class="proj">
-<div class="thumb pdf-thumb" data-pdf="./pdfs/project-1-draft.pdf" aria-label="Project 1 preview image">
-  <canvas class="thumb-canvas"></canvas>
-</div>
+                  <div class="thumb pdf-thumb" data-pdf="./pdfs/project-1-draft.pdf" aria-label="Project 1 preview image">
+                    <canvas class="thumb-canvas"></canvas>
+                  </div>
+
                   <div class="meta">
                     <p class="title">Fourier Transform on $\mathbb{R}$</p>
                     <p class="blurb">A proof-first set of notes that builds the Fourier transform from definition to inversion with clean derivations.</p>
@@ -551,44 +599,43 @@
                     </div>
                   </div>
 
-<details class="drop">
-  <summary class="drop-sum">
-    <span class="left">
-      <span class="chip">PDF</span>
-      <span>open project</span>
-    </span>
-  </summary>
+                  <details class="drop">
+                    <summary class="drop-sum">
+                      <span class="left">
+                        <span class="chip">PDF</span>
+                        <span>open project</span>
+                      </span>
+                    </summary>
 
-  <div class="pdfwrap">
-    <!-- CHANGE THIS PATH to match your real PDF filename -->
-    <iframe class="pdf" src="./pdfs/project-1-draft.pdf" title="Project 1 PDF draft"></iframe>
+                    <div class="pdfwrap">
+                      <iframe class="pdf" src="./pdfs/project-1-draft.pdf" title="Project 1 PDF draft"></iframe>
 
-    <div class="pdf-fallback">
-      If the embed doesn’t load, open it directly:
-      <a href="./pdfs/project-1-draft.pdf">project-1-draft.pdf ↗</a>
-    </div>
-  </div>
-</details>
+                      <div class="pdf-fallback">
+                        If the embed doesn’t load, open it directly:
+                        <a href="./pdfs/project-1-draft.pdf">project-1-draft.pdf ↗</a>
+                      </div>
+                    </div>
+                  </details>
                 </article>
 
-                <!-- PROJECT 3 (now correctly below Project 1, left column) -->
+                <!-- PROJECT 3 -->
                 <article class="proj">
-<div class="thumb pdf-thumb" data-pdf="./pdfs/project-3-draft.pdf" aria-label="Project 1 preview image">
-  <canvas class="thumb-canvas"></canvas>
-</div>                  <div class="meta">
-                    <p class="title">Glauber Dynamics Simulator</p>
-                    <p class="blurb">A simulation of Glauber dynamics for spin systems, showcasing phase transitions and critical phenomena.</p>
+                  <div class="thumb pdf-thumb" data-pdf="./pdfs/project-3-draft.pdf" aria-label="Project 3 preview image">
+                    <canvas class="thumb-canvas"></canvas>
+                  </div>
+
+                  <div class="meta">
+                    <p class="title">Quantitative Modulus Control of Annuli on $\mathbb{C}$</p>
+                    <p class="blurb">An exploration using numerical methods derived from exploring holomorphic transformations.</p>
 
                     <div class="meta-bottom">
                       <div class="tags">
-                        <span class="tag">C++</span>
+                        <span class="tag">latex</span>
                         <span class="tag">simulation</span>
-                        <span class="tag">MCMC</span>
-                        <span class="tag">python</span>
-
+                        <span class="tag">presenation</span>
                       </div>
                       <div class="linksrow">
-                        <a href="https://www.headstartfellowship.com/fellowship">motivation ↗</a>
+                        <a href="https://www.pnas.org/doi/10.1073/pnas.2209048120">learn more ↗</a>
                       </div>
                     </div>
                   </div>
@@ -610,16 +657,96 @@
                   </details>
                 </article>
 
+                <!-- PROJECT 5 -->
+                <article class="proj">
+                  <div class="thumb pdf-thumb" data-pdf="./pdfs/project-5-draft.pdf" aria-label="Project 3 preview image">
+                    <canvas class="thumb-canvas"></canvas>
+                  </div>
+
+                  <div class="meta">
+                    <p class="title">Glauber Dynamics Simulator</p>
+                    <p class="blurb">A simulation of Glauber dynamics for spin systems, showcasing phase transitions and critical phenomena.</p>
+
+                    <div class="meta-bottom">
+                      <div class="tags">
+                        <span class="tag">C++</span>
+                        <span class="tag">simulation</span>
+                        <span class="tag">MCMC</span>
+                        <span class="tag">python</span>
+                      </div>
+                      <div class="linksrow">
+                        <a href="https://www.headstartfellowship.com/fellowship">motivation ↗</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <details class="drop">
+                    <summary class="drop-sum">
+                      <span class="left">
+                        <span class="chip">PDF</span>
+                        <span>open project</span>
+                      </span>
+                    </summary>
+                    <div class="pdfwrap">
+                      <iframe class="pdf" src="./pdfs/project-5-draft.pdf" title="Project 5 PDF draft"></iframe>
+                      <div class="pdf-fallback">
+                        If the embed doesn’t load, open it directly:
+                        <a href="./pdfs/project-5-draft.pdf">project-5-draft.pdf ↗</a>
+                      </div>
+                    </div>
+                  </details>
+                </article>
+
+                <!-- PROJECT 7 -->
+                <article class="proj">
+                  <div class="thumb pdf-thumb" data-pdf="./pdfs/project-7-draft.pdf" aria-label="Project 3 preview image">
+                    <canvas class="thumb-canvas"></canvas>
+                  </div>
+
+                  <div class="meta">
+                    <p class="title">Coupling a Geometric State Space on $C_4$</p>
+                    <p class="blurb">Derivation of a coupling argument for a geometric state space on the cycle graph $C_4$.</p>
+
+                    <div class="meta-bottom">
+                      <div class="tags">
+                        <span class="tag">oratory</span>
+                        <span class="tag">derivation</span>
+                      </div>
+                      <div class="linksrow">
+                        <a href="https://meetings.ams.org/math/jmm2026/meetingapp.cgi/Paper/52479">publication ↗</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <details class="drop">
+                    <summary class="drop-sum">
+                      <span class="left">
+                        <span class="chip">PDF</span>
+                        <span>open project</span>
+                      </span>
+                    </summary>
+                    <div class="pdfwrap">
+                      <iframe class="pdf" src="./pdfs/project-7-draft.pdf" title="Project 7 PDF draft"></iframe>
+                      <div class="pdf-fallback">
+                        If the embed doesn’t load, open it directly:
+                        <a href="./pdfs/project-7-draft.pdf">project-7-draft.pdf ↗</a>
+                      </div>
+                    </div>
+                  </details>
+                </article>
+
               </div>
 
               <!-- RIGHT COLUMN STACK: 2 then 4 -->
               <div class="colstack">
 
-                <!-- PROJECT 2 (moved to top-right so reading L→R is clean) -->
+                <!-- PROJECT 2 -->
                 <article class="proj">
-<div class="thumb pdf-thumb" data-pdf="./pdfs/project-2-draft.pdf" aria-label="Project 1 preview image">
-  <canvas class="thumb-canvas"></canvas>
-</div>                  <div class="meta">
+                  <div class="thumb pdf-thumb" data-pdf="./pdfs/project-2-draft.pdf" aria-label="Project 2 preview image">
+                    <canvas class="thumb-canvas"></canvas>
+                  </div>
+
+                  <div class="meta">
                     <p class="title">ASML Stock Pitch</p>
                     <p class="blurb">A long thesis on ASML as the sole EUV lithography supplier, tying AI-driven semiconductor capex to multi-year visibility.</p>
 
@@ -629,7 +756,6 @@
                         <span class="tag">valuation</span>
                         <span class="tag">market research</span>
                         <span class="tag">excel</span>
-
                       </div>
                       <div class="linksrow">
                         <a href="https://www.globalequitymanagement.org/stock-pitch-competition">competition link ↗</a>
@@ -656,9 +782,11 @@
 
                 <!-- PROJECT 4 -->
                 <article class="proj">
-<div class="thumb pdf-thumb" data-pdf="./pdfs/project-4-draft.pdf" aria-label="Project 4 preview image">
-  <canvas class="thumb-canvas"></canvas>
-</div>                   <div class="meta">
+                  <div class="thumb pdf-thumb" data-pdf="./pdfs/project-4-draft.pdf" aria-label="Project 4 preview image">
+                    <canvas class="thumb-canvas"></canvas>
+                  </div>
+
+                  <div class="meta">
                     <p class="title">Conway Mutation and the Jones Polynomial</p>
                     <p class="blurb">We construct bracket vectors for 2-tangles, then show Conway mutations in the context of the Jones polynomial.</p>
 
@@ -691,6 +819,43 @@
                   </details>
                 </article>
 
+                <!-- PROJECT 6 -->
+                <article class="proj">
+                  <div class="thumb pdf-thumb" data-pdf="./pdfs/project-6-draft.pdf" aria-label="Project 4 preview image">
+                    <canvas class="thumb-canvas"></canvas>
+                  </div>
+
+                  <div class="meta">
+                    <p class="title">Exploring Euler-Product Surrogates</p>
+                    <p class="blurb">A detailed derivation of a statement concerning the implication of prime-indexed random walks.</p>
+
+                    <div class="meta-bottom">
+                      <div class="tags">
+                        <span class="tag">number theory</span>
+                      </div>
+                      <div class="linksrow">
+                        <a href="https://blngcc.wordpress.com/wp-content/uploads/2008/11/andreescu-andrica-problems-on-number-theory.pdf">notes ↗</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <details class="drop">
+                    <summary class="drop-sum">
+                      <span class="left">
+                        <span class="chip">PDF</span>
+                        <span>open project</span>
+                      </span>
+                    </summary>
+                    <div class="pdfwrap">
+                      <iframe class="pdf" src="./pdfs/project-6-draft.pdf" title="Project 4 PDF draft"></iframe>
+                      <div class="pdf-fallback">
+                        If the embed doesn’t load, open it directly:
+                        <a href="./pdfs/project-6-draft.pdf">project-6-draft.pdf ↗</a>
+                      </div>
+                    </div>
+                  </details>
+                </article>
+
               </div>
 
             </div>
@@ -704,8 +869,7 @@
             <iframe src="./prob_3d.html" title="Zeta Terrain" loading="lazy"></iframe>
           </div>
           <p class="mini">
-            <b>3D Brownian Swarm</b>   A single simulated Brownian run in $\mathbb{R}^3$, colored by radius $\|X_t\|$.
-
+            <b>3D Brownian Swarm</b> A single simulated Brownian run in $\mathbb{R}^3$, colored by radius $\|X_t\|$.
           </p>
         </div>
 
@@ -719,8 +883,8 @@
 
         <div class="bubble">
           <h3>handles</h3>
-          <a href="https://github.com/iz-tecum">github ↗</a>
-          <a href="https://www.linkedin.com/in/israel-tramos/">linkedin ↗</a>
+          <a href="https://github.com/iz-tecum" target="_blank" rel="noreferrer">github ↗</a>
+          <a href="https://www.linkedin.com/in/israel-tramos/" target="_blank" rel="noreferrer">linkedin ↗</a>
           <a href="mailto:ilt2109@columbia.edu">email ↗</a>
         </div>
       </aside>
@@ -731,54 +895,81 @@
 
   <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  // If you render PDFs, you must set the worker
-  pdfjsLib.GlobalWorkerOptions.workerSrc =
-    "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js";
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // PDF.js worker
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js";
 
-  // ✅ Example: render thumbnail for elements like:
-  // <div class="thumb pdf-thumb" data-pdf="./pdfs/project-1-draft.pdf"></div>
+      async function renderThumb(el){
+        const url = el.dataset.pdf;
+        if(!url) return;
 
-  async function renderThumb(el){
-    const url = el.dataset.pdf;
-    if(!url) return;
+        const canvas = document.createElement("canvas");
+        canvas.className = "thumb-canvas";
+        el.innerHTML = "";
+        el.appendChild(canvas);
 
-    const canvas = document.createElement("canvas");
-    canvas.className = "thumb-canvas";
-    el.innerHTML = "";
-    el.appendChild(canvas);
+        const pdf = await pdfjsLib.getDocument(url).promise;
+        const page = await pdf.getPage(1);
 
-    const pdf = await pdfjsLib.getDocument(url).promise;
-    const page = await pdf.getPage(1);
+        const viewport = page.getViewport({ scale: 1.5 });
+        const ctx = canvas.getContext("2d", { alpha:false });
 
-    const viewport = page.getViewport({ scale: 1.5 });
-    const ctx = canvas.getContext("2d", { alpha:false });
+        canvas.width = Math.floor(viewport.width);
+        canvas.height = Math.floor(viewport.height);
 
-    // draw at natural aspect ratio (no squish)
-    canvas.width = Math.floor(viewport.width);
-    canvas.height = Math.floor(viewport.height);
+        await page.render({ canvasContext: ctx, viewport }).promise;
+      }
 
-    await page.render({ canvasContext: ctx, viewport }).promise;
-  }
+      document.querySelectorAll(".pdf-thumb").forEach(renderThumb);
 
-  document.querySelectorAll(".pdf-thumb").forEach(renderThumb);
-});
-</script>
+      // Hamburger nav toggle (mobile)
+      const topbar = document.querySelector(".topbar");
+      const btn = document.querySelector(".nav-toggle");
+      const nav = document.querySelector(".topnav");
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  renderMathInElement(document.body, {
-    delimiters: [
-      {left: "$$", right: "$$", display: true},
-      {left: "$", right: "$", display: false},
-      {left: "\\(", right: "\\)", display: false},
-      {left: "\\[", right: "\\]", display: true}
-    ],
-    throwOnError: false
-  });
-});
-</script>
+      if (btn && topbar && nav) {
+        const setOpen = (open) => {
+          topbar.classList.toggle("nav-open", open);
+          btn.setAttribute("aria-expanded", open ? "true" : "false");
+        };
+
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          setOpen(!topbar.classList.contains("nav-open"));
+        });
+
+        // close when clicking outside
+        document.addEventListener("click", (e) => {
+          if (!topbar.contains(e.target)) setOpen(false);
+        });
+
+        // close on Escape
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") setOpen(false);
+        });
+
+        // close after tapping a link
+        nav.querySelectorAll("a").forEach(a => {
+          a.addEventListener("click", () => setOpen(false));
+        });
+      }
+
+      // KaTeX autorender (requires katex + auto-render scripts in <head>)
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false},
+            {left: "\\(", right: "\\)", display: false},
+            {left: "\\[", right: "\\]", display: true}
+          ],
+          throwOnError: false
+        });
+      }
+    });
+  </script>
 
 </body>
 </html>
